@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/logo_justapprove"
+            android:title="Início" />
+
+        <item
+            android:id="@+id/simulados"
+            android:icon="@drawable/simulados"
+            android:title="Simulados" />
+
+        <item
+            android:id="@+id/opcoes"
+            android:icon="@drawable/opcoes"
+            android:title="Opções" />
+
+        <item
+            android:id="@+id/ranking"
+            android:icon="@drawable/trofeu"
+            android:title="Ranking" />
+
+        <item
+            android:id="@+id/materia"
+            android:title="Materiais de Estudo" />
+
+
+    </group>
+
+</menu>

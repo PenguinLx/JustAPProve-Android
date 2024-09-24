@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".JogandoActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/home_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/azul">
+
+            <TextView
+                android:id="@+id/textview_pontos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="300dp"
+                android:text="0 Pontos"
+                android:textColor="@color/branco"
+                android:textSize="20sp">
+
+            </TextView>
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/questao_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Questão 1 de 20"
+                android:textSize="30sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <ImageView
+                android:id="@+id/questao_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/pontuacao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0">
+
+            </TextView>
+
+            <Button
+                android:id="@+id/resposta1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="resposta 1">
+
+            </Button>
+
+            <Button
+                android:id="@+id/resposta2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="resposta 2">
+
+            </Button>
+
+            <Button
+                android:id="@+id/resposta3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="resposta 3">
+
+            </Button>
+
+            <Button
+                android:id="@+id/resposta4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="resposta 4">
+
+            </Button>
+
+            <Button
+                android:id="@+id/proxima_questao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="Continuar"
+                android:visibility="gone">
+
+            </Button>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/linha_baixo"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="-5dp"
+                    android:maxLines="1"
+                    android:inputType="text">
+
+                </EditText>
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/linha_baixo"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="-5dp"
+                    android:maxLines="1"
+                    android:inputType="text">
+
+                </EditText>
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/linha_baixo"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="-5dp"
+                    android:maxLines="1"
+                    android:inputType="text">
+
+                </EditText>
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/linha_baixo"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="-5dp"
+                    android:maxLines="1"
+                    android:inputType="text">
+
+                </EditText>
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/linha_baixo"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="-5dp"
+                    android:maxLines="1"
+                    android:inputType="text">
+
+                </EditText>
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/linha_baixo"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="-5dp"
+                    android:maxLines="1"
+                    android:inputType="text">
+
+                </EditText>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
