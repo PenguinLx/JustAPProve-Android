@@ -1,4 +1,4 @@
-package com.example.justapproveroberto;
+package br.ifsul.justapprove;
 
 import org.junit.Test;
 

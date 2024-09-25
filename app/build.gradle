@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.justapproveroberto'
+    namespace 'br.ifsul.justapprove'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.justapproveroberto"
+        applicationId "br.ifsul.justapprove"
         minSdk 24
         targetSdk 34
         versionCode 1
@@ -47,5 +47,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.navigation:navigation-fragment:2.5.3'
     implementation 'androidx.navigation:navigation-ui:2.5.3'
+    implementation 'com.squareup.retrofit2:retrofit:2.11.0'
+    implementation 'com.google.code.gson:gson:2.11.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
 }
 

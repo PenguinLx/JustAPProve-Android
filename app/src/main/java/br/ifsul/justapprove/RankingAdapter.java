@@ -1,4 +1,4 @@
-package com.example.justapproveroberto;
+package br.ifsul.justapprove;
 
 import android.content.Context;
 import android.view.LayoutInflater;

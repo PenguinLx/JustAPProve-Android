@@ -1,11 +1,12 @@
-package com.example.justapproveroberto;
+package br.ifsul.justapprove;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -14,68 +15,47 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class HomeActivity extends AppCompatActivity
+public class SimuladosActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         DrawerLayout.DrawerListener {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
-    private AppBarConfiguration appBarConfiguration;
-    private LinearLayout opcoes, simulados, ranking, materia;
+    private Spinner tempoSpinner, questoesSpinner;
+    private Button botaoIniciar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        opcoes = findViewById(R.id.opcoes);
-        simulados = findViewById(R.id.simulados);
-        ranking = findViewById(R.id.ranking);
-        materia = findViewById(R.id.materia);
-        opcoes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), OpcoesActivity.class);
-                startActivity(i);
-            }
-        });
-        simulados.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), SimuladosActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
-        ranking.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), RankingActivity.class);
-                i.putExtra("ultimaActivity", HomeActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
-        materia.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), MateriaActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
+        setContentView(R.layout.activity_simulados);
+        botaoIniciar = findViewById(R.id.botao_iniciar);
+        setTitle("");
         setupToolbar();
         setupDrawer();
-        setTitle("");
+        setupSpinners();
+        botaoIniciar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), JogandoActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+    }
+
+    private void setupSpinners() {
+        tempoSpinner = findViewById(R.id.tempo_spinner);
+        questoesSpinner = findViewById(R.id.questao_spinner);
+        ArrayAdapter<CharSequence> tempoAdapter = ArrayAdapter.createFromResource(this, R.array.tempo_de_resposta, R.layout.spinner_layout);
+        ArrayAdapter<CharSequence> questaoAdapter = ArrayAdapter.createFromResource(this, R.array.numero_de_questoes, R.layout.spinner_layout);
+        tempoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        questaoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        tempoSpinner.setAdapter(tempoAdapter);
+        questoesSpinner.setAdapter(questaoAdapter);
     }
 
     private void setupToolbar() {
@@ -103,7 +83,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void setDefaultMenuItem() {
-        MenuItem menuItem = navigationView.getMenu().getItem(0);
+        MenuItem menuItem = navigationView.getMenu().getItem(1);
         onNavigationItemSelected(menuItem);
         menuItem.setChecked(true);
     }
@@ -129,7 +109,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void getTitle(@NonNull MenuItem menuItem) {
-        if (menuItem == navigationView.getMenu().getItem(0)) {
+        if (menuItem == navigationView.getMenu().getItem(1)) {
 
         } else if (menuItem.getItemId() == R.id.home) {
             Intent i = new Intent(getApplicationContext(), HomeActivity.class);
@@ -144,7 +124,7 @@ public class HomeActivity extends AppCompatActivity
             startActivity(i);
         } else if (menuItem.getItemId() == R.id.ranking) {
             Intent i = new Intent(getApplicationContext(), RankingActivity.class);
-            i.putExtra("ultimaActivity", HomeActivity.class);
+            i.putExtra("ultimaActivity", SimuladosActivity.class);
             startActivity(i);
             finish();
         } else if (menuItem.getItemId() == R.id.materia) {

@@ -1,4 +1,4 @@
-package com.example.justapproveroberto;
+package br.ifsul.justapprove;
 
 public class RankingAdicionar {
     private String perfilImagem = "";
