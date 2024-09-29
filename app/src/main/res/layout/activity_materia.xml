@@ -80,6 +80,7 @@
                         android:layout_marginTop="20dp">
 
                         <LinearLayout
+                            android:id="@+id/portugues"
                             android:layout_width="170dp"
                             android:layout_height="200dp"
                             android:gravity="center"
@@ -102,6 +103,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/matematica"
                             android:layout_width="170dp"
                             android:layout_height="200dp"
                             android:layout_marginStart="20dp"
@@ -132,6 +134,7 @@
                         android:layout_marginTop="20dp">
 
                         <LinearLayout
+                            android:id="@+id/geografia"
                             android:layout_width="170dp"
                             android:layout_height="200dp"
                             android:gravity="center"
@@ -155,6 +158,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/historia"
                             android:layout_width="170dp"
                             android:layout_height="200dp"
                             android:layout_marginStart="20dp"

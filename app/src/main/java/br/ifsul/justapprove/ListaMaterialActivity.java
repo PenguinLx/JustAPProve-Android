@@ -1,10 +1,13 @@
 package br.ifsul.justapprove;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -17,7 +20,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class MateriaActivity extends AppCompatActivity
+public class ListaMaterialActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         DrawerLayout.DrawerListener {
 
@@ -25,51 +28,28 @@ public class MateriaActivity extends AppCompatActivity
     private NavigationView navigationView;
     private Toolbar toolbar;
     private AppBarConfiguration appBarConfiguration;
-    private LinearLayout port, mat, geo, his;
+    private ListView lista;
+    private ArrayAdapter<String> adapter;
+    private Button botaoVoltar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_materia);
+        setContentView(R.layout.activity_lista_material);
+        setTitle("");
         setupToolbar();
         setupDrawer();
-        setTitle("");
-        port = findViewById(R.id.portugues);
-        mat = findViewById(R.id.matematica);
-        geo = findViewById(R.id.geografia);
-        his = findViewById(R.id.historia);
-        port.setOnClickListener(new View.OnClickListener() {
+        botaoVoltar = findViewById(R.id.botao_voltar);
+        lista = findViewById(R.id.lista_conteudos);
+        adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.lista_material, R.id.titulo);
+        lista.setAdapter(adapter);
+        adapter.addAll("Materia", "Materia", "Materia", "Materia", "Materia", "Materia");
+        botaoVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), ListaMaterialActivity.class);
-                i.putExtra("ultimaActivity", MateriaActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
-        mat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), ListaMaterialActivity.class);
-                i.putExtra("ultimaActivity", MateriaActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
-        geo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), ListaMaterialActivity.class);
-                i.putExtra("ultimaActivity", MateriaActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
-        his.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), ListaMaterialActivity.class);
-                i.putExtra("ultimaActivity", MateriaActivity.class);
+                Bundle extras = getIntent().getExtras();
+                Class ultimaClasse = (Class<Activity>)extras.getSerializable("ultimaActivity");
+                Intent i = new Intent(getApplicationContext(), ultimaClasse);
                 startActivity(i);
                 finish();
             }
@@ -179,5 +159,4 @@ public class MateriaActivity extends AppCompatActivity
     public void onDrawerStateChanged(int i) {
         //cambio de estado, puede ser STATE_IDLE, STATE_DRAGGING or STATE_SETTLING
     }
-
 }
