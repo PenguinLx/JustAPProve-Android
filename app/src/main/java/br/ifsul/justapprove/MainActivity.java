@@ -27,7 +27,7 @@ import retrofit2.Response;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-    private EditText editText;
+    private EditText editTextEmail, editTextSenha;
     private Button botaoEnviar, botaoLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
         RetrofitService retrofitService = new RetrofitService();
         //api do usuario
         UsuarioApi usuarioApi = retrofitService.getRfs().create(UsuarioApi.class);
-        editText = findViewById(R.id.editText_cpf);
+        editTextEmail = findViewById(R.id.editText_email);
+        editTextSenha = findViewById(R.id.editText_senha);
         botaoEnviar = findViewById(R.id.botao_enviar);
         botaoLogin = findViewById(R.id.botao_login);
         botaoEnviar.setOnClickListener(new View.OnClickListener() {
@@ -45,8 +46,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // enviar informações do cadastro por esse botão
                 Usuario usr = new Usuario();
-                String cpf = editText.getText().toString();
-                usr.setCpf(cpf);
+                String email = editTextEmail.getText().toString();
+                usr.setEmail(email);
+                String senha = editTextSenha.getText().toString();
+                usr.setSenha(senha);
 //                String senha = usr.getSenha();
                 usuarioApi.saveUsuario(usr).enqueue(new Callback<Usuario>() {
                     @Override

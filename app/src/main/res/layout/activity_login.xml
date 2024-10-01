@@ -5,100 +5,127 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:gravity="center_horizontal">
+    tools:context=".LoginActivity">
 
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="350dp"
-        android:layout_height="350dp"
-        app:srcCompat="@drawable/logo_justapprove"
-        android:scaleType="centerCrop"
-        android:layout_marginStart="10dp"/>
-
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/borda"
-        android:padding="10dp">
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center_horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Login"
-                android:textStyle="bold"
-                android:textSize="64sp">
-            </TextView>
-            <TextView
-                android:text="Para iniciar seu login digite seu CPF e sua senha(3 primeiros números do CPF)"
-                android:textSize="30sp"
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal">
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="CPF"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="120dp">
-            </TextView>
-            <EditText
-                android:id="@+id/editText_cpf"
+
+            <ImageView
+                android:id="@+id/imageView"
                 android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:inputType="number"
-                android:background="@drawable/borda"
-                android:paddingStart="15dp"
-                android:hint="Digite seu CPF"
-                android:layout_marginTop="2dp"
-                android:maxLines="1">
-            </EditText>
-            <TextView
+                android:layout_height="300dp"
+                android:layout_marginStart="10dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/logo_justapprove" />
+
+            <ScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Senha"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="120dp">
-            </TextView>
-            <EditText
-                android:id="@+id/editText_senha"
-                android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:inputType="number"
                 android:background="@drawable/borda"
-                android:paddingStart="15dp"
-                android:hint="Digite sua senha"
-                android:layout_marginTop="2dp"
-                android:maxLines="1">
-            </EditText>
-            <Button
-                android:id="@+id/botao_enviar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Enviar"
-                android:layout_marginTop="20dp">
-            </Button>
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Login"
+                        android:textSize="64sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <TextView
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="Para iniciar seu login e entrar em sua conta informe seu dados novamente."
+                        android:textSize="30sp">
+
+                    </TextView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="110dp"
+                        android:text="Email"
+                        android:textSize="30sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <EditText
+                        android:id="@+id/editText_email"
+                        android:layout_width="300dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="2dp"
+                        android:background="@drawable/borda"
+                        android:hint="Digite seu email"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:paddingStart="15dp">
+
+                    </EditText>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="110dp"
+                        android:text="Senha"
+                        android:textSize="30sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <EditText
+                        android:id="@+id/editText_senha"
+                        android:layout_width="300dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="2dp"
+                        android:background="@drawable/borda"
+                        android:hint="Digite sua senha"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:paddingStart="15dp">
+
+                    </EditText>
+
+                    <Button
+                        android:id="@+id/botao_enviar"
+                        android:layout_width="200dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Enviar"
+                        android:textSize="20sp">
+
+                    </Button>
+
+                    <Button
+                        android:id="@+id/botao_voltar"
+                        android:layout_width="200dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Voltar"
+                        android:textSize="20sp">
+
+                    </Button>
+                </LinearLayout>
+            </ScrollView>
         </LinearLayout>
-    </ScrollView>
-    </LinearLayout>
     </ScrollView>
 </LinearLayout>
