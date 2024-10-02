@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -15,10 +16,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import br.ifsul.justapprove.models.Usuario;
+import br.ifsul.justapprove.retrofit.RetrofitService;
+import br.ifsul.justapprove.retrofit.UsuarioApi;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RankingActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -27,7 +40,7 @@ public class RankingActivity extends AppCompatActivity
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
-    private ListView lista;
+    private RecyclerView lista;
     private Button botaoVoltar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +51,7 @@ public class RankingActivity extends AppCompatActivity
         setupToolbar();
         setupDrawer();
         setupLista();
+        carregarRanking();
         botaoVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,8 +66,9 @@ public class RankingActivity extends AppCompatActivity
 
     private void setupLista() {
         lista = findViewById(R.id.lista_ranking);
-        ArrayList<RankingAdicionar> pesquisarRanking = GetResultadosRankingAdicionar();
-        lista.setAdapter(new RankingAdapter(this, pesquisarRanking));
+        lista.setLayoutManager(new LinearLayoutManager(this));
+//        ArrayList<RankingAdicionar> pesquisarRanking = GetResultadosRankingAdicionar();
+//        lista.setAdapter(new RankingAdapter(this, pesquisarRanking));
     }
 
     private void setupToolbar() {
@@ -129,34 +144,57 @@ public class RankingActivity extends AppCompatActivity
         }
     }
 
-    private ArrayList<RankingAdicionar> GetResultadosRankingAdicionar(){
-        ArrayList<RankingAdicionar> results = new ArrayList<RankingAdicionar>();
+//    private ArrayList<RankingAdicionar> GetResultadosRankingAdicionar(){
+//        ArrayList<RankingAdicionar> results = new ArrayList<RankingAdicionar>();
+//
+//        RankingAdicionar sr1 = new RankingAdicionar();
+//        sr1.setApelido("John Smith");
+//        sr1.setPontuacao("10000");
+//        RankingAdicionar sr2 = new RankingAdicionar();
+//        sr2.setApelido("John Smith");
+//        sr2.setPontuacao("999999999999");
+//        results.add(sr1);
+//        results.add(sr2);
+//        results.add(sr1);
+//        results.add(sr1);
+//        results.add(sr1);
+//        results.add(sr1);
+//        results.add(sr1);
+//        results.add(sr1);
+//        results.add(sr1);
+//        results.add(sr1);
+//        results.add(sr1);
+//        results.add(sr1);
+//        results.add(sr1);
+//        results.add(sr1);
+//        results.add(sr1);
+//        results.add(sr1);
+//        results.add(sr2);
+//
+//        return results;
+//    }
 
-        RankingAdicionar sr1 = new RankingAdicionar();
-        sr1.setApelido("John Smith");
-        sr1.setPontuacao("10000");
-        RankingAdicionar sr2 = new RankingAdicionar();
-        sr2.setApelido("John Smith");
-        sr2.setPontuacao("999999999999");
-        results.add(sr1);
-        results.add(sr2);
-        results.add(sr1);
-        results.add(sr1);
-        results.add(sr1);
-        results.add(sr1);
-        results.add(sr1);
-        results.add(sr1);
-        results.add(sr1);
-        results.add(sr1);
-        results.add(sr1);
-        results.add(sr1);
-        results.add(sr1);
-        results.add(sr1);
-        results.add(sr1);
-        results.add(sr1);
-        results.add(sr2);
+    public void carregarRanking() {
+        RetrofitService retrofitService = new RetrofitService();
+        UsuarioApi usuarioApi = retrofitService.getRfs().create(UsuarioApi.class);
+        usuarioApi.getAllUsuario()
+                .enqueue(new Callback<List<Usuario>>() {
+                    @Override
+                    public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
+                        carregarLista(response.body());
+                    }
 
-        return results;
+                    @Override
+                    public void onFailure(Call<List<Usuario>> call, Throwable throwable) {
+                        Toast.makeText(RankingActivity.this, "Ocorreu um erro com o carregamento!!!", Toast.LENGTH_SHORT).show();
+                        Logger.getLogger(MainActivity.class.getName()).log(Level.SEVERE,"Erro!",throwable);
+                    }
+                });
+    }
+
+    public void carregarLista(List<Usuario> listaUsuarios) {
+        RankingAdapter rankingAdapter = new RankingAdapter(listaUsuarios);
+        lista.setAdapter(rankingAdapter);
     }
 
     private void showFragment(@StringRes int titleId) {
