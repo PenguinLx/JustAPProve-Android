@@ -181,7 +181,11 @@ public class RankingActivity extends AppCompatActivity
                 .enqueue(new Callback<List<Usuario>>() {
                     @Override
                     public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
-                        carregarLista(response.body());
+                        if (response.isSuccessful()) {
+                            carregarLista(response.body());
+                        } else {
+                            Toast.makeText(RankingActivity.this, "Ocorreu um erro com o carregamento!!!", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override

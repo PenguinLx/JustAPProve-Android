@@ -54,7 +54,11 @@ public class MainActivity extends AppCompatActivity {
                 usuarioApi.saveUsuario(usr).enqueue(new Callback<Usuario>() {
                     @Override
                     public void onResponse(Call<Usuario> call, Response<Usuario> response) {
-                        Toast.makeText(MainActivity.this, "Save concluido com sucesso!!!", Toast.LENGTH_SHORT).show();
+                        if (response.isSuccessful()) {
+                            Toast.makeText(MainActivity.this, "Save concluido com sucesso!!!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Ocorreu um erro com o save!!!", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
