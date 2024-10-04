@@ -1,4 +1,4 @@
-package br.ifsul.justapprove;
+package br.ifsul.justapprove.activities;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import br.ifsul.justapprove.R;
 
 public class RankingHolder extends RecyclerView.ViewHolder {
 

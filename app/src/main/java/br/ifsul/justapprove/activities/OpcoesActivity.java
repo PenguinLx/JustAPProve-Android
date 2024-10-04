@@ -1,10 +1,12 @@
-package br.ifsul.justapprove;
+package br.ifsul.justapprove.activities;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import br.ifsul.justapprove.R;
 
 public class OpcoesActivity extends AppCompatActivity {
     private Button cancelar;

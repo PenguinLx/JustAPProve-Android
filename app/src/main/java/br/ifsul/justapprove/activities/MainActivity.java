@@ -1,30 +1,24 @@
-package br.ifsul.justapprove;
+package br.ifsul.justapprove.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import br.ifsul.justapprove.R;
 import br.ifsul.justapprove.models.Usuario;
 import br.ifsul.justapprove.retrofit.RetrofitService;
 import br.ifsul.justapprove.retrofit.UsuarioApi;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     private EditText editTextEmail, editTextSenha;

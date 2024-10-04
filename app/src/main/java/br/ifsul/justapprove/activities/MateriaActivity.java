@@ -1,4 +1,4 @@
-package br.ifsul.justapprove;
+package br.ifsul.justapprove.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +17,9 @@ import androidx.navigation.ui.AppBarConfiguration;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class HomeActivity extends AppCompatActivity
+import br.ifsul.justapprove.R;
+
+public class MateriaActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         DrawerLayout.DrawerListener {
 
@@ -25,51 +27,55 @@ public class HomeActivity extends AppCompatActivity
     private NavigationView navigationView;
     private Toolbar toolbar;
     private AppBarConfiguration appBarConfiguration;
-    private LinearLayout opcoes, simulados, ranking, materia;
+    private LinearLayout port, mat, geo, his;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        opcoes = findViewById(R.id.opcoes);
-        simulados = findViewById(R.id.simulados);
-        ranking = findViewById(R.id.ranking);
-        materia = findViewById(R.id.materia);
-        opcoes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), OpcoesActivity.class);
-                startActivity(i);
-            }
-        });
-        simulados.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), SimuladosActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
-        ranking.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), RankingActivity.class);
-                i.putExtra("ultimaActivity", HomeActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
-        materia.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), MateriaActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
+        setContentView(R.layout.activity_materia);
         setupToolbar();
         setupDrawer();
         setTitle("");
+        port = findViewById(R.id.portugues);
+        mat = findViewById(R.id.matematica);
+        geo = findViewById(R.id.geografia);
+        his = findViewById(R.id.historia);
+        port.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), ListaMaterialActivity.class);
+                i.putExtra("ultimaActivity", MateriaActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+        mat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), ListaMaterialActivity.class);
+                i.putExtra("ultimaActivity", MateriaActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+        geo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), ListaMaterialActivity.class);
+                i.putExtra("ultimaActivity", MateriaActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+        his.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), ListaMaterialActivity.class);
+                i.putExtra("ultimaActivity", MateriaActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
     }
 
     private void setupToolbar() {
@@ -97,7 +103,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void setDefaultMenuItem() {
-        MenuItem menuItem = navigationView.getMenu().getItem(0);
+        MenuItem menuItem = navigationView.getMenu().getItem(4);
         onNavigationItemSelected(menuItem);
         menuItem.setChecked(true);
     }
@@ -123,7 +129,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void getTitle(@NonNull MenuItem menuItem) {
-        if (menuItem == navigationView.getMenu().getItem(0)) {
+        if (menuItem == navigationView.getMenu().getItem(4)) {
 
         } else if (menuItem.getItemId() == R.id.home) {
             Intent i = new Intent(getApplicationContext(), HomeActivity.class);
@@ -138,7 +144,7 @@ public class HomeActivity extends AppCompatActivity
             startActivity(i);
         } else if (menuItem.getItemId() == R.id.ranking) {
             Intent i = new Intent(getApplicationContext(), RankingActivity.class);
-            i.putExtra("ultimaActivity", HomeActivity.class);
+            i.putExtra("ultimaActivity", MateriaActivity.class);
             startActivity(i);
             finish();
         } else if (menuItem.getItemId() == R.id.materia) {

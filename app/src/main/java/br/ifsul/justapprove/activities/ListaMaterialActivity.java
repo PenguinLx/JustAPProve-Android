@@ -1,13 +1,13 @@
-package br.ifsul.justapprove;
+package br.ifsul.justapprove.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -16,42 +16,36 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.navigation.ui.AppBarConfiguration;
 
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import br.ifsul.justapprove.R;
 
-import br.ifsul.justapprove.models.Usuario;
-import br.ifsul.justapprove.retrofit.RetrofitService;
-import br.ifsul.justapprove.retrofit.UsuarioApi;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class RankingActivity extends AppCompatActivity
+public class ListaMaterialActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         DrawerLayout.DrawerListener {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
-    private RecyclerView lista;
+    private AppBarConfiguration appBarConfiguration;
+    private ListView lista;
+    private ArrayAdapter<String> adapter;
     private Button botaoVoltar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ranking);
-        botaoVoltar = findViewById(R.id.botao_voltar);
+        setContentView(R.layout.activity_lista_material);
         setTitle("");
         setupToolbar();
         setupDrawer();
-        setupLista();
-        carregarRanking();
+        botaoVoltar = findViewById(R.id.botao_voltar);
+        lista = findViewById(R.id.lista_conteudos);
+        adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.lista_material, R.id.titulo);
+        lista.setAdapter(adapter);
+        adapter.addAll("Materia", "Materia", "Materia", "Materia", "Materia", "Materia");
         botaoVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,13 +56,6 @@ public class RankingActivity extends AppCompatActivity
                 finish();
             }
         });
-    }
-
-    private void setupLista() {
-        lista = findViewById(R.id.lista_ranking);
-        lista.setLayoutManager(new LinearLayoutManager(this));
-//        ArrayList<RankingAdicionar> pesquisarRanking = GetResultadosRankingAdicionar();
-//        lista.setAdapter(new RankingAdapter(this, pesquisarRanking));
     }
 
     private void setupToolbar() {
@@ -96,7 +83,7 @@ public class RankingActivity extends AppCompatActivity
     }
 
     private void setDefaultMenuItem() {
-        MenuItem menuItem = navigationView.getMenu().getItem(3);
+        MenuItem menuItem = navigationView.getMenu().getItem(4);
         onNavigationItemSelected(menuItem);
         menuItem.setChecked(true);
     }
@@ -122,7 +109,7 @@ public class RankingActivity extends AppCompatActivity
     }
 
     private void getTitle(@NonNull MenuItem menuItem) {
-        if (menuItem == navigationView.getMenu().getItem(3)) {
+        if (menuItem == navigationView.getMenu().getItem(4)) {
 
         } else if (menuItem.getItemId() == R.id.home) {
             Intent i = new Intent(getApplicationContext(), HomeActivity.class);
@@ -135,6 +122,11 @@ public class RankingActivity extends AppCompatActivity
         } else if (menuItem.getItemId() == R.id.opcoes) {
             Intent i = new Intent(getApplicationContext(), OpcoesActivity.class);
             startActivity(i);
+        } else if (menuItem.getItemId() == R.id.ranking) {
+            Intent i = new Intent(getApplicationContext(), RankingActivity.class);
+            i.putExtra("ultimaActivity", MateriaActivity.class);
+            startActivity(i);
+            finish();
         } else if (menuItem.getItemId() == R.id.materia) {
             Intent i = new Intent(getApplicationContext(), MateriaActivity.class);
             startActivity(i);
@@ -142,63 +134,6 @@ public class RankingActivity extends AppCompatActivity
         } else {
             throw new IllegalArgumentException("menu option not implemented!!");
         }
-    }
-
-//    private ArrayList<RankingAdicionar> GetResultadosRankingAdicionar(){
-//        ArrayList<RankingAdicionar> results = new ArrayList<RankingAdicionar>();
-//
-//        RankingAdicionar sr1 = new RankingAdicionar();
-//        sr1.setApelido("John Smith");
-//        sr1.setPontuacao("10000");
-//        RankingAdicionar sr2 = new RankingAdicionar();
-//        sr2.setApelido("John Smith");
-//        sr2.setPontuacao("999999999999");
-//        results.add(sr1);
-//        results.add(sr2);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr2);
-//
-//        return results;
-//    }
-
-    public void carregarRanking() {
-        RetrofitService retrofitService = new RetrofitService();
-        UsuarioApi usuarioApi = retrofitService.getRfs().create(UsuarioApi.class);
-        usuarioApi.getAllUsuario()
-                .enqueue(new Callback<List<Usuario>>() {
-                    @Override
-                    public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
-                        if (response.isSuccessful()) {
-                            carregarLista(response.body());
-                        } else {
-                            Toast.makeText(RankingActivity.this, "Ocorreu um erro com o carregamento!!!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<Usuario>> call, Throwable throwable) {
-                        Toast.makeText(RankingActivity.this, "Ocorreu um erro com o carregamento!!!", Toast.LENGTH_SHORT).show();
-                        Logger.getLogger(MainActivity.class.getName()).log(Level.SEVERE,"Erro!",throwable);
-                    }
-                });
-    }
-
-    public void carregarLista(List<Usuario> listaUsuarios) {
-        RankingAdapter rankingAdapter = new RankingAdapter(listaUsuarios);
-        lista.setAdapter(rankingAdapter);
     }
 
     private void showFragment(@StringRes int titleId) {
