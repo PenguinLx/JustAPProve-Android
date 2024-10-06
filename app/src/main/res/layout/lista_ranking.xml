@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:background="@drawable/linha_baixo"
     android:paddingTop="10dp"
@@ -18,6 +18,7 @@
         android:background="@drawable/redondar_imagem"/>
     <TextView android:id="@+id/apelido"
         android:textSize="20sp"
+        android:text="apelido"
         android:textColor="@color/preto"
         android:layout_marginStart="10dp"
         android:layout_weight="1"

@@ -7,7 +7,7 @@ public class Usuario {
     private String email;
     private String senha;
     private int ponto;
-    private String nome;
+    private String userName;
 
     public String getEmail() {
         return email;
@@ -27,11 +27,11 @@ public class Usuario {
     public void setPonto(int ponto) {
         this.ponto = ponto;
     }
-    public String getNome() {
-        return nome;
+    public String getUserName() {
+        return userName;
     }
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
 }

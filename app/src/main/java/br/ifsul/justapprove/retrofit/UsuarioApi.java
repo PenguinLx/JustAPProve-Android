@@ -15,19 +15,21 @@ import retrofit2.http.Path;
 public interface UsuarioApi {
 
     // Ainda pode estar errado(tem que testar), mas está mais completo
-    @GET("/usuario/readAll")
+    // botar a primeira / como RequestMapping do spring e segunda / como método utilizado
+    // exemplo /usuarios/saveUser, /simulado/save
+    @GET("/usuarios/readAll")
     Call<List<Usuario>> getAllUsuario();
 
-    @GET("/usuario/readUserById/{id}")
+    @GET("/usuarios/readUserById/{id}")
     Call<Usuario> readUsuario(@Path("id") Integer id);
 
-    @POST("/usuario/save")
+    @POST("/usuarios/saveUser")
     Call<Usuario> saveUsuario(@Body Usuario usuario);
 
-    @PUT("/usuario/update/{id}")
+    @PUT("/usuarios/update/{id}")
     Call<Usuario> updateUsuario(@Path("id") Integer id, @Body Usuario usr);
 
-    @DELETE("/usuario/delete{id}")
+    @DELETE("/usuarios/delete{id}")
     Call<Usuario> deleteUsuario(@Path("id") Integer id);
 
 
