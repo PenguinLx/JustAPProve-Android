@@ -197,10 +197,23 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Gerar um simulado"
+                            android:textSize="48sp"
+                            android:textStyle="bold"
+                            android:textAlignment="center">
+
+                        </TextView>
+
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -248,16 +261,6 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/borda"
                                 android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:text="Gerar um simulado"
-                                    android:textSize="48sp"
-                                    android:textStyle="bold">
-
-                                </TextView>
 
                                 <Spinner
                                     android:id="@+id/questao_spinner"
