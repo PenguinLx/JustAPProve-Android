@@ -176,7 +176,7 @@ public class RankingActivity extends AppCompatActivity
     public void carregarRanking() {
         RetrofitService retrofitService = new RetrofitService();
         UsuarioApi usuarioApi = retrofitService.getRfs().create(UsuarioApi.class);
-        usuarioApi.getAllUsuario()
+        usuarioApi.getAllUsuarioByPontos()
                 .enqueue(new Callback<List<Usuario>>() {
                     @Override
                     public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
