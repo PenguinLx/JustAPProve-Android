@@ -20,6 +20,9 @@ public interface UsuarioApi {
     @GET("/usuarios/readAll")
     Call<List<Usuario>> getAllUsuario();
 
+    @GET("/usuarios/readAllUsuariosByPontos")
+    Call<List<Usuario>> getAllUsuarioByPontos();
+
     @GET("/usuarios/readUserById/{id}")
     Call<Usuario> readUsuario(@Path("id") Integer id);
 
