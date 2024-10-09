@@ -50,25 +50,25 @@ public class MainActivity extends AppCompatActivity {
 //                String senha = usr.getSenha();
                 int randomNumber = random.nextInt(8999) + 1000;
                 usr.setUserName("Estudante" + randomNumber);
-                if (!email.isBlank() || !senha.isBlank()) {
+                if (!email.isBlank() && !senha.isBlank()) {
                     usuarioApi.saveUsuario(usr).enqueue(new Callback<Usuario>() {
                         @Override
                         public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                             if (response.isSuccessful()) {
-                                Toast.makeText(MainActivity.this, "Save concluido com sucesso!!!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Save concluido com sucesso!!!", Toast.LENGTH_SHORT).show();
                                 Intent i = new Intent(getApplicationContext(), LoginActivity.class);
 
                                 startActivity(i);
 
                                 finish();
                             } else {
-                                Toast.makeText(MainActivity.this, "Ocorreu um erro com o save!!!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Ocorreu um erro com o save!!!", Toast.LENGTH_SHORT).show();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<Usuario> call, Throwable throwable) {
-                            Toast.makeText(MainActivity.this, "Ocorreu um erro com o save!!!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Ocorreu um erro com o save!!!", Toast.LENGTH_SHORT).show();
                             Logger.getLogger(MainActivity.class.getName()).log(Level.SEVERE, "Erro!", throwable);
                         }
                     });
