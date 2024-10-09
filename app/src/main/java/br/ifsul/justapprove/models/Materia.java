@@ -45,4 +45,8 @@ public class Materia {
     public void setMateriais(List<Material> materiais) {
         this.materiais = materiais;
     }
+
+    public Integer getId() {
+        return id;
+    }
 }

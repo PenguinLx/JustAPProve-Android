@@ -34,4 +34,7 @@ public class Usuario {
         this.userName = userName;
     }
 
+    public Integer getId() {
+        return id;
+    }
 }

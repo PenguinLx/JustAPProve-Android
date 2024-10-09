@@ -23,4 +23,8 @@ public class Alternativa {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    public Integer getId() {
+        return id;
+    }
 }

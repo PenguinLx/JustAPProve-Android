@@ -24,4 +24,8 @@ public class Material {
     public void setVideo(File video) {
         this.video = video;
     }
+
+    public Integer getId() {
+        return id;
+    }
 }

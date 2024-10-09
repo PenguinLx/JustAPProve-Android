@@ -24,4 +24,8 @@ public class ProvaAnterior {
     public void setPdf(File pdf) {
         this.pdf = pdf;
     }
+
+    public Integer getId() {
+        return id;
+    }
 }

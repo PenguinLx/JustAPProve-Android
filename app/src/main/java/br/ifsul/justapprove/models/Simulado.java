@@ -24,4 +24,8 @@ public class Simulado {
     public void setPontos(int pontos) {
         this.pontos = pontos;
     }
+
+    public Integer getId() {
+        return id;
+    }
 }

@@ -15,4 +15,8 @@ public class Questao {
     public void setDescricao(File descricao) {
         this.descricao = descricao;
     }
+
+    public Integer getId() {
+        return id;
+    }
 }
