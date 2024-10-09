@@ -35,5 +35,8 @@ public interface UsuarioApi {
     @DELETE("/usuarios/delete{id}")
     Call<Usuario> deleteUsuario(@Path("id") Integer id);
 
+    @POST("/usuarios/login")
+    Call<LoginResponse> loginUsuario(@Body LoginRequest loginRequest);
+
 
 }
