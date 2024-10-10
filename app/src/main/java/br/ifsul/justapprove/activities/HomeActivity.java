@@ -37,6 +37,9 @@ public class HomeActivity extends AppCompatActivity
         simulados = findViewById(R.id.simulados);
         ranking = findViewById(R.id.ranking);
         materia = findViewById(R.id.materia);
+
+        //CODIGO DE ERRO: 0
+
         opcoes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,6 +140,8 @@ public class HomeActivity extends AppCompatActivity
             finish();
         } else if (menuItem.getItemId() == R.id.opcoes) {
             Intent i = new Intent(getApplicationContext(), OpcoesActivity.class);
+            Intent ir = getIntent();
+            i.putExtra("usuarioId", ir.getIntExtra("usuarioId",0));
             startActivity(i);
         } else if (menuItem.getItemId() == R.id.ranking) {
             Intent i = new Intent(getApplicationContext(), RankingActivity.class);

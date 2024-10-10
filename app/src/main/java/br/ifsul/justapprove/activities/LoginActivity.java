@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import br.ifsul.justapprove.R;
-import br.ifsul.justapprove.models.Usuario;
 import br.ifsul.justapprove.retrofit.LoginRequest;
 import br.ifsul.justapprove.retrofit.LoginResponse;
 import br.ifsul.justapprove.retrofit.RetrofitService;
@@ -54,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
                                 LoginResponse loginResponse = response.body();
                                 if (loginResponse.getResposta()) {
                                     Intent i = new Intent(getApplicationContext(), HomeActivity.class);
-                                    i.putExtra("usuarioEmail", email);
+                                    i.putExtra("usuarioId", loginResponse.getId());
                                     startActivity(i);
                                     finish();
                                 } else {
