@@ -32,7 +32,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingHolder> {
     public void onBindViewHolder(@NonNull RankingHolder holder, int position) {
         Usuario usuario = listaUsuarios.get(position);
         holder.imgPerfil.setImageResource(R.drawable.perfil);
-        holder.apelido.setText(usuario.getUserName());
+        holder.apelido.setText(usuario.getApelido());
         holder.pontuacao.setText(Integer.toString(usuario.getPonto()));
     }
 

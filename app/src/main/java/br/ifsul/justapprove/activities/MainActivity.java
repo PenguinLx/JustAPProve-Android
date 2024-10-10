@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 usr.setSenha(senha);
 //                String senha = usr.getSenha();
                 int randomNumber = random.nextInt(8999) + 1000;
-                usr.setUserName("Estudante" + randomNumber);
+                usr.setApelido("Estudante" + randomNumber);
                 if (!email.isBlank() && !senha.isBlank()) {
                     usuarioApi.saveUsuario(usr).enqueue(new Callback<Usuario>() {
                         @Override
