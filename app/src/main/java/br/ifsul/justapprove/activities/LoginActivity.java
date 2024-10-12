@@ -68,6 +68,9 @@ public class LoginActivity extends AppCompatActivity {
                         public void onFailure(Call<LoginResponse> call, Throwable throwable) {
                             Toast.makeText(getApplicationContext(), "Ocorreu um erro com o login", Toast.LENGTH_SHORT).show();
                             Logger.getLogger(LoginActivity.class.getName()).log(Level.SEVERE, "Erro!", throwable);
+                            Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+                            startActivity(i);
+                            finish();
                         }
                     });
                 } else {
