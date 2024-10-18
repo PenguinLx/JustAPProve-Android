@@ -43,6 +43,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/preto"
                         android:text="Bem Vindo!"
                         android:textSize="64sp"
                         android:textStyle="bold">
@@ -53,6 +54,7 @@
                         android:layout_width="350dp"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
+                        android:textColor="@color/preto"
                         android:text="Inicie seu cadastro colocando suas informações!"
                         android:textSize="30sp">
 
@@ -64,6 +66,7 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginEnd="110dp"
                         android:text="Email"
+                        android:textColor="@color/preto"
                         android:textSize="30sp"
                         android:textStyle="bold">
 
@@ -95,6 +98,7 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginEnd="110dp"
                         android:text="Senha"
+                        android:textColor="@color/preto"
                         android:textSize="30sp"
                         android:textStyle="bold">
 

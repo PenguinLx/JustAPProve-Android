@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="@color/branco"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
@@ -43,6 +44,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Login"
+                        android:textColor="@color/preto"
                         android:textSize="64sp"
                         android:textStyle="bold">
 
@@ -51,6 +53,7 @@
                     <TextView
                         android:layout_width="350dp"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/preto"
                         android:gravity="center_horizontal"
                         android:text="Para iniciar seu login e entrar em sua conta informe seu dados novamente."
                         android:textSize="30sp">
@@ -63,6 +66,7 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginEnd="110dp"
                         android:text="Email"
+                        android:textColor="@color/preto"
                         android:textSize="30sp"
                         android:textStyle="bold">
 
@@ -93,6 +97,7 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginEnd="110dp"
                         android:text="Senha"
+                        android:textColor="@color/preto"
                         android:textSize="30sp"
                         android:textStyle="bold">
 
