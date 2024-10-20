@@ -26,10 +26,10 @@ public interface UsuarioApi {
 
     @POST("/usuarios/saveUser")
     Call<Usuario> saveUsuario(@Body Usuario usuario);
+
     @PUT("/usuarios/updateUsuario/{id}")
     Call<Usuario> updateUsuario(@Path("id") Integer id, @Body Usuario usr);
-//    @PUT("/usuarios/updatePerfil/{id}")
-//    Call<Usuario> updatePerfil(@Path("id") Integer id, @Body Usuario usr);
+
     @DELETE("/usuarios/delete{id}")
     Call<Usuario> deleteUsuario(@Path("id") Integer id);
 
