@@ -50,7 +50,11 @@ public class OpcoesActivity extends AppCompatActivity {
                     @Override
                 public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                     if (response.isSuccessful()){
-                        Toast.makeText(OpcoesActivity.this, "Dados atualizados com sucesso!", Toast.LENGTH_SHORT).show();
+                        if (response.body().getApelido().equals("Apelido já em uso")) {
+                            Toast.makeText(OpcoesActivity.this, response.body().getApelido(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(OpcoesActivity.this, "Dados atualizados com sucesso!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                     //else if se resposta for nula?
                     else {

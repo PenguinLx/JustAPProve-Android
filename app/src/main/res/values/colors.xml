@@ -3,6 +3,9 @@
     <color name="preto">#FF000000</color>
     <color name="branco">#f6f6f5</color>
     <color name="azul">#0a1937</color>
-    <color name="cinza_claro">#d1d1d1</color>
+    <color name="cinza_claro">#ebebeb</color>
+    <color name="cinza">#d1d1d1</color>
+    <color name="cinza_escuro">#A9A8A8</color>
+    <color name="laranja">#f78239</color>
 </resources>
 

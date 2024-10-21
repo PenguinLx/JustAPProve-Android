@@ -6,7 +6,7 @@ public class Usuario {
 
     private String email;
     private String senha;
-    private int ponto;
+    private int pontos;
     private String apelido;
 
     public String getEmail() {
@@ -21,11 +21,11 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    public int getPonto() {
-        return ponto;
+    public int getPontos() {
+        return pontos;
     }
-    public void setPonto(int ponto) {
-        this.ponto = ponto;
+    public void setPontos(int pontos) {
+        this.pontos = pontos;
     }
     public String getApelido() {
         return apelido;

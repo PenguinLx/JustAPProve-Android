@@ -83,6 +83,7 @@
                             android:layout_height="match_parent"
                             android:background="@drawable/borda"
                             android:hint="Digite seu email"
+                            android:textColorHint="@color/cinza_escuro"
                             android:inputType="textEmailAddress"
                             android:maxLines="1"
                             android:padding="-10dp"
@@ -108,6 +109,7 @@
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         app:passwordToggleEnabled="true"
+                        app:endIconTint="@color/preto"
                         android:background="@color/branco"
                         android:hint=" ">
                         <EditText
@@ -118,6 +120,7 @@
                             android:maxLines="1"
                             android:background="@drawable/borda"
                             android:hint="Digite sua senha"
+                            android:textColorHint="@color/cinza_escuro"
                             android:padding="-10dp"
                             android:maxLength="25"
                             >
@@ -136,6 +139,8 @@
                             android:layout_width="150dp"
                             android:layout_height="50dp"
                             android:text="Enviar"
+                            android:textColor="@color/branco"
+                            android:backgroundTint="@color/laranja"
                             android:textSize="20sp">
 
                         </Button>
@@ -145,6 +150,8 @@
                             android:layout_width="150dp"
                             android:layout_height="50dp"
                             android:text="Já tenho conta"
+                            android:backgroundTint="@color/cinza_claro"
+                            android:textColor="@color/preto"
                             android:textSize="15sp"
                             android:layout_marginStart="15dp">
 

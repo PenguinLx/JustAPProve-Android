@@ -91,7 +91,7 @@
                                 android:layout_width="150dp"
                                 android:layout_height="150dp"
                                 android:scaleType="centerCrop"
-                                app:srcCompat="@drawable/logo_justapprove">
+                                app:srcCompat="@drawable/materiais_estudo">
 
                             </ImageView>
 
@@ -116,7 +116,7 @@
                                 android:layout_width="150dp"
                                 android:layout_height="150dp"
                                 android:scaleType="centerCrop"
-                                app:srcCompat="@drawable/logo_justapprove">
+                                app:srcCompat="@drawable/materiais_estudo">
 
                             </ImageView>
 
@@ -146,7 +146,7 @@
                                 android:layout_width="150dp"
                                 android:layout_height="150dp"
                                 android:scaleType="centerCrop"
-                                app:srcCompat="@drawable/logo_justapprove">
+                                app:srcCompat="@drawable/materiais_estudo">
 
                             </ImageView>
 
@@ -171,7 +171,7 @@
                                 android:layout_width="150dp"
                                 android:layout_height="150dp"
                                 android:scaleType="centerCrop"
-                                app:srcCompat="@drawable/logo_justapprove">
+                                app:srcCompat="@drawable/materiais_estudo">
 
                             </ImageView>
 
