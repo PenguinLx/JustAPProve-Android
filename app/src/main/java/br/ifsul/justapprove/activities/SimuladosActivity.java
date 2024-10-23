@@ -2,11 +2,13 @@ package br.ifsul.justapprove.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -18,7 +20,17 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.ifsul.justapprove.R;
+import br.ifsul.justapprove.models.Questao;
+import br.ifsul.justapprove.models.Simulado;
+import br.ifsul.justapprove.retrofit.QuestaoApi;
+import br.ifsul.justapprove.retrofit.RetrofitService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SimuladosActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -42,9 +54,26 @@ public class SimuladosActivity extends AppCompatActivity
         botaoIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), JogandoActivity.class);
-                startActivity(i);
-                finish();
+                RetrofitService rfs = new RetrofitService();
+                QuestaoApi questaoApi = rfs.getRfs().create(QuestaoApi.class);
+                int numero = Integer.parseInt(questoesSpinner.getSelectedItem().toString().substring(0,1));
+                questaoApi.gerarSimulado(numero).enqueue(new Callback<List<Questao>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<Questao>> call, @NonNull Response<List<Questao>> response) {
+                        Toast.makeText(SimuladosActivity.this, "Simulado Gerado!", Toast.LENGTH_SHORT).show();
+
+                        Intent i = new Intent(getApplicationContext(), JogandoActivity.class);
+                        i.putParcelableArrayListExtra("listQuestao", (ArrayList<Questao>) response.body());
+                        finish();
+                        startActivity(i);
+                    }
+                    @Override
+                    public void onFailure(@NonNull Call<List<Questao>> call, @NonNull Throwable throwable) {
+                        Toast.makeText(SimuladosActivity.this, "Erro ao gerar simulado!", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
             }
         });
     }
@@ -59,6 +88,8 @@ public class SimuladosActivity extends AppCompatActivity
         tempoSpinner.setAdapter(tempoAdapter);
         questoesSpinner.setAdapter(questaoAdapter);
     }
+
+
 
     private void setupToolbar() {
         toolbar = findViewById(R.id.toolbar);

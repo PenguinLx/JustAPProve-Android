@@ -15,24 +15,24 @@ import retrofit2.http.Path;
 public interface UsuarioApi {
 
 
-    @GET("/usuarios/readAll")
+    @GET("/usuario/readAll")
     Call<List<Usuario>> getAllUsuario();
 
-    @GET("/usuarios/readAllUsuariosByPontos")
+    @GET("/usuario/readAllUsuariosByPontos")
     Call<List<Usuario>> getAllUsuarioByPontos();
 
-    @GET("/usuarios/readUserById/{id}")
+    @GET("/usuario/readUserById/{id}")
     Call<Usuario> readUsuario(@Path("id") Integer id);
 
-    @POST("/usuarios/saveUser")
+    @POST("/usuario/saveUser")
     Call<Usuario> saveUsuario(@Body Usuario usuario);
 
-    @PUT("/usuarios/updateUsuario/{id}")
+    @PUT("/usuario/updateUsuario/{id}")
     Call<Usuario> updateUsuario(@Path("id") Integer id, @Body Usuario usr);
 
-    @DELETE("/usuarios/delete{id}")
+    @DELETE("/usuario/delete{id}")
     Call<Usuario> deleteUsuario(@Path("id") Integer id);
 
-    @POST("/usuarios/login")
+    @POST("/usuario/login")
     Call<LoginResponse> loginUsuario(@Body LoginRequest loginRequest);
 }
