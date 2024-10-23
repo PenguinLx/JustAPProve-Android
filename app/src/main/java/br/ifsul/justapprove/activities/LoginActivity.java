@@ -54,6 +54,8 @@ public class LoginActivity extends AppCompatActivity {
                                 if (loginResponse.getResposta()) {
                                     Intent i = new Intent(getApplicationContext(), HomeActivity.class);
                                     i.putExtra("usuarioId", loginResponse.getId());
+                                    i.putExtra("usuarioApelido", loginResponse.getApelido());
+                                    Toast.makeText(getApplicationContext(), "Bem vindo " + loginResponse.getApelido(), Toast.LENGTH_SHORT).show();
                                     startActivity(i);
                                     finish();
                                 } else {

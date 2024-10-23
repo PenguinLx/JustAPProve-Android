@@ -74,7 +74,7 @@
                 android:textColorHint="@color/cinza_escuro"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:maxLength="25">
+                android:maxLength="13">
 
             </EditText>
         </com.google.android.material.textfield.TextInputLayout>

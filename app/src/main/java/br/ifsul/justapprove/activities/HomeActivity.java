@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -33,6 +34,9 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        Intent usuarioHolder = getIntent();
+
         opcoes = findViewById(R.id.opcoes);
         simulados = findViewById(R.id.simulados);
         ranking = findViewById(R.id.ranking);
@@ -43,7 +47,7 @@ public class HomeActivity extends AppCompatActivity
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), OpcoesActivity.class);
                 Intent idUsuarioHolder = getIntent();
-                i.putExtra("usuarioId", idUsuarioHolder.getIntExtra("usuarioId",0));
+                i.putExtra("usuarioId", usuarioHolder.getIntExtra("usuarioId",0));
                 startActivity(i);
             }
         });
@@ -75,6 +79,13 @@ public class HomeActivity extends AppCompatActivity
         setupToolbar();
         setupDrawer();
         setTitle("");
+        changeNavHeaderText(usuarioHolder.getStringExtra("usuarioApelido"));
+    }
+
+    private void changeNavHeaderText(String texto) {
+        View headerView = navigationView.getHeaderView(0); // Get the first header
+        TextView headerTextView = headerView.findViewById(R.id.perfil_text);
+        headerTextView.setText(texto);
     }
 
     private void setupToolbar() {
@@ -128,6 +139,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void getTitle(@NonNull MenuItem menuItem) {
+        Intent usuarioHolder = getIntent();
         if (menuItem == navigationView.getMenu().getItem(0)) {
 
         } else if (menuItem.getItemId() == R.id.home) {
@@ -141,7 +153,7 @@ public class HomeActivity extends AppCompatActivity
         } else if (menuItem.getItemId() == R.id.opcoes) {
             Intent i = new Intent(getApplicationContext(), OpcoesActivity.class);
             Intent idUsuarioHolder = getIntent();
-            i.putExtra("usuarioId", idUsuarioHolder.getIntExtra("usuarioId",0));
+            i.putExtra("usuarioId", usuarioHolder.getIntExtra("usuarioId",0));
             startActivity(i);
         } else if (menuItem.getItemId() == R.id.ranking) {
             Intent i = new Intent(getApplicationContext(), RankingActivity.class);
