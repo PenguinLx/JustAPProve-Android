@@ -5,13 +5,16 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import java.io.File;
+import java.io.Serializable;
+import java.util.List;
 
 public class Questao implements Parcelable {
     private Integer id;
 
     // talvez seja byte[]
-    private File descricao;
+    private String descricao;
+
+    private List<Alternativa> alternativas;
 
     protected Questao(Parcel in) {
         if (in.readByte() == 0) {
@@ -33,12 +36,20 @@ public class Questao implements Parcelable {
         }
     };
 
-    public File getDescricao() {
+    public String getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(File descricao) {
+    public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public List<Alternativa> getAlternativas() {
+        return alternativas;
+    }
+
+    public void setAlternativas(List<Alternativa> alternativas) {
+        this.alternativas = alternativas;
     }
 
     @Override

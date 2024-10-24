@@ -3,6 +3,7 @@ package br.ifsul.justapprove.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -22,6 +23,8 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import br.ifsul.justapprove.R;
 import br.ifsul.justapprove.models.Questao;
@@ -60,17 +63,22 @@ public class SimuladosActivity extends AppCompatActivity
                 questaoApi.gerarSimulado(numero).enqueue(new Callback<List<Questao>>() {
                     @Override
                     public void onResponse(@NonNull Call<List<Questao>> call, @NonNull Response<List<Questao>> response) {
-                        Toast.makeText(SimuladosActivity.this, "Simulado Gerado!", Toast.LENGTH_SHORT).show();
-
-                        Intent i = new Intent(getApplicationContext(), JogandoActivity.class);
-                        i.putParcelableArrayListExtra("listQuestao", (ArrayList<Questao>) response.body());
-                        finish();
-                        startActivity(i);
+                        if (response.isSuccessful()) {
+                            Toast.makeText(SimuladosActivity.this, "Simulado Gerado!", Toast.LENGTH_SHORT).show();
+                            Log.e("Erro", response.body().get(0).getAlternativas().get(0).getDescricao());
+                            Intent i = new Intent(getApplicationContext(), JogandoActivity.class);
+                            List<Questao> questoes = response.body();
+                            i.putParcelableArrayListExtra("listQuestao", new ArrayList<>(questoes));
+                            startActivity(i);
+                            finish();
+                        } else {
+                            Toast.makeText(SimuladosActivity.this, "Resposta não sucedida!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                     @Override
-                    public void onFailure(@NonNull Call<List<Questao>> call, @NonNull Throwable throwable) {
+                    public void onFailure(@NonNull Call<List<Questao>> call, Throwable throwable) {
                         Toast.makeText(SimuladosActivity.this, "Erro ao gerar simulado!", Toast.LENGTH_SHORT).show();
-
+                        Logger.getLogger(SimuladosActivity.class.getName()).log(Level.SEVERE, "Erro!", throwable);
                     }
                 });
 

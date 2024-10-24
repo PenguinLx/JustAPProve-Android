@@ -46,7 +46,6 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), OpcoesActivity.class);
-                Intent idUsuarioHolder = getIntent();
                 i.putExtra("usuarioId", usuarioHolder.getIntExtra("usuarioId",0));
                 startActivity(i);
             }
