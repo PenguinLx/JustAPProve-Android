@@ -6,15 +6,20 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.List;
 
 public class Questao implements Parcelable {
     private Integer id;
 
     // talvez seja byte[]
-    private String descricao;
+    private Blob descricao;
 
     private List<Alternativa> alternativas;
+
+    public Questao(){
+
+    }
 
     protected Questao(Parcel in) {
         if (in.readByte() == 0) {
@@ -36,11 +41,11 @@ public class Questao implements Parcelable {
         }
     };
 
-    public String getDescricao() {
+    public Blob getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
+    public void setDescricao(Blob descricao) {
         this.descricao = descricao;
     }
 

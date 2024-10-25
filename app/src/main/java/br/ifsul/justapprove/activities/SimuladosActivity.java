@@ -60,27 +60,38 @@ public class SimuladosActivity extends AppCompatActivity
                 RetrofitService rfs = new RetrofitService();
                 QuestaoApi questaoApi = rfs.getRfs().create(QuestaoApi.class);
                 int numero = Integer.parseInt(questoesSpinner.getSelectedItem().toString().substring(0,1));
-                questaoApi.gerarSimulado(numero).enqueue(new Callback<List<Questao>>() {
-                    @Override
-                    public void onResponse(@NonNull Call<List<Questao>> call, @NonNull Response<List<Questao>> response) {
-                        if (response.isSuccessful()) {
-                            Toast.makeText(SimuladosActivity.this, "Simulado Gerado!", Toast.LENGTH_SHORT).show();
-                            Log.e("Erro", response.body().get(0).getAlternativas().get(0).getDescricao());
-                            Intent i = new Intent(getApplicationContext(), JogandoActivity.class);
-                            List<Questao> questoes = response.body();
-                            i.putParcelableArrayListExtra("listQuestao", new ArrayList<>(questoes));
-                            startActivity(i);
-                            finish();
-                        } else {
-                            Toast.makeText(SimuladosActivity.this, "Resposta não sucedida!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    @Override
-                    public void onFailure(@NonNull Call<List<Questao>> call, Throwable throwable) {
-                        Toast.makeText(SimuladosActivity.this, "Erro ao gerar simulado!", Toast.LENGTH_SHORT).show();
-                        Logger.getLogger(SimuladosActivity.class.getName()).log(Level.SEVERE, "Erro!", throwable);
-                    }
-                });
+
+                Intent i = new Intent(getApplicationContext(), JogandoActivity.class);
+
+                i.putExtra("numero", numero);
+
+                startActivity(i);
+                finish();
+//                questaoApi.gerarSimulado(numero).enqueue(new Callback<List<Questao>>() {
+//                    @Override
+//                    public void onResponse(@NonNull Call<List<Questao>> call, @NonNull Response<List<Questao>> response) {
+//                        if (response.isSuccessful()) {
+//                            Toast.makeText(SimuladosActivity.this, "Simulado Gerado!", Toast.LENGTH_SHORT).show();
+//                            Log.e("Erro", response.body().get(0).getAlternativas().get(0).getDescricao());
+//                            Intent i = new Intent(getApplicationContext(), JogandoActivity.class);
+//                            Bundle b = new Bundle();
+//                            List<Questao> questoes = response.body();
+//                            //i.putParcelableArrayListExtra("listQuestao", new ArrayList<>(questoes));
+//                            b.putParcelableArrayList("listQuestao", (ArrayList<? extends Parcelable>) questoes);
+//                            i.putExtras(b);
+//                            startActivity(i);
+//                            finish();
+//                        } else {
+//                            Toast.makeText(SimuladosActivity.this, "Resposta não sucedida!", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                    @Override
+//                    public void onFailure(@NonNull Call<List<Questao>> call, @NonNull Throwable throwable) {
+//                        Toast.makeText(SimuladosActivity.this, "Erro ao gerar simulado!", Toast.LENGTH_SHORT).show();
+//                        Logger.getLogger(SimuladosActivity.class.getName()).log(Level.SEVERE, "Erro!", throwable);
+//                    }
+//                });
+
 
             }
         });
