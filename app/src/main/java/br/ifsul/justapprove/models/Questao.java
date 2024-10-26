@@ -9,43 +9,40 @@ import java.io.Serializable;
 import java.sql.Blob;
 import java.util.List;
 
-public class Questao implements Parcelable {
-    private Integer id;
+public class Questao {
 
     // talvez seja byte[]
-    private Blob descricao;
+    private String descricao;
 
     private List<Alternativa> alternativas;
 
-    public Questao(){
+//    public Questao(String descricao, List<Alternativa> alternativas){
+//        this.descricao = descricao;
+//        this.alternativas = alternativas;
+//    }
+//
+//    protected Questao(Parcel in) {
+//        descricao = in.readString();
+//        alternativas = in.createTypedArrayList(Alternativa.CREATOR);
+//    }
+//
+//    public static final Creator<Questao> CREATOR = new Creator<Questao>() {
+//        @Override
+//        public Questao createFromParcel(Parcel in) {
+//            return new Questao(in);
+//        }
+//
+//        @Override
+//        public Questao[] newArray(int size) {
+//            return new Questao[size];
+//        }
+//    };
 
-    }
-
-    protected Questao(Parcel in) {
-        if (in.readByte() == 0) {
-            id = null;
-        } else {
-            id = in.readInt();
-        }
-    }
-
-    public static final Creator<Questao> CREATOR = new Creator<Questao>() {
-        @Override
-        public Questao createFromParcel(Parcel in) {
-            return new Questao(in);
-        }
-
-        @Override
-        public Questao[] newArray(int size) {
-            return new Questao[size];
-        }
-    };
-
-    public Blob getDescricao() {
+    public String getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(Blob descricao) {
+    public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 
@@ -57,19 +54,21 @@ public class Questao implements Parcelable {
         this.alternativas = alternativas;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(@NonNull Parcel dest, int flags) {
-        if (id == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(id);
-        }
-    }
+//    @Override
+//    public int describeContents() {
+//        return 0;
+//    }
+//
+//    @Override
+//    public void writeToParcel(@NonNull Parcel dest, int flags) {
+////        if (id == null) {
+////            dest.writeByte((byte) 0);
+////        } else {
+////            dest.writeByte((byte) 1);
+////            dest.writeInt(id);
+////        }
+//        dest.writeString(descricao);
+//        dest.writeTypedList(alternativas);
+//    }
 
 }

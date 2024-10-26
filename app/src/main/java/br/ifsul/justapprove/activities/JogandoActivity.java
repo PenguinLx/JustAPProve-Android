@@ -27,9 +27,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class JogandoActivity extends AppCompatActivity {
-    private TextView questaoText,pontos;
+    private TextView questaoText, pontos;
     private ImageView questaoImage;
-    private Button a1,a2,a3,a4;
+    private Button a1, a2, a3, a4;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,29 +42,35 @@ public class JogandoActivity extends AppCompatActivity {
         a2 = findViewById(R.id.resposta2);
         a3 = findViewById(R.id.resposta3);
         a4 = findViewById(R.id.resposta4);
+        Button[] alternativas = {a1, a2, a3, a4};
         RetrofitService rfs = new RetrofitService();
         QuestaoApi questaoApi = rfs.getRfs().create(QuestaoApi.class);
 
         Intent i = getIntent();
-        int numero = i.getIntExtra("numero",0);
+        int numero = i.getIntExtra("numero", 0);
 
         questaoApi.gerarSimulado(numero).enqueue(new Callback<List<Questao>>() {
             @Override
             public void onResponse(Call<List<Questao>> call, Response<List<Questao>> response) {
-               List<Questao> questList=  response.body();
-                byte[] imagem = new byte[0];
-                try {
-                    imagem = questList.get(1).getDescricao().getBytes(1,101438);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                List<Questao> questList = response.body();
+                boolean respondendo = false;
+                for (int x = 0; x < questList.size(); x++) {
+                    if (!respondendo) {
+                        questaoText.setText("Questão " + (x + 1) + " de " + numero);
+                        byte[] imagem = java.util.Base64.getDecoder().decode(questList.get(x).getDescricao());
+                        Log.e("Erro", questList.get(x).getDescricao());
+                        Bitmap bMap = BitmapFactory.decodeByteArray(imagem, 0, imagem.length);
+                        questaoImage.setImageBitmap(bMap);
+                        for (int y = 0; y < questList.get(x).getAlternativas().size(); y++) {
+                            alternativas[y].setText(questList.get(x).getAlternativas().get(y).getDescricao());
+                            if (questList.get(x).getAlternativas().get(y).isCorreta()) {
+                                alternativas[y].setTag("correta");
+                            } else {
+                                alternativas[y].setTag("incorreta");
+                            }
+                        }
+                    }
                 }
-                Bitmap bMap = BitmapFactory.decodeByteArray(imagem,0,imagem.length);
-                questaoImage.setImageBitmap(bMap);
-               //questaoImage.(questList.get(0).getDescricao());
-                a1.setText(questList.get(0).getAlternativas().get(0).getDescricao());
-        a2.setText(questList.get(0).getAlternativas().get(1).getDescricao());
-        a3.setText(questList.get(0).getAlternativas().get(2).getDescricao());
-        //a4.setText(questoes.get(0).getAlternativas().get(3).getDescricao());
             }
 
             @Override
@@ -99,17 +106,17 @@ public class JogandoActivity extends AppCompatActivity {
 ////                }
 //            }
 //            Log.e("Erro", questoes.get(0).getDescricao());
-        }
+    }
 //            questoes.get(0).getAlternativas().get(0).getDescricao();
 //        a1.setText(questoes.get(0).getAlternativas().get(0).getDescricao());
 //        a2.setText(questoes.get(0).getAlternativas().get(1).getDescricao());
 //        a3.setText(questoes.get(0).getAlternativas().get(2).getDescricao());
 //        a4.setText(questoes.get(0).getAlternativas().get(3).getDescricao());
 //        }
-        //QuestaoApi questaoApi;
+    //QuestaoApi questaoApi;
 //        i.getExtras();
 //        if(questoes != null ){
 //            finish();
 //
 //        }
-    }
+}

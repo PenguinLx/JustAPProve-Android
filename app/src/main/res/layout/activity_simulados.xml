@@ -209,7 +209,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Gerar um simulado"
+                            android:text="Gerar um \n simulado"
                             android:textSize="48sp"
                             android:textStyle="bold"
                             android:textAlignment="center">
