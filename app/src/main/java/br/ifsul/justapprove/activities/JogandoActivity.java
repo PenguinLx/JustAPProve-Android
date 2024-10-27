@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,14 +13,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import br.ifsul.justapprove.R;
 import br.ifsul.justapprove.models.Questao;
-import br.ifsul.justapprove.models.Alternativa;
 import br.ifsul.justapprove.retrofit.QuestaoApi;
 import br.ifsul.justapprove.retrofit.RetrofitService;
 import retrofit2.Call;
@@ -29,7 +26,10 @@ import retrofit2.Response;
 public class JogandoActivity extends AppCompatActivity {
     private TextView questaoText, pontos;
     private ImageView questaoImage;
-    private Button a1, a2, a3, a4;
+    private Button a1, a2, a3, a4, proximaQuestao;
+    private boolean respondendo;
+    private int questaoAtual;
+    private String resposta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +38,20 @@ public class JogandoActivity extends AppCompatActivity {
         questaoText = findViewById(R.id.questao_text);
         questaoImage = findViewById(R.id.questao_image);
         pontos = findViewById(R.id.pontuacao);
+        proximaQuestao = findViewById(R.id.proxima_questao);
         a1 = findViewById(R.id.resposta1);
         a2 = findViewById(R.id.resposta2);
         a3 = findViewById(R.id.resposta3);
         a4 = findViewById(R.id.resposta4);
         Button[] alternativas = {a1, a2, a3, a4};
+
+        for (Button alternativa : alternativas) {
+            alternativa.setEnabled(false);
+        }
+
+        questaoAtual = 0;
+        respondendo = true;
+
         RetrofitService rfs = new RetrofitService();
         QuestaoApi questaoApi = rfs.getRfs().create(QuestaoApi.class);
 
@@ -52,71 +61,75 @@ public class JogandoActivity extends AppCompatActivity {
         questaoApi.gerarSimulado(numero).enqueue(new Callback<List<Questao>>() {
             @Override
             public void onResponse(Call<List<Questao>> call, Response<List<Questao>> response) {
+
                 List<Questao> questList = response.body();
-                boolean respondendo = false;
-                for (int x = 0; x < questList.size(); x++) {
-                    if (!respondendo) {
-                        questaoText.setText("Questão " + (x + 1) + " de " + numero);
-                        byte[] imagem = java.util.Base64.getDecoder().decode(questList.get(x).getDescricao());
-                        Log.e("Erro", questList.get(x).getDescricao());
-                        Bitmap bMap = BitmapFactory.decodeByteArray(imagem, 0, imagem.length);
-                        questaoImage.setImageBitmap(bMap);
-                        for (int y = 0; y < questList.get(x).getAlternativas().size(); y++) {
-                            alternativas[y].setText(questList.get(x).getAlternativas().get(y).getDescricao());
-                            if (questList.get(x).getAlternativas().get(y).isCorreta()) {
-                                alternativas[y].setTag("correta");
-                            } else {
-                                alternativas[y].setTag("incorreta");
-                            }
-                        }
-                    }
+                displayQuestao(questaoAtual, alternativas, questList);
+                for (Button alternativa : alternativas) {
+                    alternativa.setEnabled(true);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Questao>> call, Throwable throwable) {
-                Toast.makeText(JogandoActivity.this, "Erro ao gerar simulado!", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getApplicationContext(), SimuladosActivity.class);
             }
         });
-//        if(questoes != null ) {
-//            for (int x = 0; x<questoes.size(); x++) {
-//                Questao questao = new Questao();
-//                questao.setDescricao(questoes.get(x).getDescricao());
-//                questao.setAlternativas(questoes.get(x).getAlternativas());
-//            }
-//        }
-//        for (int x = 0; x<questoes.size(); x++) {
-//            if (questoes.get(x) != null) {
-//                Log.e("Erro", questoes.get(x).getDescricao());
-//            }
-//        }
-//        if (questoes != null) {
-//            Log.e("ErroJogando", "questoes " + questoes.size());
-//            for (int x = 0; x<questoes.size(); x++) {
-//                Questao questao = new Questao();
-//                questao.setDescricao(questoes.get(x).getDescricao());
-//                if (questao.getDescricao() != null) {
-//                    Log.e("ErroJogando", questao.getDescricao());
-//                }
-//            }
-//            for (Questao questao : questoes) {
-//                questao.setDescricao(questoes.get(questoes.indexOf(questao)).getDescricao());
-////                if (questao.getDescricao() != null) {
-////                    Log.e("ErroJogando", questoes.get(questoes.indexOf()).getDescricao());
-////                }
-//            }
-//            Log.e("Erro", questoes.get(0).getDescricao());
     }
-//            questoes.get(0).getAlternativas().get(0).getDescricao();
-//        a1.setText(questoes.get(0).getAlternativas().get(0).getDescricao());
-//        a2.setText(questoes.get(0).getAlternativas().get(1).getDescricao());
-//        a3.setText(questoes.get(0).getAlternativas().get(2).getDescricao());
-//        a4.setText(questoes.get(0).getAlternativas().get(3).getDescricao());
-//        }
-    //QuestaoApi questaoApi;
-//        i.getExtras();
-//        if(questoes != null ){
-//            finish();
-//
-//        }
+
+    public void displayQuestao(int questaoAtual, Button[] alternativas, List<Questao> questList) {
+        questaoText.setText("Questão " + (questaoAtual + 1) + " de " + questList.size());
+        byte[] imagem = java.util.Base64.getDecoder().decode(questList.get(questaoAtual).getDescricao());
+        Bitmap bMap = BitmapFactory.decodeByteArray(imagem, 0, imagem.length);
+        questaoImage.setImageBitmap(bMap);
+        for (int x = 0; x < questList.get(questaoAtual).getAlternativas().size(); x++) {
+            alternativas[x].setText(questList.get(questaoAtual).getAlternativas().get(x).getDescricao());
+            if (questList.get(questaoAtual).getAlternativas().get(x).isCorreta()) {
+                alternativas[x].setTag("correta");
+            } else {
+                alternativas[x].setTag("incorreta");
+            }
+        }
+
+        for (int x = 0; x < alternativas.length; x++) {
+            alternativas[x].setOnClickListener(v -> {
+                resposta = v.getTag().toString();
+                proximaQuestao.setText("Confirmar Resposta");
+                proximaQuestao.setVisibility(View.VISIBLE);
+                proximaQuestao.setOnClickListener(y -> {
+                    if (respondendo) {
+                        for (Button alternativa : alternativas) {
+                            alternativa.setEnabled(false);
+                        }
+                        if (resposta.equals("correta")) {
+                            Log.e("Certo", questList.get(questaoAtual).getDescricao());
+                        } else {
+                            Log.e("Errado", questList.get(questaoAtual).getDescricao());
+                        }
+                        respondendo = false;
+                        if (this.questaoAtual == questList.size() - 1) {
+                            proximaQuestao.setText("Finalizar Simulado");
+                        } else {
+                            proximaQuestao.setText("Proxima Questao");
+                        }
+
+                    } else {
+                        for (Button alternativa : alternativas) {
+                            alternativa.setEnabled(true);
+                        }
+                        respondendo = true;
+                        proximaQuestao.setVisibility(View.INVISIBLE);
+                        this.questaoAtual++;
+                        if (this.questaoAtual < questList.size()) {
+                            displayQuestao(this.questaoAtual, alternativas, questList);
+                        } else {
+                            Intent i = new Intent(getApplicationContext(), ConclusaoActivity.class);
+                            startActivity(i);
+                            finish();
+                        }
+                    }
+                });
+
+            });
+        }
+    }
 }
