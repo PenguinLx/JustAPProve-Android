@@ -24,21 +24,23 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class JogandoActivity extends AppCompatActivity {
-    private TextView questaoText, pontos;
+    private TextView questaoText;
     private ImageView questaoImage;
     private Button a1, a2, a3, a4, proximaQuestao;
     private boolean respondendo;
-    private int questaoAtual;
+    private int numero, questaoAtual, acertos, pontos;
     private String resposta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jogando);
+
         questaoText = findViewById(R.id.questao_text);
         questaoImage = findViewById(R.id.questao_image);
-        pontos = findViewById(R.id.pontuacao);
+//        pontos = findViewById(R.id.pontuacao);
         proximaQuestao = findViewById(R.id.proxima_questao);
+
         a1 = findViewById(R.id.resposta1);
         a2 = findViewById(R.id.resposta2);
         a3 = findViewById(R.id.resposta3);
@@ -50,13 +52,14 @@ public class JogandoActivity extends AppCompatActivity {
         }
 
         questaoAtual = 0;
+        acertos = 0;
         respondendo = true;
 
         RetrofitService rfs = new RetrofitService();
         QuestaoApi questaoApi = rfs.getRfs().create(QuestaoApi.class);
 
         Intent i = getIntent();
-        int numero = i.getIntExtra("numero", 0);
+        numero = i.getIntExtra("numero", 0);
 
         questaoApi.gerarSimulado(numero).enqueue(new Callback<List<Questao>>() {
             @Override
@@ -102,6 +105,8 @@ public class JogandoActivity extends AppCompatActivity {
                         }
                         if (resposta.equals("correta")) {
                             Log.e("Certo", questList.get(questaoAtual).getDescricao());
+                            acertos++;
+                            pontos += 10;
                         } else {
                             Log.e("Errado", questList.get(questaoAtual).getDescricao());
                         }
@@ -109,7 +114,7 @@ public class JogandoActivity extends AppCompatActivity {
                         if (this.questaoAtual == questList.size() - 1) {
                             proximaQuestao.setText("Finalizar Simulado");
                         } else {
-                            proximaQuestao.setText("Proxima Questao");
+                            proximaQuestao.setText("Proxima Questão");
                         }
 
                     } else {
@@ -123,6 +128,9 @@ public class JogandoActivity extends AppCompatActivity {
                             displayQuestao(this.questaoAtual, alternativas, questList);
                         } else {
                             Intent i = new Intent(getApplicationContext(), ConclusaoActivity.class);
+                            i.putExtra("pontos", pontos);
+                            i.putExtra("acertos", acertos);
+                            i.putExtra("questões", numero);
                             startActivity(i);
                             finish();
                         }

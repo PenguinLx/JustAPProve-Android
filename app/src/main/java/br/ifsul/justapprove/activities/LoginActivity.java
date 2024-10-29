@@ -1,6 +1,7 @@
 package br.ifsul.justapprove.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,13 +30,19 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
         RetrofitService retrofitService = new RetrofitService();
         //api do usuario
         UsuarioApi usuarioApi = retrofitService.getRfs().create(UsuarioApi.class);
+
         editTextEmail = findViewById(R.id.editText_email);
         editTextSenha = findViewById(R.id.editText_senha);
         botaoEnviar = findViewById(R.id.botao_enviar);
         botaoVoltar = findViewById(R.id.botao_voltar);
+
         botaoEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,8 +60,9 @@ public class LoginActivity extends AppCompatActivity {
                                 LoginResponse loginResponse = response.body();
                                 if (loginResponse.getResposta()) {
                                     Intent i = new Intent(getApplicationContext(), HomeActivity.class);
-                                    i.putExtra("usuarioId", loginResponse.getId());
-                                    i.putExtra("usuarioApelido", loginResponse.getApelido());
+                                    editor.putInt("usuarioId", loginResponse.getId());
+                                    editor.putString("usuarioApelido", loginResponse.getApelido());
+                                    editor.apply();
                                     Toast.makeText(getApplicationContext(), "Bem vindo " + loginResponse.getApelido(), Toast.LENGTH_SHORT).show();
                                     startActivity(i);
                                     finish();
@@ -70,9 +78,9 @@ public class LoginActivity extends AppCompatActivity {
                         public void onFailure(Call<LoginResponse> call, Throwable throwable) {
                             Toast.makeText(getApplicationContext(), "Ocorreu um erro com o login", Toast.LENGTH_SHORT).show();
                             Logger.getLogger(LoginActivity.class.getName()).log(Level.SEVERE, "Erro!", throwable);
-                            Intent i = new Intent(getApplicationContext(), HomeActivity.class);
-                            startActivity(i);
-                            finish();
+//                            Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+//                            startActivity(i);
+//                            finish();
                         }
                     });
                 } else {

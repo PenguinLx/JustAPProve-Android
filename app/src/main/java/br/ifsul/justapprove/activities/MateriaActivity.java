@@ -1,10 +1,12 @@
 package br.ifsul.justapprove.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -33,9 +35,13 @@ public class MateriaActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_materia);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
+
         setupToolbar();
         setupDrawer();
         setTitle("");
+
         port = findViewById(R.id.portugues);
         mat = findViewById(R.id.matematica);
         geo = findViewById(R.id.geografia);
@@ -76,6 +82,13 @@ public class MateriaActivity extends AppCompatActivity
                 finish();
             }
         });
+        changeNavHeaderText(sharedPreferences.getString("usuarioApelido", "Estudante"));
+    }
+
+    private void changeNavHeaderText(String texto) {
+        View headerView = navigationView.getHeaderView(0);
+        TextView headerTextView = headerView.findViewById(R.id.perfil_text);
+        headerTextView.setText(texto);
     }
 
     private void setupToolbar() {

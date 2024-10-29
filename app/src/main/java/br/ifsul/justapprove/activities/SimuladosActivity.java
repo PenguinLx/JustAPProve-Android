@@ -1,6 +1,7 @@
 package br.ifsul.justapprove.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -49,16 +51,21 @@ public class SimuladosActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simulados);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
+
         botaoIniciar = findViewById(R.id.botao_iniciar);
+
         setTitle("");
         setupToolbar();
         setupDrawer();
+
         setupSpinners();
+
         botaoIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RetrofitService rfs = new RetrofitService();
-                QuestaoApi questaoApi = rfs.getRfs().create(QuestaoApi.class);
+
                 int numero = Integer.parseInt(questoesSpinner.getSelectedItem().toString().substring(0,1));
 
                 Intent i = new Intent(getApplicationContext(), JogandoActivity.class);
@@ -95,6 +102,13 @@ public class SimuladosActivity extends AppCompatActivity
 
             }
         });
+        changeNavHeaderText(sharedPreferences.getString("usuarioApelido", "Estudante"));
+    }
+
+    private void changeNavHeaderText(String texto) {
+        View headerView = navigationView.getHeaderView(0);
+        TextView headerTextView = headerView.findViewById(R.id.perfil_text);
+        headerTextView.setText(texto);
     }
 
     private void setupSpinners() {

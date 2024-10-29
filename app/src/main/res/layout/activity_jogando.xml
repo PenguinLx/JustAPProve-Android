@@ -52,7 +52,7 @@
                 android:id="@+id/questao_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                 android:text="Questão 1 de 20"
+                 android:text="Carregando"
                 android:textSize="30sp"
                 android:textStyle="bold">
 

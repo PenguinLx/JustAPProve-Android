@@ -2,10 +2,12 @@ package br.ifsul.justapprove.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -45,12 +47,18 @@ public class RankingActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
+
         botaoVoltar = findViewById(R.id.botao_voltar);
+
         setTitle("");
         setupToolbar();
         setupDrawer();
+
         setupLista();
         carregarRanking();
+
         botaoVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +69,13 @@ public class RankingActivity extends AppCompatActivity
                 finish();
             }
         });
+        changeNavHeaderText(sharedPreferences.getString("usuarioApelido", "Estudante"));
+    }
+
+    private void changeNavHeaderText(String texto) {
+        View headerView = navigationView.getHeaderView(0);
+        TextView headerTextView = headerView.findViewById(R.id.perfil_text);
+        headerTextView.setText(texto);
     }
 
     private void setupLista() {

@@ -1,5 +1,6 @@
 package br.ifsul.justapprove.activities;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,15 +30,18 @@ public class OpcoesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opcoes);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
+
         cancelar = findViewById(R.id.botao_cancelar);
         enviar = findViewById(R.id.botao_enviar);
         editTextSenha = findViewById(R.id.editText_senha);
         editTextApelido = findViewById(R.id.editText_apelido);
 
-        Intent i = getIntent();
         RetrofitService retrofitService = new RetrofitService();
         UsuarioApi usuarioApi = retrofitService.getRfs().create(UsuarioApi.class);
-        Integer usuarioId = i.getIntExtra("usuarioId",0);
+
+        Integer usuarioId = sharedPreferences.getInt("usuarioId", 0);
         Usuario usuario = new Usuario();
 
         enviar.setOnClickListener(new View.OnClickListener() {

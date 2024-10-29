@@ -1,7 +1,9 @@
 package br.ifsul.justapprove.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -35,7 +37,7 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Intent usuarioHolder = getIntent();
+        SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
 
         opcoes = findViewById(R.id.opcoes);
         simulados = findViewById(R.id.simulados);
@@ -46,7 +48,6 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), OpcoesActivity.class);
-                i.putExtra("usuarioId", usuarioHolder.getIntExtra("usuarioId",0));
                 startActivity(i);
             }
         });
@@ -78,11 +79,11 @@ public class HomeActivity extends AppCompatActivity
         setupToolbar();
         setupDrawer();
         setTitle("");
-        changeNavHeaderText(usuarioHolder.getStringExtra("usuarioApelido"));
+        changeNavHeaderText(sharedPreferences.getString("usuarioApelido", "Estudante"));
     }
 
     private void changeNavHeaderText(String texto) {
-        View headerView = navigationView.getHeaderView(0); // Get the first header
+        View headerView = navigationView.getHeaderView(0);
         TextView headerTextView = headerView.findViewById(R.id.perfil_text);
         headerTextView.setText(texto);
     }

@@ -2,12 +2,14 @@ package br.ifsul.justapprove.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -38,9 +40,13 @@ public class ListaMaterialActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_material);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
+
         setTitle("");
         setupToolbar();
         setupDrawer();
+
         botaoVoltar = findViewById(R.id.botao_voltar);
         lista = findViewById(R.id.lista_conteudos);
         adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.lista_material, R.id.titulo);
@@ -56,6 +62,13 @@ public class ListaMaterialActivity extends AppCompatActivity
                 finish();
             }
         });
+        changeNavHeaderText(sharedPreferences.getString("usuarioApelido", "Estudante"));
+    }
+
+    private void changeNavHeaderText(String texto) {
+        View headerView = navigationView.getHeaderView(0);
+        TextView headerTextView = headerView.findViewById(R.id.perfil_text);
+        headerTextView.setText(texto);
     }
 
     private void setupToolbar() {
