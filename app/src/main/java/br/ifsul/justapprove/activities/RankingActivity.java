@@ -43,6 +43,7 @@ public class RankingActivity extends AppCompatActivity
     private Toolbar toolbar;
     private RecyclerView lista;
     private Button botaoVoltar;
+    private TextView usuarioPontos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +51,7 @@ public class RankingActivity extends AppCompatActivity
 
         SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
 
+        usuarioPontos = findViewById(R.id.textview_pontos);
         botaoVoltar = findViewById(R.id.botao_voltar);
 
         setTitle("");
@@ -69,6 +71,7 @@ public class RankingActivity extends AppCompatActivity
                 finish();
             }
         });
+        usuarioPontos.setText(sharedPreferences.getInt("usuarioPontos", 0) + " pontos");
         changeNavHeaderText(sharedPreferences.getString("usuarioApelido", "Estudante"));
     }
 

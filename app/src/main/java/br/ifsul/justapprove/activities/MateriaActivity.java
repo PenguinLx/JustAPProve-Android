@@ -30,6 +30,7 @@ public class MateriaActivity extends AppCompatActivity
     private Toolbar toolbar;
     private AppBarConfiguration appBarConfiguration;
     private LinearLayout port, mat, geo, his;
+    private TextView usuarioPontos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class MateriaActivity extends AppCompatActivity
         setupDrawer();
         setTitle("");
 
+        usuarioPontos = findViewById(R.id.textview_pontos);
         port = findViewById(R.id.portugues);
         mat = findViewById(R.id.matematica);
         geo = findViewById(R.id.geografia);
@@ -82,6 +84,7 @@ public class MateriaActivity extends AppCompatActivity
                 finish();
             }
         });
+        usuarioPontos.setText(sharedPreferences.getInt("usuarioPontos", 0) + " pontos");
         changeNavHeaderText(sharedPreferences.getString("usuarioApelido", "Estudante"));
     }
 

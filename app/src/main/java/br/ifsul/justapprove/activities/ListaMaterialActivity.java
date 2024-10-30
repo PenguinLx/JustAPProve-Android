@@ -35,6 +35,7 @@ public class ListaMaterialActivity extends AppCompatActivity
     private ListView lista;
     private ArrayAdapter<String> adapter;
     private Button botaoVoltar;
+    private TextView usuarioPontos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class ListaMaterialActivity extends AppCompatActivity
         setupToolbar();
         setupDrawer();
 
+        usuarioPontos = findViewById(R.id.textview_pontos);
         botaoVoltar = findViewById(R.id.botao_voltar);
         lista = findViewById(R.id.lista_conteudos);
         adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.lista_material, R.id.titulo);
@@ -62,6 +64,7 @@ public class ListaMaterialActivity extends AppCompatActivity
                 finish();
             }
         });
+        usuarioPontos.setText(sharedPreferences.getInt("usuarioPontos", 0) + " pontos");
         changeNavHeaderText(sharedPreferences.getString("usuarioApelido", "Estudante"));
     }
 

@@ -46,6 +46,7 @@ public class SimuladosActivity extends AppCompatActivity
     private Toolbar toolbar;
     private Spinner tempoSpinner, questoesSpinner;
     private Button botaoIniciar;
+    private TextView usuarioPontos;
     int numero;
 
     @Override
@@ -55,6 +56,7 @@ public class SimuladosActivity extends AppCompatActivity
 
         SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
 
+        usuarioPontos = findViewById(R.id.textview_pontos);
         botaoIniciar = findViewById(R.id.botao_iniciar);
 
         setTitle("");
@@ -107,6 +109,7 @@ public class SimuladosActivity extends AppCompatActivity
 
             }
         });
+        usuarioPontos.setText(sharedPreferences.getInt("usuarioPontos", 0) + " pontos");
         changeNavHeaderText(sharedPreferences.getString("usuarioApelido", "Estudante"));
     }
 
