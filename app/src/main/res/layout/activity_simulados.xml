@@ -124,7 +124,7 @@
                                     android:layout_width="100dp"
                                     android:layout_height="100dp"
                                     android:scaleType="centerCrop"
-                                    app:srcCompat="@drawable/opcoes">
+                                    app:srcCompat="@drawable/simulados">
 
                                 </ImageView>
 

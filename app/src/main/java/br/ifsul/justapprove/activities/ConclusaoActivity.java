@@ -28,6 +28,7 @@ public class ConclusaoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_conclusao);
 
         SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
         botaoVoltar = findViewById(R.id.voltar);
         conclusaoText = findViewById(R.id.conclusao_text);
@@ -55,6 +56,8 @@ public class ConclusaoActivity extends AppCompatActivity {
                     public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                         if (response.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), "Pontos adicionados com sucesso", Toast.LENGTH_SHORT).show();
+                            editor.putInt("usuarioPontos", response.body().getPontos());
+                            editor.apply();
                             Intent i = new Intent(getApplicationContext(), HomeActivity.class);
                             startActivity(i);
                             finish();

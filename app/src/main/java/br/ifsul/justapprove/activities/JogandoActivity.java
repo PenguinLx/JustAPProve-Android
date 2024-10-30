@@ -3,6 +3,8 @@ package br.ifsul.justapprove.activities;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +32,7 @@ public class JogandoActivity extends AppCompatActivity {
     private boolean respondendo;
     private int numero, questaoAtual, acertos, pontos;
     private String resposta;
+    private Drawable defaultButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +41,6 @@ public class JogandoActivity extends AppCompatActivity {
 
         questaoText = findViewById(R.id.questao_text);
         questaoImage = findViewById(R.id.questao_image);
-//        pontos = findViewById(R.id.pontuacao);
         proximaQuestao = findViewById(R.id.proxima_questao);
 
         a1 = findViewById(R.id.resposta1);
@@ -46,6 +48,8 @@ public class JogandoActivity extends AppCompatActivity {
         a3 = findViewById(R.id.resposta3);
         a4 = findViewById(R.id.resposta4);
         Button[] alternativas = {a1, a2, a3, a4};
+
+        defaultButton = proximaQuestao.getBackground();
 
         for (Button alternativa : alternativas) {
             alternativa.setEnabled(false);
@@ -102,12 +106,16 @@ public class JogandoActivity extends AppCompatActivity {
                     if (respondendo) {
                         for (Button alternativa : alternativas) {
                             alternativa.setEnabled(false);
+                            if (alternativa.getTag().equals("correta")) {
+                                alternativa.setBackgroundColor(getResources().getColor(R.color.verde_claro, null));
+                            }
                         }
                         if (resposta.equals("correta")) {
                             Log.e("Certo", questList.get(questaoAtual).getDescricao());
                             acertos++;
                             pontos += 10;
                         } else {
+                            v.setBackgroundColor(getResources().getColor(R.color.vermelho, null));
                             Log.e("Errado", questList.get(questaoAtual).getDescricao());
                         }
                         respondendo = false;
@@ -120,6 +128,7 @@ public class JogandoActivity extends AppCompatActivity {
                     } else {
                         for (Button alternativa : alternativas) {
                             alternativa.setEnabled(true);
+                            alternativa.setBackgroundColor(R.drawable.botao_style_enabled);
                         }
                         respondendo = true;
                         proximaQuestao.setVisibility(View.INVISIBLE);

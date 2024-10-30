@@ -5,6 +5,7 @@ public class LoginResponse {
     private boolean resposta;
     private Integer id;
     private String apelido;
+    private int pontos;
 
     public boolean getResposta() {
         return resposta;
@@ -16,6 +17,10 @@ public class LoginResponse {
 
     public String getApelido() {
         return apelido;
+    }
+
+    public int getPontos() {
+        return pontos;
     }
 }
 

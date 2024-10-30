@@ -30,6 +30,7 @@ public class HomeActivity extends AppCompatActivity
     private NavigationView navigationView;
     private Toolbar toolbar;
     private AppBarConfiguration appBarConfiguration;
+    private TextView usuarioPontos;
     private LinearLayout opcoes, simulados, ranking, materia;
 
     @Override
@@ -39,6 +40,7 @@ public class HomeActivity extends AppCompatActivity
 
         SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
 
+        usuarioPontos = findViewById(R.id.textview_pontos);
         opcoes = findViewById(R.id.opcoes);
         simulados = findViewById(R.id.simulados);
         ranking = findViewById(R.id.ranking);
@@ -79,6 +81,7 @@ public class HomeActivity extends AppCompatActivity
         setupToolbar();
         setupDrawer();
         setTitle("");
+        usuarioPontos.setText(sharedPreferences.getInt("usuarioPontos", 0) + " pontos");
         changeNavHeaderText(sharedPreferences.getString("usuarioApelido", "Estudante"));
     }
 

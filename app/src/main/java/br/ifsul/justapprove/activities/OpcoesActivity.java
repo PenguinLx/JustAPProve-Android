@@ -32,6 +32,7 @@ public class OpcoesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_opcoes);
 
         SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
         cancelar = findViewById(R.id.botao_cancelar);
         enviar = findViewById(R.id.botao_enviar);
@@ -58,6 +59,8 @@ public class OpcoesActivity extends AppCompatActivity {
                             Toast.makeText(OpcoesActivity.this, response.body().getApelido(), Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(OpcoesActivity.this, "Dados atualizados com sucesso!", Toast.LENGTH_SHORT).show();
+                            editor.putString("usuarioApelido", response.body().getApelido());
+                            editor.apply();
                         }
                     }
                     //else if se resposta for nula?
