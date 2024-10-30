@@ -46,6 +46,7 @@ public class SimuladosActivity extends AppCompatActivity
     private Toolbar toolbar;
     private Spinner tempoSpinner, questoesSpinner;
     private Button botaoIniciar;
+    int numero;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,11 @@ public class SimuladosActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                int numero = Integer.parseInt(questoesSpinner.getSelectedItem().toString().substring(0,1));
+                if (questoesSpinner.getSelectedItem().toString().substring(0,1).equals("4") || questoesSpinner.getSelectedItem().toString().substring(0,1).equals("8")) {
+                    numero = Integer.parseInt(questoesSpinner.getSelectedItem().toString().substring(0,1));
+                } else {
+                    numero = Integer.parseInt(questoesSpinner.getSelectedItem().toString().substring(0,2));
+                }
 
                 Intent i = new Intent(getApplicationContext(), JogandoActivity.class);
 

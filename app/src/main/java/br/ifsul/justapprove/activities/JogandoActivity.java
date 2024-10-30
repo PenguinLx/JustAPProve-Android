@@ -53,6 +53,7 @@ public class JogandoActivity extends AppCompatActivity {
 
         for (Button alternativa : alternativas) {
             alternativa.setEnabled(false);
+            alternativa.setBackgroundColor(R.drawable.botao_style_enabled);
         }
 
         questaoAtual = 0;
