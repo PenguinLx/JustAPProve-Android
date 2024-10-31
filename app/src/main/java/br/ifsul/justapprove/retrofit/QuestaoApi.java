@@ -21,6 +21,8 @@ public interface QuestaoApi {
     @GET("/questao/readAll")
     Call<List<Questao>> getAllQuestao();
 
+    @GET("/questao/getSize")
+    Call<Questao> getSize();
     @GET("/questao/read/{id}")
     Call<Questao> readQuestao(@Path("id") Integer id);
     @POST("/questao/save")

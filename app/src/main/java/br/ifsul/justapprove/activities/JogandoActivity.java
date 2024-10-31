@@ -15,12 +15,19 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import br.ifsul.justapprove.R;
 import br.ifsul.justapprove.models.Questao;
 import br.ifsul.justapprove.retrofit.QuestaoApi;
 import br.ifsul.justapprove.retrofit.RetrofitService;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -65,12 +72,42 @@ public class JogandoActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         numero = i.getIntExtra("numero", 0);
+        //Request questoes = questaoApi.getAllQuestao().request();
+        int nQuestoes = 0;
+        try {
+            nQuestoes = future.get();
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+//        try {
+//           nQuestoes = questaoApi.getAllQuestao().execute().body().size();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+        if(nQuestoes < numero){
+            questaoApi.gerarSimulado(nQuestoes).enqueue(new Callback<List<Questao>>() {
+                @Override
+                public void onResponse(Call<List<Questao>> call, Response<List<Questao>> response) {
+                    List<Questao> questList = response.body();
 
-        questaoApi.gerarSimulado(numero).enqueue(new Callback<List<Questao>>() {
+                    displayQuestao(questaoAtual, alternativas, questList);
+                    for (Button alternativa : alternativas) {
+                        alternativa.setEnabled(true);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Questao>> call, Throwable throwable) {
+                    Intent i = new Intent(getApplicationContext(), SimuladosActivity.class);
+                }
+            });
+        }
+        else questaoApi.gerarSimulado(numero).enqueue(new Callback<List<Questao>>() {
             @Override
             public void onResponse(Call<List<Questao>> call, Response<List<Questao>> response) {
 
                 List<Questao> questList = response.body();
+
                 displayQuestao(questaoAtual, alternativas, questList);
                 for (Button alternativa : alternativas) {
                     alternativa.setEnabled(true);
@@ -150,4 +187,19 @@ public class JogandoActivity extends AppCompatActivity {
             });
         }
     }
+
+    ExecutorService executor = Executors.newSingleThreadExecutor();
+
+    Future<Integer> future = executor.submit(() -> {
+        RetrofitService rfs = new RetrofitService();
+        QuestaoApi questaoApi = rfs.getRfs().create(QuestaoApi.class);
+        try {
+            // Retorna o tamanho da lista de questões da API
+            return questaoApi.getAllQuestao().execute().body().size();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null; // Retorne 0 ou outro valor que indique erro ou lista vazia
+        }
+    });
 }
