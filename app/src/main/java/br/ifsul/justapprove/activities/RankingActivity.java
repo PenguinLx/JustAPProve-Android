@@ -156,6 +156,13 @@ public class RankingActivity extends AppCompatActivity
             Intent i = new Intent(getApplicationContext(), MateriaActivity.class);
             startActivity(i);
             finish();
+        } else if (menuItem.getItemId() == R.id.sair) {
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("isLogged", false);
+            editor.apply();
+            finish();
         } else {
             throw new IllegalArgumentException("menu option not implemented!!");
         }

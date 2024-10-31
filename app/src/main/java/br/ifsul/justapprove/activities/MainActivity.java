@@ -1,6 +1,7 @@
 package br.ifsul.justapprove.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +38,13 @@ public class MainActivity extends AppCompatActivity {
         editTextSenha = findViewById(R.id.editText_senha);
         botaoEnviar = findViewById(R.id.botao_enviar);
         botaoLogin = findViewById(R.id.botao_login);
+        SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
+        boolean logado = sharedPreferences.getBoolean("isLogged",false);
+        if(logado){
+            Intent i = new Intent(getApplicationContext(),HomeActivity.class);
+            startActivity(i);
+            finish();
+        }
         botaoEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

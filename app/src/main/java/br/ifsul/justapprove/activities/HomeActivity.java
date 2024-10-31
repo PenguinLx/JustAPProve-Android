@@ -40,6 +40,7 @@ public class HomeActivity extends AppCompatActivity
 
         SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
 
+
         usuarioPontos = findViewById(R.id.textview_pontos);
         opcoes = findViewById(R.id.opcoes);
         simulados = findViewById(R.id.simulados);
@@ -165,6 +166,14 @@ public class HomeActivity extends AppCompatActivity
             finish();
         } else if (menuItem.getItemId() == R.id.materia) {
             Intent i = new Intent(getApplicationContext(), MateriaActivity.class);
+            startActivity(i);
+            finish();
+        } else if (menuItem.getItemId() == R.id.sair) {
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("isLogged", false);
+            editor.apply();
             startActivity(i);
             finish();
         } else {

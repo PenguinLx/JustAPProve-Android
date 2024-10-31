@@ -29,6 +29,9 @@
             android:id="@+id/materia"
             android:icon="@drawable/materiais_estudo"
             android:title="Materiais de Estudo" />
+        <item
+            android:id="@+id/sair"
+            android:title="Deslogar" />
 
 
     </group>

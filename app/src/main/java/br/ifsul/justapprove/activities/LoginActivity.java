@@ -63,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                                     editor.putInt("usuarioId", loginResponse.getId());
                                     editor.putString("usuarioApelido", loginResponse.getApelido());
                                     editor.putInt("usuarioPontos", loginResponse.getPontos());
+                                    editor.putBoolean("isLogged",true);
                                     editor.apply();
                                     Toast.makeText(getApplicationContext(), "Bem vindo " + loginResponse.getApelido(), Toast.LENGTH_SHORT).show();
                                     startActivity(i);
