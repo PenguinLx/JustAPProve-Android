@@ -7,7 +7,7 @@ public class ProvaAnterior {
      private Integer id;
 
      private String titulo;
-     private File pdf;
+     private String pdf;
 
     public String getTitulo() {
         return titulo;
@@ -17,11 +17,11 @@ public class ProvaAnterior {
         this.titulo = titulo;
     }
 
-    public File getPdf() {
+    public String getPdf() {
         return pdf;
     }
 
-    public void setPdf(File pdf) {
+    public void setPdf(String pdf) {
         this.pdf = pdf;
     }
 }

@@ -7,8 +7,10 @@ import android.os.Parcelable;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,10 +31,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import br.ifsul.justapprove.R;
+import br.ifsul.justapprove.models.ProvaAnterior;
 import br.ifsul.justapprove.models.Questao;
 import br.ifsul.justapprove.models.Simulado;
+import br.ifsul.justapprove.retrofit.ProvaAnteriorApi;
 import br.ifsul.justapprove.retrofit.QuestaoApi;
 import br.ifsul.justapprove.retrofit.RetrofitService;
+import br.ifsul.justapprove.retrofit.UsuarioApi;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,6 +54,7 @@ public class SimuladosActivity extends AppCompatActivity
     private TextView usuarioPontos;
     int numero;
 
+    private GridView gridView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,12 +64,28 @@ public class SimuladosActivity extends AppCompatActivity
 
         usuarioPontos = findViewById(R.id.textview_pontos);
         botaoIniciar = findViewById(R.id.botao_iniciar);
+        gridView = findViewById(R.id.gridV_id);
+        List<ProvaAnterior> provasA = new ArrayList<>();
 
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+
+                carregarProvas();
+               Intent i = new Intent(getApplicationContext(), PdfActivity.class);
+                i.putExtra("tagPdf",v.getTag().toString());
+                startActivity(i);
+                finish();
+
+            }
+
+        });
         setTitle("");
         setupToolbar();
         setupDrawer();
 
         setupSpinners();
+        carregarProvas();
 
         botaoIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -243,5 +265,35 @@ public class SimuladosActivity extends AppCompatActivity
     public void onDrawerStateChanged(int i) {
         //cambio de estado, puede ser STATE_IDLE, STATE_DRAGGING or STATE_SETTLING
     }
+
+    public void carregarProvas(){
+        RetrofitService retrofitService = new RetrofitService();
+        ProvaAnteriorApi provaAnteriorApi = retrofitService.getRfs().create(ProvaAnteriorApi.class);
+
+        provaAnteriorApi.getProvas().enqueue(new Callback<List<ProvaAnterior>>() {
+            @Override
+            public void onResponse(Call<List<ProvaAnterior>> call, Response<List<ProvaAnterior>> response) {
+                if(response.isSuccessful()) {
+                    carregarListaProvas(response.body());
+                }
+                else {
+                    Toast.makeText(SimuladosActivity.this, "Erro com o carregamento da lista", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ProvaAnterior>> call, Throwable throwable) {
+                Toast.makeText(SimuladosActivity.this, "Erro com o carregamento da lista", Toast.LENGTH_SHORT).show();
+                Logger.getLogger(MainActivity.class.getName()).log(Level.SEVERE,"Erro!",throwable);
+            }
+        });
+    }
+
+    public void carregarListaProvas(List<ProvaAnterior> provas){
+    SimuladoAdapter simuladoAdapter = new SimuladoAdapter(this,provas);
+
+        gridView.setAdapter(simuladoAdapter);
+    }
+
 
 }
