@@ -8,17 +8,18 @@
     tools:context=".activities.PdfActivity"
     android:orientation="vertical">
 
-    <WebView
-        android:id="@+id/pdf_wv_id"
+    <Button
+        android:id="@+id/botao_pdf_voltar_id"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:text="voltar">
+    </Button>
+    <com.github.barteksc.pdfviewer.PDFView
+    android:id="@+id/pdf_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    </com.github.barteksc.pdfviewer.PDFView>
 
-    </WebView>
-<Button
-    android:id="@+id/botao_pdf_voltar_id"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-</Button>
 
 </LinearLayout>
 

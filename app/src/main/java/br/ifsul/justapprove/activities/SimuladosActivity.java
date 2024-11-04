@@ -25,6 +25,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -66,17 +69,28 @@ public class SimuladosActivity extends AppCompatActivity
         botaoIniciar = findViewById(R.id.botao_iniciar);
         gridView = findViewById(R.id.gridV_id);
         List<ProvaAnterior> provasA = new ArrayList<>();
+        carregarProvas();
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
-                carregarProvas();
-               Intent i = new Intent(getApplicationContext(), PdfActivity.class);
-                i.putExtra("tagPdf",v.getTag().toString());
-                startActivity(i);
-                finish();
 
+                byte[] pdfBytes = java.util.Base64.getDecoder().decode(v.getTag().toString());
+                try {
+                    Intent i = new Intent(getApplicationContext(), PdfActivity.class);
+
+                    File pdfFile = new File(getExternalFilesDir(null), "prova.pdf");
+                    FileOutputStream fos = new FileOutputStream(pdfFile);
+                    fos.write(pdfBytes);
+                    fos.close();
+                    i.putExtra("pdfFilePath", pdfFile.getAbsolutePath());
+                    startActivity(i);
+                    finish();
+                }
+                catch (IOException e){
+                e.printStackTrace();
+                }
             }
 
         });
@@ -85,7 +99,6 @@ public class SimuladosActivity extends AppCompatActivity
         setupDrawer();
 
         setupSpinners();
-        carregarProvas();
 
         botaoIniciar.setOnClickListener(new View.OnClickListener() {
             @Override

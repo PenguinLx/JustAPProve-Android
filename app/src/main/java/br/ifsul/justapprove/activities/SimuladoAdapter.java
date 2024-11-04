@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,12 +40,12 @@ public class SimuladoAdapter extends ArrayAdapter<ProvaAnterior> {
         ProvaAnterior provaAnterior = getItem(position);
         ImageView imageView = listitemView.findViewById(R.id.cardV_imageV_id);
         TextView textView = listitemView.findViewById(R.id.cardV_text_view_id);
-        LinearLayout layout = listitemView.findViewById(R.id.linear_layout_id);
+        CardView cardView = listitemView.findViewById(R.id.id_cardview);
 
 
         imageView.setImageResource(R.drawable.simulados);
         textView.setText(provaAnterior.getTitulo());
-        layout.setTag(provaAnterior.getPdf());
+        cardView.setTag(provaAnterior.getPdf());
         return listitemView;
     }
 
