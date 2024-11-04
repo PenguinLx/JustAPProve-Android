@@ -58,6 +58,7 @@ public class SimuladosActivity extends AppCompatActivity
     int numero;
 
     private GridView gridView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +69,6 @@ public class SimuladosActivity extends AppCompatActivity
         usuarioPontos = findViewById(R.id.textview_pontos);
         botaoIniciar = findViewById(R.id.botao_iniciar);
         gridView = findViewById(R.id.gridV_id);
-        List<ProvaAnterior> provasA = new ArrayList<>();
         carregarProvas();
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -78,18 +78,18 @@ public class SimuladosActivity extends AppCompatActivity
 
                 byte[] pdfBytes = java.util.Base64.getDecoder().decode(v.getTag().toString());
                 try {
-                    Intent i = new Intent(getApplicationContext(), PdfActivity.class);
 
                     File pdfFile = new File(getExternalFilesDir(null), "prova.pdf");
                     FileOutputStream fos = new FileOutputStream(pdfFile);
                     fos.write(pdfBytes);
                     fos.close();
+
+                    Intent i = new Intent(getApplicationContext(), PdfActivity.class);
                     i.putExtra("pdfFilePath", pdfFile.getAbsolutePath());
                     startActivity(i);
                     finish();
-                }
-                catch (IOException e){
-                e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
 
@@ -104,10 +104,10 @@ public class SimuladosActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                if (questoesSpinner.getSelectedItem().toString().substring(0,1).equals("4") || questoesSpinner.getSelectedItem().toString().substring(0,1).equals("8")) {
-                    numero = Integer.parseInt(questoesSpinner.getSelectedItem().toString().substring(0,1));
+                if (questoesSpinner.getSelectedItem().toString().substring(0, 1).equals("4") || questoesSpinner.getSelectedItem().toString().substring(0, 1).equals("8")) {
+                    numero = Integer.parseInt(questoesSpinner.getSelectedItem().toString().substring(0, 1));
                 } else {
-                    numero = Integer.parseInt(questoesSpinner.getSelectedItem().toString().substring(0,2));
+                    numero = Integer.parseInt(questoesSpinner.getSelectedItem().toString().substring(0, 2));
                 }
 
                 Intent i = new Intent(getApplicationContext(), JogandoActivity.class);
@@ -155,16 +155,15 @@ public class SimuladosActivity extends AppCompatActivity
     }
 
     private void setupSpinners() {
-        tempoSpinner = findViewById(R.id.tempo_spinner);
+//        tempoSpinner = findViewById(R.id.tempo_spinner);
         questoesSpinner = findViewById(R.id.questao_spinner);
-        ArrayAdapter<CharSequence> tempoAdapter = ArrayAdapter.createFromResource(this, R.array.tempo_de_resposta, R.layout.spinner_layout);
+//        ArrayAdapter<CharSequence> tempoAdapter = ArrayAdapter.createFromResource(this, R.array.tempo_de_resposta, R.layout.spinner_layout);
         ArrayAdapter<CharSequence> questaoAdapter = ArrayAdapter.createFromResource(this, R.array.numero_de_questoes, R.layout.spinner_layout);
-        tempoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        tempoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         questaoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        tempoSpinner.setAdapter(tempoAdapter);
+//        tempoSpinner.setAdapter(tempoAdapter);
         questoesSpinner.setAdapter(questaoAdapter);
     }
-
 
 
     private void setupToolbar() {
@@ -279,17 +278,16 @@ public class SimuladosActivity extends AppCompatActivity
         //cambio de estado, puede ser STATE_IDLE, STATE_DRAGGING or STATE_SETTLING
     }
 
-    public void carregarProvas(){
+    public void carregarProvas() {
         RetrofitService retrofitService = new RetrofitService();
         ProvaAnteriorApi provaAnteriorApi = retrofitService.getRfs().create(ProvaAnteriorApi.class);
 
         provaAnteriorApi.getProvas().enqueue(new Callback<List<ProvaAnterior>>() {
             @Override
             public void onResponse(Call<List<ProvaAnterior>> call, Response<List<ProvaAnterior>> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     carregarListaProvas(response.body());
-                }
-                else {
+                } else {
                     Toast.makeText(SimuladosActivity.this, "Erro com o carregamento da lista", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -297,13 +295,13 @@ public class SimuladosActivity extends AppCompatActivity
             @Override
             public void onFailure(Call<List<ProvaAnterior>> call, Throwable throwable) {
                 Toast.makeText(SimuladosActivity.this, "Erro com o carregamento da lista", Toast.LENGTH_SHORT).show();
-                Logger.getLogger(MainActivity.class.getName()).log(Level.SEVERE,"Erro!",throwable);
+                Logger.getLogger(MainActivity.class.getName()).log(Level.SEVERE, "Erro!", throwable);
             }
         });
     }
 
-    public void carregarListaProvas(List<ProvaAnterior> provas){
-    SimuladoAdapter simuladoAdapter = new SimuladoAdapter(this,provas);
+    public void carregarListaProvas(List<ProvaAnterior> provas) {
+        SimuladoAdapter simuladoAdapter = new SimuladoAdapter(this, provas);
 
         gridView.setAdapter(simuladoAdapter);
     }
