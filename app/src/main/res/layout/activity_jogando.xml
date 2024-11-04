@@ -30,7 +30,7 @@
 
             </TextView>
 
-            <ImageView
+            <com.github.chrisbanes.photoview.PhotoView
                 android:id="@+id/questao_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -40,21 +40,14 @@
                 android:layout_marginEnd="10dp"
                 >
 
-            </ImageView>
-
-            <TextView
-                android:id="@+id/pontuacao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0">
-
-            </TextView>
+            </com.github.chrisbanes.photoview.PhotoView>
 
             <Button
                 android:id="@+id/resposta1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="resposta 1"
+                android:layout_marginTop="10dp"
                 style="?attr/borderlessButtonStyle"
                 android:backgroundTint="@drawable/botao_style_enabled"
                 android:textColor="@color/branco">

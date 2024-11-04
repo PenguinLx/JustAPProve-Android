@@ -3,17 +3,16 @@ package br.ifsul.justapprove.activities;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.github.chrisbanes.photoview.PhotoView;
 
 import java.util.List;
 
@@ -27,19 +26,16 @@ import retrofit2.Response;
 
 public class JogandoActivity extends AppCompatActivity {
     private TextView questaoText;
-    private ImageView questaoImage;
+    private PhotoView questaoImage;
     private Button a1, a2, a3, a4, proximaQuestao;
     private boolean respondendo;
     private int numero, questaoAtual, acertos, pontos;
     private String resposta;
-    private Drawable defaultButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jogando);
-
-
 
         questaoText = findViewById(R.id.questao_text);
         questaoImage = findViewById(R.id.questao_image);
@@ -50,8 +46,6 @@ public class JogandoActivity extends AppCompatActivity {
         a3 = findViewById(R.id.resposta3);
         a4 = findViewById(R.id.resposta4);
         Button[] alternativas = {a1, a2, a3, a4};
-
-        defaultButton = proximaQuestao.getBackground();
 
         for (Button alternativa : alternativas) {
             alternativa.setEnabled(false);
