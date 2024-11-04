@@ -3,8 +3,10 @@ package br.ifsul.justapprove.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +26,7 @@ public class PdfActivity extends AppCompatActivity {
 //https://www.geeksforgeeks.org/how-to-open-pdf-from-url-in-android-without-any-third-party-libraries/
     String pdf;
     PDFView pdfView;
-    Button botaoVoltar;
+    ImageButton botaoVoltar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,17 @@ public class PdfActivity extends AppCompatActivity {
         String pdfFilePathString = i.getStringExtra("pdfFilePath");
 
         pdfView.fromFile(new File(pdfFilePathString)).load();
+
+        botaoVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(getApplicationContext(), SimuladosActivity.class);
+
+                startActivity(i);
+                finish();
+            }
+        });
     }
 
 

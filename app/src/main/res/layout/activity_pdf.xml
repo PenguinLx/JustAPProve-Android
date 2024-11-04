@@ -5,15 +5,20 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/branco"
     tools:context=".activities.PdfActivity"
     android:orientation="vertical">
 
-    <Button
+    <ImageButton
         android:id="@+id/botao_pdf_voltar_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="voltar">
-    </Button>
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/voltar"
+        android:backgroundTint="@color/branco"
+        android:scaleType="centerCrop"
+        android:layout_marginStart="10dp"
+        android:rotation="180">
+    </ImageButton>
     <com.github.barteksc.pdfviewer.PDFView
     android:id="@+id/pdf_view"
     android:layout_width="match_parent"
