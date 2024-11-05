@@ -85,7 +85,7 @@
                             android:id="@+id/gridV_id"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginVertical="1dp"
+                            android:layout_marginVertical="2dp"
                             android:background="@color/branco"
                             android:gravity="center"
                             android:numColumns="2">

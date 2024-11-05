@@ -108,6 +108,12 @@ public class JogandoActivity extends AppCompatActivity {
         for (int x = 0; x < alternativas.length; x++) {
             alternativas[x].setOnClickListener(v -> {
                 resposta = v.getTag().toString();
+                v.setEnabled(false);
+                for (Button alternativa : alternativas) {
+                    if (alternativa != v) {
+                        alternativa.setEnabled(true);
+                    }
+                }
                 proximaQuestao.setText("Confirmar Resposta");
                 proximaQuestao.setVisibility(View.VISIBLE);
                 proximaQuestao.setOnClickListener(y -> {
