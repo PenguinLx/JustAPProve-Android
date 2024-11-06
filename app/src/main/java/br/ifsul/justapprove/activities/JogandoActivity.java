@@ -65,8 +65,8 @@ public class JogandoActivity extends AppCompatActivity {
         questaoApi.gerarSimulado(numero).enqueue(new Callback<List<Questao>>() {
             @Override
             public void onResponse(Call<List<Questao>> call, Response<List<Questao>> response) {
-                if (response.body().get(0).getAlternativas().get(0).getDescricao().equals("ERRO: NUMERO REQUISITADO MAIOR DO QUE ESTÁ DISPONIVEL NO BANCO DE DADOS!")){
-                    Toast.makeText(JogandoActivity.this, "ERRO: NUMERO REQUISITADO MAIOR DO QUE ESTÁ DISPONIVEL NO BANCO DE DADOS!", Toast.LENGTH_SHORT).show();
+                if (response.body().get(0).getAlternativas().get(0).getDescricao().contains("ERRO:")){
+                    Toast.makeText(JogandoActivity.this, "ERRO: NÃO HÁ QUESTÕES SUFICIENTES NO BANCO DE DADOS!", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(getApplicationContext(), SimuladosActivity.class);
                     startActivity(i);
                     finish();

@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -116,31 +117,6 @@ public class SimuladosActivity extends AppCompatActivity
 
                 startActivity(i);
                 finish();
-//                questaoApi.gerarSimulado(numero).enqueue(new Callback<List<Questao>>() {
-//                    @Override
-//                    public void onResponse(@NonNull Call<List<Questao>> call, @NonNull Response<List<Questao>> response) {
-//                        if (response.isSuccessful()) {
-//                            Toast.makeText(SimuladosActivity.this, "Simulado Gerado!", Toast.LENGTH_SHORT).show();
-//                            Log.e("Erro", response.body().get(0).getAlternativas().get(0).getDescricao());
-//                            Intent i = new Intent(getApplicationContext(), JogandoActivity.class);
-//                            Bundle b = new Bundle();
-//                            List<Questao> questoes = response.body();
-//                            //i.putParcelableArrayListExtra("listQuestao", new ArrayList<>(questoes));
-//                            b.putParcelableArrayList("listQuestao", (ArrayList<? extends Parcelable>) questoes);
-//                            i.putExtras(b);
-//                            startActivity(i);
-//                            finish();
-//                        } else {
-//                            Toast.makeText(SimuladosActivity.this, "Resposta não sucedida!", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                    @Override
-//                    public void onFailure(@NonNull Call<List<Questao>> call, @NonNull Throwable throwable) {
-//                        Toast.makeText(SimuladosActivity.this, "Erro ao gerar simulado!", Toast.LENGTH_SHORT).show();
-//                        Logger.getLogger(SimuladosActivity.class.getName()).log(Level.SEVERE, "Erro!", throwable);
-//                    }
-//                });
-
 
             }
         });

@@ -20,6 +20,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import com.google.android.material.navigation.NavigationView;
 
 import br.ifsul.justapprove.R;
+import br.ifsul.justapprove.retrofit.MateriaApi;
+import br.ifsul.justapprove.retrofit.RetrofitService;
 
 public class MateriaActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -52,6 +54,9 @@ public class MateriaActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), ListaMaterialActivity.class);
+                RetrofitService rfs = new RetrofitService();
+                MateriaApi materiaApi = rfs.getRfs().create(MateriaApi.class);
+
                 i.putExtra("ultimaActivity", MateriaActivity.class);
                 startActivity(i);
                 finish();
@@ -61,6 +66,8 @@ public class MateriaActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), ListaMaterialActivity.class);
+                RetrofitService rfs = new RetrofitService();
+                MateriaApi materiaApi = rfs.getRfs().create(MateriaApi.class);
                 i.putExtra("ultimaActivity", MateriaActivity.class);
                 startActivity(i);
                 finish();
@@ -70,6 +77,8 @@ public class MateriaActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), ListaMaterialActivity.class);
+                RetrofitService rfs = new RetrofitService();
+                MateriaApi materiaApi = rfs.getRfs().create(MateriaApi.class);
                 i.putExtra("ultimaActivity", MateriaActivity.class);
                 startActivity(i);
                 finish();
@@ -79,6 +88,8 @@ public class MateriaActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), ListaMaterialActivity.class);
+                RetrofitService rfs = new RetrofitService();
+                MateriaApi materiaApi = rfs.getRfs().create(MateriaApi.class);
                 i.putExtra("ultimaActivity", MateriaActivity.class);
                 startActivity(i);
                 finish();
