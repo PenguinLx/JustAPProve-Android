@@ -148,7 +148,7 @@
                             android:id="@+id/botao_voltar"
                             android:layout_width="150dp"
                             android:layout_height="50dp"
-                            android:text="Voltar"
+                            android:text="Cadastro"
                             android:backgroundTint="@color/cinza_claro"
                             android:textColor="@color/preto"
                             android:textSize="20sp"

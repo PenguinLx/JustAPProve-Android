@@ -43,6 +43,13 @@ public class LoginActivity extends AppCompatActivity {
         botaoEnviar = findViewById(R.id.botao_enviar);
         botaoVoltar = findViewById(R.id.botao_voltar);
 
+        boolean logado = sharedPreferences.getBoolean("isLogged",false);
+        if(logado){
+            Intent i = new Intent(getApplicationContext(),HomeActivity.class);
+            startActivity(i);
+            finish();
+        }
+
         botaoEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
