@@ -6,22 +6,22 @@ public class Material {
 
      private Integer id;
 
-     private String artigo;
-     private File video;
+     private String descricao;
+     private String videoEmbedd;
 
-    public String getArtigo() {
-        return artigo;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setArtigo(String artigo) {
-        this.artigo = artigo;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public File getVideo() {
-        return video;
+    public String getVideoEmbedd() {
+        return videoEmbedd;
     }
 
-    public void setVideo(File video) {
-        this.video = video;
+    public void setVideoEmbedd(String videoEmbedd) {
+        this.videoEmbedd = videoEmbedd;
     }
 }

@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -22,7 +23,19 @@ import androidx.navigation.ui.AppBarConfiguration;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import br.ifsul.justapprove.R;
+import br.ifsul.justapprove.models.Materia;
+import br.ifsul.justapprove.models.Usuario;
+import br.ifsul.justapprove.retrofit.MateriaApi;
+import br.ifsul.justapprove.retrofit.RetrofitService;
+import br.ifsul.justapprove.retrofit.UsuarioApi;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ListaMaterialActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -51,9 +64,7 @@ public class ListaMaterialActivity extends AppCompatActivity
         usuarioPontos = findViewById(R.id.textview_pontos);
         botaoVoltar = findViewById(R.id.botao_voltar);
         lista = findViewById(R.id.lista_conteudos);
-        adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.lista_material, R.id.titulo);
-        lista.setAdapter(adapter);
-        adapter.addAll("Materia", "Materia", "Materia", "Materia", "Materia", "Materia");
+
         botaoVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,6 +169,29 @@ public class ListaMaterialActivity extends AppCompatActivity
         } else {
             throw new IllegalArgumentException("menu option not implemented!!");
         }
+    }
+
+    public void carregarMateria() {
+        RetrofitService retrofitService = new RetrofitService();
+        MateriaApi materiaApi = retrofitService.getRfs().create(MateriaApi.class);
+        Intent i = getIntent();
+        materiaApi.getAllMateriaByTipo().enqueue(new Callback<List<Materia>>(i.getExtra("tipoMateria")) {
+            @Override
+            public void onResponse(Call<List<Materia>> call, Response<List<Materia>> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Materia>> call, Throwable throwable) {
+
+            }
+        });
+
+    }
+
+    public void carregarLista(List<Materia> listaMaterias) {
+        MateriaAdapter materiaAdapter = new MateriaAdapter(listaMaterias);
+        lista.setAdapter(materiaAdapter);
     }
 
     private void showFragment(@StringRes int titleId) {

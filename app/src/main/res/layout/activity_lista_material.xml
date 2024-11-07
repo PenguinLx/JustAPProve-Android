@@ -82,11 +82,11 @@
                         android:paddingTop="2dp"
                         android:paddingBottom="1dp">
 
-                        <ListView
+                        <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/lista_conteudos"
                             android:layout_width="match_parent"
                             android:layout_height="422dp">
-                        </ListView>
+                        </androidx.recyclerview.widget.RecyclerView>
                     </LinearLayout>
                 </LinearLayout>
 

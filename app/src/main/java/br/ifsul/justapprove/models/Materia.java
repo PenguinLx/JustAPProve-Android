@@ -6,13 +6,12 @@ public class Materia {
 
    private Integer id;
 
-   protected String nome;
-   protected String descricao;
+   private String nome;
 
 
-    protected TipoMateria tipo;
+    private TipoMateria tipo;
     //UMA MATERIA, MUITOS MATERIAIS(ONE TO MANY)
-    protected List<Material> materiais;
+    private List<Material> materiais;
 
     public String getNome() {
         return nome;
@@ -20,14 +19,6 @@ public class Materia {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
     }
 
     public TipoMateria getTipo() {
