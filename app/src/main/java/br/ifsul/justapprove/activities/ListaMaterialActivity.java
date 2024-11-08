@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -20,6 +21,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.ui.AppBarConfiguration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -39,13 +42,14 @@ import retrofit2.Response;
 
 public class ListaMaterialActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        DrawerLayout.DrawerListener {
+        DrawerLayout.DrawerListener, OnClickListener {
 
+    private MateriaAdapter materiaAdapter;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
     private AppBarConfiguration appBarConfiguration;
-    private ListView lista;
+    private RecyclerView lista;
     private ArrayAdapter<String> adapter;
     private Button botaoVoltar;
     private TextView usuarioPontos;
@@ -63,7 +67,9 @@ public class ListaMaterialActivity extends AppCompatActivity
 
         usuarioPontos = findViewById(R.id.textview_pontos);
         botaoVoltar = findViewById(R.id.botao_voltar);
-        lista = findViewById(R.id.lista_conteudos);
+
+        setupLista();
+        carregarMateria();
 
         botaoVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +83,17 @@ public class ListaMaterialActivity extends AppCompatActivity
         });
         usuarioPontos.setText(sharedPreferences.getInt("usuarioPontos", 0) + " pontos");
         changeNavHeaderText(sharedPreferences.getString("usuarioApelido", "Estudante"));
+    }
+
+
+    @Override
+    public void onClick(int position) {
+
+
+
+        Materia elemento = materiaAdapter.getItem(position);
+
+        Toast.makeText(this, "position " + elemento.getNome(), Toast.LENGTH_SHORT).show();
     }
 
     private void changeNavHeaderText(String texto) {
@@ -175,14 +192,19 @@ public class ListaMaterialActivity extends AppCompatActivity
         RetrofitService retrofitService = new RetrofitService();
         MateriaApi materiaApi = retrofitService.getRfs().create(MateriaApi.class);
         Intent i = getIntent();
-        materiaApi.getAllMateriaByTipo().enqueue(new Callback<List<Materia>>(i.getExtra("tipoMateria")) {
+        materiaApi.getAllMateriaByTipo(i.getStringExtra("TipoMateria")).enqueue(new Callback<List<Materia>>() {
             @Override
             public void onResponse(Call<List<Materia>> call, Response<List<Materia>> response) {
+                if (response.isSuccessful()){
+                    carregarLista(response.body());
+                    Toast.makeText(ListaMaterialActivity.this, "Sucesso!", Toast.LENGTH_SHORT).show();
+                }
 
             }
 
             @Override
             public void onFailure(Call<List<Materia>> call, Throwable throwable) {
+                Toast.makeText(ListaMaterialActivity.this, "ERRO!", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -190,8 +212,13 @@ public class ListaMaterialActivity extends AppCompatActivity
     }
 
     public void carregarLista(List<Materia> listaMaterias) {
-        MateriaAdapter materiaAdapter = new MateriaAdapter(listaMaterias);
+         materiaAdapter = new MateriaAdapter(listaMaterias, this);
         lista.setAdapter(materiaAdapter);
+    }
+
+    public void setupLista(){
+        lista = findViewById(R.id.lista_conteudos);
+        lista.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void showFragment(@StringRes int titleId) {

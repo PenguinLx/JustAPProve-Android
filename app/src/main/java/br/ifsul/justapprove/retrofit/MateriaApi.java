@@ -19,8 +19,8 @@ public interface MateriaApi {
     @GET("/materia/readAll")
     Call<List<Materia>> getAllMateria();
 
-    @GET("/materia/readAllByTipo/{tipo}")
-    Call<List<Materia>> getAllMateriaByTipo(@Query("tipo")String tipo);
+    @GET("/materia/readAllByTipo")
+    Call<List<Materia>> getAllMateriaByTipo(@Query("tipo") String tipo);
     @GET("/materia/read/{id}")
     Call<Materia> readMateria(@Path("id") Integer id);
 

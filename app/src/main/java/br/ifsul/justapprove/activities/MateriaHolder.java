@@ -19,4 +19,5 @@ public class MateriaHolder extends RecyclerView.ViewHolder {
         textView = itemView.findViewById(R.id.id_titulo_material);
         imageView = itemView.findViewById(R.id.list_material_imagem_id);
     }
+
 }
