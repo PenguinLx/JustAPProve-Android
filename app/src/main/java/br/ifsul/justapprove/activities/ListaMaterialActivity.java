@@ -50,7 +50,6 @@ public class ListaMaterialActivity extends AppCompatActivity
     private Toolbar toolbar;
     private AppBarConfiguration appBarConfiguration;
     private RecyclerView lista;
-    private ArrayAdapter<String> adapter;
     private Button botaoVoltar;
     private TextView usuarioPontos;
 
@@ -88,7 +87,10 @@ public class ListaMaterialActivity extends AppCompatActivity
 
     @Override
     public void onClick(int position) {
-
+        Intent i = new Intent(getApplicationContext(), MaterialActivity.class);
+        i.putExtra("NomeMateria", materiaAdapter.getItem(position).getNome());
+        startActivity(i);
+        finish();
 
 
         Materia elemento = materiaAdapter.getItem(position);

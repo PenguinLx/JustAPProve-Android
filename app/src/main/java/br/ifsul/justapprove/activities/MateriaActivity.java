@@ -65,60 +65,6 @@ public class MateriaActivity extends AppCompatActivity
         geo.setTag("GEOGRAFIA");
         his.setTag("HISTORIA");
 
-//        port.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(getApplicationContext(), ListaMaterialActivity.class);
-//                RetrofitService rfs = new RetrofitService();
-//                MateriaApi materiaApi = rfs.getRfs().create(MateriaApi.class);
-//                TipoMateria tipo = TipoMateria.PORTUGUES;
-//                i.putExtra("ultimaActivity", MateriaActivity.class);
-//                i.putExtra("tipoMateria", tipo.toString());
-//                startActivity(i);
-//                finish();
-//            }
-//        });
-//        mat.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(getApplicationContext(), ListaMaterialActivity.class);
-//                RetrofitService rfs = new RetrofitService();
-//                MateriaApi materiaApi = rfs.getRfs().create(MateriaApi.class);
-//                TipoMateria tipo = TipoMateria.MATEMATICA;
-//                i.putExtra("ultimaActivity", MateriaActivity.class);
-//                i.putExtra("tipoMateria", tipo);
-//                startActivity(i);
-//                finish();
-//            }
-//        });
-//        geo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(getApplicationContext(), ListaMaterialActivity.class);
-//                RetrofitService rfs = new RetrofitService();
-//                MateriaApi materiaApi = rfs.getRfs().create(MateriaApi.class);
-//                TipoMateria tipo = TipoMateria.GEOGRAFIA;
-//                i.putExtra("ultimaActivity", MateriaActivity.class);
-//                i.putExtra("tipoMateria", tipo);
-//                startActivity(i);
-//                finish();
-//            }
-//        });
-//        his.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(getApplicationContext(), ListaMaterialActivity.class);
-//                RetrofitService rfs = new RetrofitService();
-//                MateriaApi materiaApi = rfs.getRfs().create(MateriaApi.class);
-//                TipoMateria tipo = TipoMateria.HISTORIA;
-//                i.putExtra("ultimaActivity", MateriaActivity.class);
-//                i.putExtra("tipoMateria", tipo);
-//                startActivity(i);
-//                finish();
-//            }
-//        });
-
-
         for(LinearLayout linearLayout: tipos){
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -126,7 +72,7 @@ public class MateriaActivity extends AppCompatActivity
                 Intent i = new Intent(getApplicationContext(), ListaMaterialActivity.class);
                 i.putExtra("TipoMateria", linearLayout.getTag().toString());
                 Log.e("Log tag:" , linearLayout.getTag().toString() );
-                    i.putExtra("ultimaActivity", MateriaActivity.class);
+                i.putExtra("ultimaActivity", MateriaActivity.class);
                 startActivity(i);
                 finish();
                 }
