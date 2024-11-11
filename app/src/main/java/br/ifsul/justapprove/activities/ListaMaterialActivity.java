@@ -26,12 +26,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import br.ifsul.justapprove.R;
 import br.ifsul.justapprove.models.Materia;
+import br.ifsul.justapprove.models.Material;
 import br.ifsul.justapprove.models.Usuario;
 import br.ifsul.justapprove.retrofit.MateriaApi;
 import br.ifsul.justapprove.retrofit.RetrofitService;
@@ -87,15 +89,35 @@ public class ListaMaterialActivity extends AppCompatActivity
 
     @Override
     public void onClick(int position) {
+
+        //////PEGAR UM FUCKING MATERIAL SÓ/////
+//        Intent i = new Intent(getApplicationContext(), MaterialActivity.class);
+//        i.putExtra("NomeMateria", materiaAdapter.getItem(position).getNome());
+//
+//
+//        Materia elemento = materiaAdapter.getItem(position);
+//        SharedPreferences sharedPreferences = getSharedPreferences("Material", MODE_PRIVATE);
+////        List<Materia> listMateriaSP = sharedPreferences.
+//        //SharedPreferences.Editor editor = sharedPreferences.edit();
+//        int tamnhoMaterial = elemento.getMateriais().size();
+//        List<Material> listMat = elemento.getMateriais();
+//        i.putExtra("LIST", (Serializable) listMat);
+//        Toast.makeText(this, "position " + elemento.getNome(), Toast.LENGTH_SHORT).show();
+        RetrofitService rfs = new RetrofitService();
+        MateriaApi materiaApi = rfs.getRfs().create(MateriaApi.class);
+        Materia elemento = materiaAdapter.getItem(position);
         Intent i = new Intent(getApplicationContext(), MaterialActivity.class);
-        i.putExtra("NomeMateria", materiaAdapter.getItem(position).getNome());
+        SharedPreferences sharedPreferences = getSharedPreferences("Material", MODE_PRIVATE);
+//        List<Materia> listMateriaSP = sharedPreferences.
+        //SharedPreferences.Editor editor = sharedPreferences.edit();
+        //int tamnhoMaterial = elemento.getMateriais().size();
+        //List<Material> listMat = elemento.getMateriais();
+        //i.putExtra("LIST", (Serializable) listMat);
+        i.putExtra("descricaoMaterial", elemento.getMaterial().getDescricao());
+        i.putExtra("videoMaterial", elemento.getMaterial().getVideoEmbedd());
+        i.putExtra("nomeMateria", elemento.getNome());
         startActivity(i);
         finish();
-
-
-        Materia elemento = materiaAdapter.getItem(position);
-
-        Toast.makeText(this, "position " + elemento.getNome(), Toast.LENGTH_SHORT).show();
     }
 
     private void changeNavHeaderText(String texto) {

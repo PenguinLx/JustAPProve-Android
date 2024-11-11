@@ -16,6 +16,8 @@ public interface MaterialApi {
 
     @GET("/material/readAll")
     Call<List<Material>> getAllMaterial();
+    @GET("/material/readAllMaterialByTipo")
+    Call<List<Material>> getAllMaterialByTipo();
 
     @GET("/material/read/{id}")
     Call<Material> readMaterial(@Path("id") Integer id);
@@ -26,6 +28,6 @@ public interface MaterialApi {
     @PUT("/material/update/{id}")
     Call<Material> updateMaterial(@Path("id") Integer id, Material material);
 
-    @DELETE("/usuarios/delete{id}")
-    Call<Usuario> deleteUsuario(@Path("id") Integer id);
+    @DELETE("/material/delete/{id}")
+    Call<Usuario> deleteMaterial(@Path("id") Integer id);
 }

@@ -22,7 +22,17 @@ import androidx.navigation.ui.AppBarConfiguration;
 import com.google.android.material.navigation.NavigationView;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.ifsul.justapprove.R;
+import br.ifsul.justapprove.models.Materia;
+import br.ifsul.justapprove.models.Material;
+import br.ifsul.justapprove.retrofit.MaterialApi;
+import br.ifsul.justapprove.retrofit.RetrofitService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MaterialActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -32,7 +42,7 @@ public class MaterialActivity extends AppCompatActivity
     private NavigationView navigationView;
     private Toolbar toolbar;
     private AppBarConfiguration appBarConfiguration;
-    private TextView usuarioPontos, titulo;
+    private TextView usuarioPontos, titulo, descricao;
     private WebView video;
     private Button botaoVoltar;
 
@@ -42,6 +52,16 @@ public class MaterialActivity extends AppCompatActivity
         setContentView(R.layout.activity_material);
 
         SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
+        Intent i = getIntent();
+       String descricaoM = i.getStringExtra("descricaoMaterial");
+        String videoM = i.getStringExtra("videoMaterial");
+//        List<Materia> list = new ArrayList<>();
+//        list = (List<Materia>) i.getSerializableExtra("LIST");
+//        int tamanhoListMateriais = i.getIntExtra("numeroMateriais",0);
+//        List<Material> listMatl;
+//        for(int x = 0;x < list.size(); x++){
+//            listMatl = list.get(x).getMateriais();
+//        }
 
         setupToolbar();
         setupDrawer();
@@ -51,14 +71,18 @@ public class MaterialActivity extends AppCompatActivity
         titulo = findViewById(R.id.titulo);
         video = findViewById(R.id.video);
         botaoVoltar = findViewById(R.id.botao_voltar);
+        descricao = findViewById(R.id.descricao);
+        titulo.setText(getIntent().getStringExtra("nomeMateria"));
 
-        titulo.setText(getIntent().getStringExtra("NomeMateria"));
-
-        String videoEmbedd = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube-nocookie.com/embed/iKuUzPrDjK8?si=CGHGa3XdosqccOOF\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>";
-
-        video.loadData(videoEmbedd, "text/html", "utf-8");
+//        String videoEmbedd = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube-nocookie.com/embed/iKuUzPrDjK8?si=CGHGa3XdosqccOOF\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>";
+        descricao.setText(descricaoM);
+        video.loadData(videoM, "text/html", "utf-8");
         video.getSettings().setJavaScriptEnabled(true);
         video.setWebChromeClient(new WebChromeClient());
+
+        RetrofitService rfs = new RetrofitService();
+        MaterialApi materialApi = rfs.getRfs().create(MaterialApi.class);
+
 
         botaoVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
