@@ -3,6 +3,7 @@ package br.ifsul.justapprove.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -44,7 +45,7 @@ public class MaterialActivity extends AppCompatActivity
     private AppBarConfiguration appBarConfiguration;
     private TextView usuarioPontos, titulo, descricao;
     private WebView video;
-    private Button botaoVoltar;
+    private Button botaoVoltar, botaoConcluir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,16 +53,6 @@ public class MaterialActivity extends AppCompatActivity
         setContentView(R.layout.activity_material);
 
         SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
-        Intent i = getIntent();
-       String descricaoM = i.getStringExtra("descricaoMaterial");
-        String videoM = i.getStringExtra("videoMaterial");
-//        List<Materia> list = new ArrayList<>();
-//        list = (List<Materia>) i.getSerializableExtra("LIST");
-//        int tamanhoListMateriais = i.getIntExtra("numeroMateriais",0);
-//        List<Material> listMatl;
-//        for(int x = 0;x < list.size(); x++){
-//            listMatl = list.get(x).getMateriais();
-//        }
 
         setupToolbar();
         setupDrawer();
@@ -71,20 +62,28 @@ public class MaterialActivity extends AppCompatActivity
         titulo = findViewById(R.id.titulo);
         video = findViewById(R.id.video);
         botaoVoltar = findViewById(R.id.botao_voltar);
+        botaoConcluir = findViewById(R.id.botao_concluir);
         descricao = findViewById(R.id.descricao);
-        titulo.setText(getIntent().getStringExtra("nomeMateria"));
 
+        titulo.setText(getIntent().getStringExtra("NomeMateria"));
+        descricao.setText(getIntent().getStringExtra("DescricaoMaterial"));
+
+//        awesome video
 //        String videoEmbedd = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube-nocookie.com/embed/iKuUzPrDjK8?si=CGHGa3XdosqccOOF\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>";
-        descricao.setText(descricaoM);
-        video.loadData(videoM, "text/html", "utf-8");
+        video.loadData(getIntent().getStringExtra("VideoMaterial"), "text/html", "utf-8");
         video.getSettings().setJavaScriptEnabled(true);
         video.setWebChromeClient(new WebChromeClient());
 
-        RetrofitService rfs = new RetrofitService();
-        MaterialApi materialApi = rfs.getRfs().create(MaterialApi.class);
-
-
         botaoVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), ListaMaterialActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        botaoConcluir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), HomeActivity.class);

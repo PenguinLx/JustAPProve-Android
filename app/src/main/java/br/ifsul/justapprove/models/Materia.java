@@ -1,9 +1,6 @@
 package br.ifsul.justapprove.models;
 
-import java.io.Serializable;
-import java.util.List;
-
-public class Materia implements Serializable {
+public class Materia {
 
    private Integer id;
 
@@ -11,7 +8,7 @@ public class Materia implements Serializable {
 
 
     private TipoMateria tipo;
-    //UMA MATERIA, MUITOS MATERIAIS(ONE TO MANY)
+
     private Material material;
 
     public String getNome() {

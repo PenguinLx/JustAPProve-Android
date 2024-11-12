@@ -104,11 +104,10 @@ public class SimuladosActivity extends AppCompatActivity
         botaoIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (questoesSpinner.getSelectedItem().toString().substring(0, 1).equals("4") || questoesSpinner.getSelectedItem().toString().substring(0, 1).equals("8")) {
-                    numero = Integer.parseInt(questoesSpinner.getSelectedItem().toString().substring(0, 1));
-                } else {
+                if (checkIfNumber()) {
                     numero = Integer.parseInt(questoesSpinner.getSelectedItem().toString().substring(0, 2));
+                } else {
+                    numero = Integer.parseInt(questoesSpinner.getSelectedItem().toString().substring(0, 1));
                 }
 
                 Intent i = new Intent(getApplicationContext(), JogandoActivity.class);
@@ -141,6 +140,16 @@ public class SimuladosActivity extends AppCompatActivity
         questoesSpinner.setAdapter(questaoAdapter);
     }
 
+    public boolean checkIfNumber() {
+
+        try {
+            Log.e("Numero", questoesSpinner.getSelectedItem().toString().substring(1, 2));
+            numero = Integer.parseInt(questoesSpinner.getSelectedItem().toString().substring(1, 2));
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
 
     private void setupToolbar() {
         toolbar = findViewById(R.id.toolbar);

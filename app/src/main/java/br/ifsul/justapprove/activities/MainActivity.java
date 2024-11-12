@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                             if (response.isSuccessful()) {
                                 if (response.body().getEmail().equals(usr.getEmail())) {
                                     Toast.makeText(getApplicationContext(), "Conta " + response.body().getApelido() + " Criada com sucesso!", Toast.LENGTH_SHORT).show();
-                                    Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                                    Intent i = new Intent(getApplicationContext(), HomeActivity.class);
 
                                     startActivity(i);
 

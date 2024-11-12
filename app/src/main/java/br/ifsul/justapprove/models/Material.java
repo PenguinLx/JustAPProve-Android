@@ -1,9 +1,6 @@
 package br.ifsul.justapprove.models;
 
-import java.io.File;
-import java.io.Serializable;
-
-public class Material implements Serializable {
+public class Material {
 
      private Integer id;
 

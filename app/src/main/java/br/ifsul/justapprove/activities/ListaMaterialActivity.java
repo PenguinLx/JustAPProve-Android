@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -75,9 +76,7 @@ public class ListaMaterialActivity extends AppCompatActivity
         botaoVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle extras = getIntent().getExtras();
-                Class ultimaClasse = (Class<Activity>)extras.getSerializable("ultimaActivity");
-                Intent i = new Intent(getApplicationContext(), ultimaClasse);
+                Intent i = new Intent(getApplicationContext(), MateriaActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -89,33 +88,12 @@ public class ListaMaterialActivity extends AppCompatActivity
 
     @Override
     public void onClick(int position) {
+        Materia materia = materiaAdapter.getItem(position);
 
-        //////PEGAR UM FUCKING MATERIAL SÓ/////
-//        Intent i = new Intent(getApplicationContext(), MaterialActivity.class);
-//        i.putExtra("NomeMateria", materiaAdapter.getItem(position).getNome());
-//
-//
-//        Materia elemento = materiaAdapter.getItem(position);
-//        SharedPreferences sharedPreferences = getSharedPreferences("Material", MODE_PRIVATE);
-////        List<Materia> listMateriaSP = sharedPreferences.
-//        //SharedPreferences.Editor editor = sharedPreferences.edit();
-//        int tamnhoMaterial = elemento.getMateriais().size();
-//        List<Material> listMat = elemento.getMateriais();
-//        i.putExtra("LIST", (Serializable) listMat);
-//        Toast.makeText(this, "position " + elemento.getNome(), Toast.LENGTH_SHORT).show();
-        RetrofitService rfs = new RetrofitService();
-        MateriaApi materiaApi = rfs.getRfs().create(MateriaApi.class);
-        Materia elemento = materiaAdapter.getItem(position);
         Intent i = new Intent(getApplicationContext(), MaterialActivity.class);
-        SharedPreferences sharedPreferences = getSharedPreferences("Material", MODE_PRIVATE);
-//        List<Materia> listMateriaSP = sharedPreferences.
-        //SharedPreferences.Editor editor = sharedPreferences.edit();
-        //int tamnhoMaterial = elemento.getMateriais().size();
-        //List<Material> listMat = elemento.getMateriais();
-        //i.putExtra("LIST", (Serializable) listMat);
-        i.putExtra("descricaoMaterial", elemento.getMaterial().getDescricao());
-        i.putExtra("videoMaterial", elemento.getMaterial().getVideoEmbedd());
-        i.putExtra("nomeMateria", elemento.getNome());
+        i.putExtra("DescricaoMaterial", materia.getMaterial().getDescricao());
+        i.putExtra("VideoMaterial", materia.getMaterial().getVideoEmbedd());
+        i.putExtra("NomeMateria", materia.getNome());
         startActivity(i);
         finish();
     }
@@ -215,8 +193,12 @@ public class ListaMaterialActivity extends AppCompatActivity
     public void carregarMateria() {
         RetrofitService retrofitService = new RetrofitService();
         MateriaApi materiaApi = retrofitService.getRfs().create(MateriaApi.class);
-        Intent i = getIntent();
-        materiaApi.getAllMateriaByTipo(i.getStringExtra("TipoMateria")).enqueue(new Callback<List<Materia>>() {
+
+        SharedPreferences sharedPreferences = getSharedPreferences("DadosMateria", MODE_PRIVATE);
+        String tipoMateria = sharedPreferences.getString("TipoMateria", "DESCONHECIDO");
+        Log.e("Erro", tipoMateria);
+
+        materiaApi.getAllMateriaByTipo(tipoMateria).enqueue(new Callback<List<Materia>>() {
             @Override
             public void onResponse(Call<List<Materia>> call, Response<List<Materia>> response) {
                 if (response.isSuccessful()){

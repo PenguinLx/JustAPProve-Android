@@ -70,9 +70,12 @@ public class MateriaActivity extends AppCompatActivity
                 @Override
                 public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), ListaMaterialActivity.class);
-                i.putExtra("TipoMateria", linearLayout.getTag().toString());
-                Log.e("Log tag:" , linearLayout.getTag().toString() );
-                i.putExtra("ultimaActivity", MateriaActivity.class);
+
+                SharedPreferences sharedPreferences = getSharedPreferences("DadosMateria", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("TipoMateria", linearLayout.getTag().toString());
+                editor.apply();
+
                 startActivity(i);
                 finish();
                 }
