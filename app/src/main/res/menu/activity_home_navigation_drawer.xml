@@ -7,7 +7,7 @@
 
         <item
             android:id="@+id/home"
-            android:icon="@drawable/logo_justapprove"
+            android:icon="@drawable/home"
             android:title="Início" />
 
         <item
@@ -29,6 +29,10 @@
             android:id="@+id/materia"
             android:icon="@drawable/materiais_estudo"
             android:title="Materiais de Estudo" />
+        <item
+            android:id="@+id/perfil_nav"
+            android:icon="@drawable/perfil"
+            android:title="Perfil" />
         <item
             android:id="@+id/sair"
             android:icon="@drawable/sair"

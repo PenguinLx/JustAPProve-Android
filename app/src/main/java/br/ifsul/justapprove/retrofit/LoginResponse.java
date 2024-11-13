@@ -22,6 +22,8 @@ public class LoginResponse {
     public int getPontos() {
         return pontos;
     }
+
+
 }
 
 

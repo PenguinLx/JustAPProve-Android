@@ -164,7 +164,13 @@ public class MateriaActivity extends AppCompatActivity
             Intent i = new Intent(getApplicationContext(), MateriaActivity.class);
             startActivity(i);
             finish();
-        } else if (menuItem.getItemId() == R.id.sair) {
+        }
+        else if(menuItem.getItemId() == R.id.perfil_nav){
+            Intent i = new Intent(getApplicationContext(), PerfilActivity.class);
+            startActivity(i);
+            finish();
+        }
+        else if (menuItem.getItemId() == R.id.sair) {
             Intent i = new Intent(getApplicationContext(), LoginActivity.class);
             SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();

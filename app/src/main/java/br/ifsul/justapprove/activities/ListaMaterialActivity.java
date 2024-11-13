@@ -185,7 +185,13 @@ public class ListaMaterialActivity extends AppCompatActivity
             editor.apply();
             startActivity(i);
             finish();
-        } else {
+        }
+        else if(menuItem.getItemId() == R.id.perfil_nav){
+            Intent i = new Intent(getApplicationContext(), PerfilActivity.class);
+            startActivity(i);
+            finish();
+        }
+        else {
             throw new IllegalArgumentException("menu option not implemented!!");
         }
     }

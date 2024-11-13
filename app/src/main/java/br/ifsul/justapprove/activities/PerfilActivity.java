@@ -6,101 +6,80 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.navigation.ui.AppBarConfiguration;
 
 import com.google.android.material.navigation.NavigationView;
 
-
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import br.ifsul.justapprove.R;
-import br.ifsul.justapprove.models.Materia;
-import br.ifsul.justapprove.models.Material;
-import br.ifsul.justapprove.retrofit.MaterialApi;
+import br.ifsul.justapprove.models.ProvaAnterior;
+import br.ifsul.justapprove.retrofit.ProvaAnteriorApi;
 import br.ifsul.justapprove.retrofit.RetrofitService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MaterialActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
-        DrawerLayout.DrawerListener {
-
+public class PerfilActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        DrawerLayout.DrawerListener{
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
-    private AppBarConfiguration appBarConfiguration;
-    private TextView usuarioPontos, titulo, descricao;
-    private WebView video;
-    private Button botaoVoltar, botaoConcluir;
-
+    private Spinner tempoSpinner, questoesSpinner;
+    private TextView apelido, email;
+    private ImageView fotoPerfil;
+    private TextView usuarioPontos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_material);
+        setContentView(R.layout.activity_perfil);
+
+        apelido = findViewById(R.id.apelido_perfil);
+        email = findViewById(R.id.email_perfil);
+        usuarioPontos = findViewById(R.id.perfil_pontos);
+        fotoPerfil = findViewById(R.id.foto_perfil);
 
         SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
 
+        setTitle("");
         setupToolbar();
         setupDrawer();
-        setTitle("");
-
-        usuarioPontos = findViewById(R.id.textview_pontos);
-        titulo = findViewById(R.id.titulo);
-        video = findViewById(R.id.video);
-        botaoVoltar = findViewById(R.id.botao_voltar);
-        botaoConcluir = findViewById(R.id.botao_concluir);
-        descricao = findViewById(R.id.descricao);
-
-        titulo.setText(getIntent().getStringExtra("NomeMateria"));
-        descricao.setText(getIntent().getStringExtra("DescricaoMaterial"));
-
-//        awesome video
-//        String videoEmbedd = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube-nocookie.com/embed/iKuUzPrDjK8?si=CGHGa3XdosqccOOF\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>";
-        video.loadData(getIntent().getStringExtra("VideoMaterial"), "text/html", "utf-8");
-        video.getSettings().setJavaScriptEnabled(true);
-        video.setWebChromeClient(new WebChromeClient());
-
-        botaoVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), ListaMaterialActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
-
-        botaoConcluir.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), HomeActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
-
         usuarioPontos.setText(sharedPreferences.getInt("usuarioPontos", 0) + " pontos");
-        changeNavHeaderText(sharedPreferences.getString("usuarioApelido", "Estudante"));
-    }
+        //usuarioPontos.setText(sharedPreferences.getInt("usuarioPontos",0));
+        apelido.setText(sharedPreferences.getString("usuarioApelido","ERROR"));
+        //fotoPerfil.setImageResource(R.drawable.perfil);
+        email.setText(sharedPreferences.getString("usuarioEmail","ERROR"));
 
+    }
     private void changeNavHeaderText(String texto) {
         View headerView = navigationView.getHeaderView(0);
         TextView headerTextView = headerView.findViewById(R.id.perfil_text);
         headerTextView.setText(texto);
     }
+
 
     private void setupToolbar() {
         toolbar = findViewById(R.id.toolbar);
@@ -127,7 +106,7 @@ public class MaterialActivity extends AppCompatActivity
     }
 
     private void setDefaultMenuItem() {
-        MenuItem menuItem = navigationView.getMenu().getItem(4);
+        MenuItem menuItem = navigationView.getMenu().getItem(1);
         onNavigationItemSelected(menuItem);
         menuItem.setChecked(true);
     }
@@ -142,7 +121,7 @@ public class MaterialActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
         getTitle(menuItem);
         if (menuItem.getItemId() == R.id.opcoes) {
             drawerLayout.closeDrawer(GravityCompat.START);
@@ -152,8 +131,8 @@ public class MaterialActivity extends AppCompatActivity
         return true;
     }
 
-    private void getTitle(@NonNull MenuItem menuItem) {
-        if (menuItem == navigationView.getMenu().getItem(4)) {
+    private void getTitle(MenuItem menuItem) {
+        if (menuItem == navigationView.getMenu().getItem(1)) {
 
         } else if (menuItem.getItemId() == R.id.home) {
             Intent i = new Intent(getApplicationContext(), HomeActivity.class);
@@ -168,20 +147,14 @@ public class MaterialActivity extends AppCompatActivity
             startActivity(i);
         } else if (menuItem.getItemId() == R.id.ranking) {
             Intent i = new Intent(getApplicationContext(), RankingActivity.class);
-            i.putExtra("ultimaActivity", MateriaActivity.class);
+            i.putExtra("ultimaActivity", SimuladosActivity.class);
             startActivity(i);
             finish();
         } else if (menuItem.getItemId() == R.id.materia) {
             Intent i = new Intent(getApplicationContext(), MateriaActivity.class);
             startActivity(i);
             finish();
-        }
-        else if(menuItem.getItemId() == R.id.perfil_nav){
-            Intent i = new Intent(getApplicationContext(), PerfilActivity.class);
-            startActivity(i);
-            finish();
-        }
-        else if (menuItem.getItemId() == R.id.sair) {
+        } else if (menuItem.getItemId() == R.id.sair) {
             Intent i = new Intent(getApplicationContext(), LoginActivity.class);
             SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -190,7 +163,11 @@ public class MaterialActivity extends AppCompatActivity
             startActivity(i);
             finish();
         }
-
+        else if(menuItem.getItemId() == R.id.perfil_nav){
+            Intent i = new Intent(getApplicationContext(), PerfilActivity.class);
+            startActivity(i);
+            finish();
+        }
         else {
             throw new IllegalArgumentException("menu option not implemented!!");
         }
