@@ -6,6 +6,7 @@ public class LoginResponse {
     private Integer id;
     private String apelido;
     private int pontos;
+    private String image;
 
     public boolean getResposta() {
         return resposta;
@@ -23,6 +24,9 @@ public class LoginResponse {
         return pontos;
     }
 
+    public String getImage() {
+        return image;
+    }
 
 }
 

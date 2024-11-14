@@ -8,6 +8,7 @@ public class Usuario {
     private String senha;
     private int pontos;
     private String apelido;
+    private String image;
 
     public String getEmail() {
         return email;
@@ -34,4 +35,15 @@ public class Usuario {
         this.apelido = userName;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 }

@@ -11,7 +11,7 @@
     tools:openDrawer="start">
 
     <LinearLayout
-        android:id="@+id/perfil_content"
+        android:id="@+id/home_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -24,7 +24,7 @@
             android:background="@color/azul">
 
             <TextView
-                android:id="@+id/perfil_pontos"
+                android:id="@+id/textview_pontos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0 Pontos"
@@ -36,45 +36,66 @@
             </TextView>
         </com.google.android.material.appbar.MaterialToolbar>
 
-<!--        <LinearLayout-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="vertical">-->
+    </LinearLayout>
 
-<!--        </LinearLayout>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:orientation="vertical">
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/corpo_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/foto_perfil"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </ImageView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/linha_baixo"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/borda"
+                android:padding="10dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/perfil_foto"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    android:clipToOutline="true"
+                    android:background="@drawable/redondar_imagem">
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/perfil_apelido"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp">
+                </TextView>
+            </LinearLayout>
+        </LinearLayout>
+
 
         <TextView
-            android:id="@+id/apelido_perfil"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:textSize="20sp"
-            >
+            android:id="@+id/perfil_pontos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
         </TextView>
-
-            <TextView
-                android:id="@+id/email_perfil"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </TextView>
-
-
+    </LinearLayout>
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView

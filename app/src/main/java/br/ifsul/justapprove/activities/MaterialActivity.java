@@ -2,6 +2,8 @@ package br.ifsul.justapprove.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -92,14 +95,37 @@ public class MaterialActivity extends AppCompatActivity
             }
         });
 
-        usuarioPontos.setText(sharedPreferences.getInt("usuarioPontos", 0) + " pontos");
-        changeNavHeaderText(sharedPreferences.getString("usuarioApelido", "Estudante"));
+        usuarioPontos.setText(sharedPreferences.getInt("UsuarioPontos", 0) + " pontos");
+        setupNavHeader(sharedPreferences.getString("UsuarioApelido", "Estudante"), sharedPreferences.getString("UsuarioImage","Perfil"));
     }
 
-    private void changeNavHeaderText(String texto) {
+    private void setupNavHeader(String texto, String imagem) {
+
         View headerView = navigationView.getHeaderView(0);
+
         TextView headerTextView = headerView.findViewById(R.id.perfil_text);
+        ImageView headerImageView = headerView.findViewById(R.id.imageView_foto);
+
+        headerImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), PerfilActivity.class);
+                SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
+                i.putExtra("UsuarioId", sharedPreferences.getInt("UsuarioId",6));
+                startActivity(i);
+                finish();
+            }
+        });
+
         headerTextView.setText(texto);
+        if(imagem.equals("Perfil")) {
+            headerImageView.setImageResource(R.drawable.perfil);
+        }
+        else {
+            byte[] imagemB = java.util.Base64.getDecoder().decode(imagem);
+            Bitmap bMap = BitmapFactory.decodeByteArray(imagemB, 0, imagemB.length);
+            headerImageView.setImageBitmap(bMap);
+        }
     }
 
     private void setupToolbar() {
@@ -173,11 +199,6 @@ public class MaterialActivity extends AppCompatActivity
             finish();
         } else if (menuItem.getItemId() == R.id.materia) {
             Intent i = new Intent(getApplicationContext(), MateriaActivity.class);
-            startActivity(i);
-            finish();
-        }
-        else if(menuItem.getItemId() == R.id.perfil_nav){
-            Intent i = new Intent(getApplicationContext(), PerfilActivity.class);
             startActivity(i);
             finish();
         }

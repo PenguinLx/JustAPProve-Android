@@ -67,11 +67,16 @@ public class LoginActivity extends AppCompatActivity {
                                 LoginResponse loginResponse = response.body();
                                 if (loginResponse.getResposta()) {
                                     Intent i = new Intent(getApplicationContext(), HomeActivity.class);
-                                    editor.putInt("usuarioId", loginResponse.getId());
-                                    editor.putString("usuarioApelido", loginResponse.getApelido());
-                                    editor.putInt("usuarioPontos", loginResponse.getPontos());
-                                    //NOTE:devemos colocar email no loginresponse ou puxar o loginrequest direto, acho melhor a segunda opção
-                                    editor.putString("usuarioEmail", loginRequest.getEmail());
+                                    editor.putInt("UsuarioId", loginResponse.getId());
+                                    editor.putString("UsuarioApelido", loginResponse.getApelido());
+                                    editor.putInt("UsuarioPontos", loginResponse.getPontos());
+                                    if(loginResponse.getImage() == null){
+                                        editor.putString("UsuarioImage","Perfil");
+                                    }
+                                    else{
+                                        editor.putString("UsuarioImage", loginResponse.getImage());
+                                    }
+
                                     editor.putBoolean("isLogged",true);
                                     editor.apply();
                                     Toast.makeText(getApplicationContext(), "Bem vindo " + loginResponse.getApelido(), Toast.LENGTH_SHORT).show();

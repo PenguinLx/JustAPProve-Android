@@ -3,10 +3,13 @@ package br.ifsul.justapprove.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,8 +39,9 @@ import retrofit2.Response;
 
 public class RankingActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        DrawerLayout.DrawerListener {
+        DrawerLayout.DrawerListener, OnClickListener {
 
+    private RankingAdapter rankingAdapter;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
@@ -71,21 +75,52 @@ public class RankingActivity extends AppCompatActivity
                 finish();
             }
         });
-        usuarioPontos.setText(sharedPreferences.getInt("usuarioPontos", 0) + " pontos");
-        changeNavHeaderText(sharedPreferences.getString("usuarioApelido", "Estudante"));
+        usuarioPontos.setText(sharedPreferences.getInt("UsuarioPontos", 0) + " pontos");
+        setupNavHeader(sharedPreferences.getString("UsuarioApelido", "Estudante"), sharedPreferences.getString("UsuarioImage","Perfil"));
+    }
+    @Override
+    public void onClick(int position) {
+        Intent i = new Intent(getApplicationContext(), PerfilActivity.class);
+        Usuario usuario = rankingAdapter.getItem(position);
+        i.putExtra("RankingUsuarioImagem", usuario.getImage());
+        i.putExtra("UsuarioId", usuario.getId());
+        startActivity(i);
+        finish();
+
     }
 
-    private void changeNavHeaderText(String texto) {
+    private void setupNavHeader(String texto, String imagem) {
+
         View headerView = navigationView.getHeaderView(0);
+
         TextView headerTextView = headerView.findViewById(R.id.perfil_text);
+        ImageView headerImageView = headerView.findViewById(R.id.imageView_foto);
+
+        headerImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), PerfilActivity.class);
+                SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
+                i.putExtra("UsuarioId", sharedPreferences.getInt("UsuarioId",0));
+                startActivity(i);
+                finish();
+            }
+        });
+
         headerTextView.setText(texto);
+        if(imagem.equals("Perfil")) {
+            headerImageView.setImageResource(R.drawable.perfil);
+        }
+        else {
+            byte[] imagemB = java.util.Base64.getDecoder().decode(imagem);
+            Bitmap bMap = BitmapFactory.decodeByteArray(imagemB, 0, imagemB.length);
+            headerImageView.setImageBitmap(bMap);
+        }
     }
 
     private void setupLista() {
         lista = findViewById(R.id.lista_ranking);
         lista.setLayoutManager(new LinearLayoutManager(this));
-//        ArrayList<RankingAdicionar> pesquisarRanking = GetResultadosRankingAdicionar();
-//        lista.setAdapter(new RankingAdapter(this, pesquisarRanking));
     }
 
     private void setupToolbar() {
@@ -157,11 +192,6 @@ public class RankingActivity extends AppCompatActivity
             startActivity(i);
             finish();
         }
-        else if(menuItem.getItemId() == R.id.perfil_nav){
-            Intent i = new Intent(getApplicationContext(), PerfilActivity.class);
-            startActivity(i);
-            finish();
-        }
         else if (menuItem.getItemId() == R.id.sair) {
             Intent i = new Intent(getApplicationContext(), LoginActivity.class);
             SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
@@ -175,35 +205,6 @@ public class RankingActivity extends AppCompatActivity
         }
     }
 
-//    private ArrayList<RankingAdicionar> GetResultadosRankingAdicionar(){
-//        ArrayList<RankingAdicionar> results = new ArrayList<RankingAdicionar>();
-//
-//        RankingAdicionar sr1 = new RankingAdicionar();
-//        sr1.setApelido("John Smith");
-//        sr1.setPontuacao("10000");
-//        RankingAdicionar sr2 = new RankingAdicionar();
-//        sr2.setApelido("John Smith");
-//        sr2.setPontuacao("999999999999");
-//        results.add(sr1);
-//        results.add(sr2);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr1);
-//        results.add(sr2);
-//
-//        return results;
-//    }
 
     public void carregarRanking() {
         RetrofitService retrofitService = new RetrofitService();
@@ -228,7 +229,7 @@ public class RankingActivity extends AppCompatActivity
     }
 
     public void carregarLista(List<Usuario> listaUsuarios) {
-        RankingAdapter rankingAdapter = new RankingAdapter(listaUsuarios);
+        rankingAdapter = new RankingAdapter(listaUsuarios, this);
         lista.setAdapter(rankingAdapter);
     }
 
@@ -257,4 +258,6 @@ public class RankingActivity extends AppCompatActivity
     public void onDrawerStateChanged(int i) {
         //cambio de estado, puede ser STATE_IDLE, STATE_DRAGGING or STATE_SETTLING
     }
+
+
 }

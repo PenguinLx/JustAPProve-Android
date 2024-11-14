@@ -52,7 +52,7 @@ public class RetrofitService {
 
     }
     private void initializeRetrofit() {
-        rfs = new Retrofit.Builder().baseUrl("http://192.168.1.16:8080").addConverterFactory(GsonConverterFactory.create(new Gson())).build(); /*pode ser a porta 9000 */
+        rfs = new Retrofit.Builder().baseUrl("http://192.168.12.11:8080").addConverterFactory(GsonConverterFactory.create(new Gson())).build(); /*pode ser a porta 9000 */
     }
 
     public Retrofit getRfs() {

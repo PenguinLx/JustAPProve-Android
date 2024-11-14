@@ -2,6 +2,8 @@ package br.ifsul.justapprove.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -37,8 +39,10 @@ import java.util.logging.Logger;
 
 import br.ifsul.justapprove.R;
 import br.ifsul.justapprove.models.ProvaAnterior;
+import br.ifsul.justapprove.models.Usuario;
 import br.ifsul.justapprove.retrofit.ProvaAnteriorApi;
 import br.ifsul.justapprove.retrofit.RetrofitService;
+import br.ifsul.justapprove.retrofit.UsuarioApi;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,36 +52,90 @@ public class PerfilActivity extends AppCompatActivity implements NavigationView.
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
-    private Spinner tempoSpinner, questoesSpinner;
-    private TextView apelido, email;
+    private TextView apelido;
     private ImageView fotoPerfil;
-    private TextView usuarioPontos;
+    private TextView usuarioPontos, perfilPontos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
-        apelido = findViewById(R.id.apelido_perfil);
-        email = findViewById(R.id.email_perfil);
-        usuarioPontos = findViewById(R.id.perfil_pontos);
-        fotoPerfil = findViewById(R.id.foto_perfil);
+        apelido = findViewById(R.id.perfil_apelido);
+        usuarioPontos = findViewById(R.id.textview_pontos);
+        fotoPerfil = findViewById(R.id.perfil_foto);
+        perfilPontos = findViewById(R.id.perfil_pontos);
 
         SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
 
         setTitle("");
         setupToolbar();
         setupDrawer();
-        usuarioPontos.setText(sharedPreferences.getInt("usuarioPontos", 0) + " pontos");
-        //usuarioPontos.setText(sharedPreferences.getInt("usuarioPontos",0));
-        apelido.setText(sharedPreferences.getString("usuarioApelido","ERROR"));
-        //fotoPerfil.setImageResource(R.drawable.perfil);
-        email.setText(sharedPreferences.getString("usuarioEmail","ERROR"));
+        setupNavHeader(sharedPreferences.getString("UsuarioApelido", "Estudante"), sharedPreferences.getString("UsuarioImage","Perfil"));
+
+        usuarioPontos.setText(sharedPreferences.getInt("UsuarioPontos", 0) + " pontos");
+
+
+        RetrofitService retrofitService = new RetrofitService();
+        UsuarioApi usuarioApi = retrofitService.getRfs().create(UsuarioApi.class);
+
+        usuarioApi.readUsuarioById(getIntent().getIntExtra("UsuarioId", 0)).enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                if(response.isSuccessful()) {
+                    if(response.body().getImage() == null){
+                        fotoPerfil.setImageResource(R.drawable.perfil);
+                    }
+                    else {
+                        byte[] imagem = java.util.Base64.getDecoder().decode(response.body().getImage());
+                        Bitmap bMap = BitmapFactory.decodeByteArray(imagem, 0, imagem.length);
+                        fotoPerfil.setImageBitmap(bMap);
+                    }
+
+
+                    apelido.setText(response.body().getApelido());
+                    perfilPontos.setText(response.body().getPontos() + " Pontos");
+                }
+                else {
+                    Toast.makeText(PerfilActivity.this, "Triste", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable throwable) {
+                Toast.makeText(PerfilActivity.this, "Ocorreu um erro com o carregamento!!!", Toast.LENGTH_SHORT).show();
+                Logger.getLogger(PerfilActivity.class.getName()).log(Level.SEVERE,"Erro!",throwable);
+            }
+        });
 
     }
-    private void changeNavHeaderText(String texto) {
+    private void setupNavHeader(String texto, String imagem) {
+
         View headerView = navigationView.getHeaderView(0);
+
         TextView headerTextView = headerView.findViewById(R.id.perfil_text);
+        ImageView headerImageView = headerView.findViewById(R.id.imageView_foto);
+
+        headerImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), PerfilActivity.class);
+                SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
+                i.putExtra("UsuarioId", sharedPreferences.getInt("UsuarioId",0));
+                startActivity(i);
+                finish();
+            }
+        });
+
         headerTextView.setText(texto);
+        if(imagem.equals("Perfil")) {
+            headerImageView.setImageResource(R.drawable.perfil);
+        }
+        else {
+            byte[] imagemB = java.util.Base64.getDecoder().decode(imagem);
+            Bitmap bMap = BitmapFactory.decodeByteArray(imagemB, 0, imagemB.length);
+            headerImageView.setImageBitmap(bMap);
+        }
     }
 
 
@@ -102,14 +160,14 @@ public class PerfilActivity extends AppCompatActivity implements NavigationView.
     private void setupNavigationView() {
         navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
-        setDefaultMenuItem();
+//        setDefaultMenuItem();
     }
 
-    private void setDefaultMenuItem() {
-        MenuItem menuItem = navigationView.getMenu().getItem(1);
-        onNavigationItemSelected(menuItem);
-        menuItem.setChecked(true);
-    }
+//    private void setDefaultMenuItem() {
+//        MenuItem menuItem = navigationView.getMenu().getItem(1);
+//        onNavigationItemSelected(menuItem);
+//        menuItem.setChecked(true);
+//    }
 
     @Override
     public void onBackPressed() {
@@ -132,9 +190,7 @@ public class PerfilActivity extends AppCompatActivity implements NavigationView.
     }
 
     private void getTitle(MenuItem menuItem) {
-        if (menuItem == navigationView.getMenu().getItem(1)) {
-
-        } else if (menuItem.getItemId() == R.id.home) {
+         if (menuItem.getItemId() == R.id.home) {
             Intent i = new Intent(getApplicationContext(), HomeActivity.class);
             startActivity(i);
             finish();
@@ -147,7 +203,7 @@ public class PerfilActivity extends AppCompatActivity implements NavigationView.
             startActivity(i);
         } else if (menuItem.getItemId() == R.id.ranking) {
             Intent i = new Intent(getApplicationContext(), RankingActivity.class);
-            i.putExtra("ultimaActivity", SimuladosActivity.class);
+            i.putExtra("ultimaActivity", HomeActivity.class);
             startActivity(i);
             finish();
         } else if (menuItem.getItemId() == R.id.materia) {
@@ -160,11 +216,6 @@ public class PerfilActivity extends AppCompatActivity implements NavigationView.
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean("isLogged", false);
             editor.apply();
-            startActivity(i);
-            finish();
-        }
-        else if(menuItem.getItemId() == R.id.perfil_nav){
-            Intent i = new Intent(getApplicationContext(), PerfilActivity.class);
             startActivity(i);
             finish();
         }

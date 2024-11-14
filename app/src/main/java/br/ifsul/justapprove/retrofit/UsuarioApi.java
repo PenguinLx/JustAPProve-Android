@@ -22,7 +22,7 @@ public interface UsuarioApi {
     Call<List<Usuario>> getAllUsuarioByPontos();
 
     @GET("/usuario/readUserById/{id}")
-    Call<Usuario> readUsuario(@Path("id") Integer id);
+    Call<Usuario> readUsuarioById(@Path("id") Integer id);
 
     @POST("/usuario/saveUser")
     Call<Usuario> saveUsuario(@Body Usuario usuario);
