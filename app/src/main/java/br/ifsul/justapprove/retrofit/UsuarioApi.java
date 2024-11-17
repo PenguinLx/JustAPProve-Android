@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.ifsul.justapprove.models.ProvaAnterior;
 import br.ifsul.justapprove.models.Usuario;
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -11,6 +12,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface UsuarioApi {
 
@@ -28,7 +30,7 @@ public interface UsuarioApi {
     Call<Usuario> saveUsuario(@Body Usuario usuario);
 
     @PUT("/usuario/updateUsuario/{id}")
-    Call<Usuario> updateUsuario(@Path("id") Integer id, @Body Usuario usr);
+    Call<Usuario> updateUsuario(@Path("id") Integer id, @Query("usuario") Usuario usr, @Query("fotoPerfil") MultipartBody.Part imagem);
 
     @PUT("/usuario/updatePonto/{id}")
     Call<Usuario> updateUsuarioPontos(@Path("id") Integer id, @Body Usuario usr);
