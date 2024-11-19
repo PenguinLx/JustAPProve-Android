@@ -30,7 +30,7 @@ public interface UsuarioApi {
     Call<Usuario> saveUsuario(@Body Usuario usuario);
 
     @PUT("/usuario/updateUsuario/{id}")
-    Call<Usuario> updateUsuario(@Path("id") Integer id, @Query("usuario") Usuario usr, @Query("fotoPerfil") MultipartBody.Part imagem);
+    Call<Usuario> updateUsuario(@Path("id") Integer id, @Body Usuario usr);
 
     @PUT("/usuario/updatePonto/{id}")
     Call<Usuario> updateUsuarioPontos(@Path("id") Integer id, @Body Usuario usr);

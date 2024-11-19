@@ -85,7 +85,7 @@ public class HomeActivity extends AppCompatActivity
         setupToolbar();
         setupDrawer();
         setTitle("");
-        usuarioPontos.setText(sharedPreferences.getInt("usuarioPontos", 0) + " pontos");
+        usuarioPontos.setText(sharedPreferences.getInt("UsuarioPontos", 0) + " pontos");
         setupNavHeader(sharedPreferences.getString("UsuarioApelido", "Estudante"), sharedPreferences.getString("UsuarioImage","Perfil"));
     }
 
