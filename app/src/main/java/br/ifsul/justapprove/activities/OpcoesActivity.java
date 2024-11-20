@@ -113,7 +113,11 @@ public class OpcoesActivity extends AppCompatActivity {
                             if (response.isSuccessful()) {
                                 if (response.body().getApelido().equals("Apelido já em uso")) {
                                     Toast.makeText(OpcoesActivity.this, response.body().getApelido(), Toast.LENGTH_SHORT).show();
-                                } else {
+                                } else if(response.body().getSenha().equals("Senha já em uso")){
+                                    Toast.makeText(OpcoesActivity.this, response.body().getSenha(), Toast.LENGTH_SHORT).show();
+                                }
+
+                                else {
                                     Toast.makeText(OpcoesActivity.this, "Dados atualizados com sucesso!", Toast.LENGTH_SHORT).show();
                                     editor.putString("UsuarioApelido", response.body().getApelido());
                                     editor.putString("UsuarioImage", response.body().getImage());
