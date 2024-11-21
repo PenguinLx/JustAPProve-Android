@@ -68,9 +68,10 @@
     <string-array name="numero_de_questoes">
         <item>4 Questões</item>
         <item>8 Questões</item>
-        <item>12 Questões</item>
         <item>16 Questões</item>
         <item>20 Questões</item>
+        <item>32 Questões</item>
+        <item>40 Questões</item>
     </string-array>
 
 </resources>

@@ -44,7 +44,7 @@ public class ConclusaoActivity extends AppCompatActivity {
         RetrofitService retrofitService = new RetrofitService();
         UsuarioApi usuarioApi = retrofitService.getRfs().create(UsuarioApi.class);
 
-        Integer usuarioId = sharedPreferences.getInt("usuarioId", 0);
+        Integer usuarioId = sharedPreferences.getInt("UsuarioId", 0);
         Usuario usuario = new Usuario();
 
         botaoVoltar.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +56,7 @@ public class ConclusaoActivity extends AppCompatActivity {
                     public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                         if (response.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), "Pontos adicionados com sucesso", Toast.LENGTH_SHORT).show();
-                            editor.putInt("usuarioPontos", response.body().getPontos());
+                            editor.putInt("UsuarioPontos", response.body().getPontos());
                             editor.apply();
                             Intent i = new Intent(getApplicationContext(), HomeActivity.class);
                             startActivity(i);

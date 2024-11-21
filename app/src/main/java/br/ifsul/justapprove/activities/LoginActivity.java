@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Intent i = new Intent(getApplicationContext(), HomeActivity.class);
                                     editor.putInt("UsuarioId", loginResponse.getId());
                                     editor.putString("UsuarioApelido", loginResponse.getApelido());
+                                    editor.putString("UsuarioSenha",senha);
                                     editor.putInt("UsuarioPontos", loginResponse.getPontos());
                                     if(loginResponse.getImage() == null){
                                         editor.putString("UsuarioImage","Perfil");

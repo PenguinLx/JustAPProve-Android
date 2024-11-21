@@ -23,6 +23,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -45,7 +46,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class OpcoesActivity extends AppCompatActivity {
-    private Button cancelar, enviar, imagem;
+    private Button cancelar, enviar, imagem, excluir;
     private EditText editTextSenha, editTextApelido;
     private static final int PICK_IMAGE_REQUEST = 100;
     private static final int REQUEST_PERMISSION_CODE = 200;
@@ -65,6 +66,7 @@ public class OpcoesActivity extends AppCompatActivity {
 
         cancelar = findViewById(R.id.botao_cancelar);
         enviar = findViewById(R.id.botao_enviar);
+        excluir = findViewById(R.id.botao_excluir);
         imagem = findViewById(R.id.botao_imagem);
         imageView = findViewById(R.id.imageView_foto);
         editTextSenha = findViewById(R.id.editText_senha);
@@ -149,13 +151,28 @@ public class OpcoesActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        excluir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), ExcluirContaActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
     }
 
     public void setDefaultImage() {
         SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
-        byte[] imagemB = java.util.Base64.getDecoder().decode(sharedPreferences.getString("UsuarioImage","Perfil"));
-        Bitmap bMap = BitmapFactory.decodeByteArray(imagemB, 0, imagemB.length);
-        imageView.setImageBitmap(bMap);
+        String image = sharedPreferences.getString("UsuarioImage","Perfil");
+        if(image.equals("Perfil")){
+            imageView.setImageResource(R.drawable.perfil);
+        }
+        else {
+            byte[] imagemB = java.util.Base64.getDecoder().decode(image);
+            Bitmap bMap = BitmapFactory.decodeByteArray(imagemB, 0, imagemB.length);
+            imageView.setImageBitmap(bMap);
+        }
     }
 
     @Override

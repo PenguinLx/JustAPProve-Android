@@ -73,6 +73,8 @@ public class MaterialActivity extends AppCompatActivity
 
 //        awesome video
 //        String videoEmbedd = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube-nocookie.com/embed/iKuUzPrDjK8?si=CGHGa3XdosqccOOF\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>";
+
+        
         video.loadData(getIntent().getStringExtra("VideoMaterial"), "text/html", "utf-8");
         video.getSettings().setJavaScriptEnabled(true);
         video.setWebChromeClient(new WebChromeClient());

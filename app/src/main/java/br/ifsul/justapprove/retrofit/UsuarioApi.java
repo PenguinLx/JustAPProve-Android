@@ -35,7 +35,7 @@ public interface UsuarioApi {
     @PUT("/usuario/updatePonto/{id}")
     Call<Usuario> updateUsuarioPontos(@Path("id") Integer id, @Body Usuario usr);
 
-    @DELETE("/usuario/delete{id}")
+    @DELETE("/usuario/delete/{id}")
     Call<Usuario> deleteUsuario(@Path("id") Integer id);
 
     @POST("/usuario/login")
