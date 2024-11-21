@@ -79,35 +79,49 @@ public class PerfilActivity extends AppCompatActivity implements NavigationView.
         RetrofitService retrofitService = new RetrofitService();
         UsuarioApi usuarioApi = retrofitService.getRfs().create(UsuarioApi.class);
 
-        usuarioApi.readUsuarioById(getIntent().getIntExtra("UsuarioId", 0)).enqueue(new Callback<Usuario>() {
-            @Override
-            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
-                if(response.isSuccessful()) {
-                    if(response.body().getImage() == null){
-                        fotoPerfil.setImageResource(R.drawable.perfil);
-                    }
-                    else {
-                        byte[] imagem = java.util.Base64.getDecoder().decode(response.body().getImage());
-                        Bitmap bMap = BitmapFactory.decodeByteArray(imagem, 0, imagem.length);
-                        fotoPerfil.setImageBitmap(bMap);
-                    }
+        Integer usuarioId = getIntent().getIntExtra("UsuarioId", 0);
 
-
-                    apelido.setText(response.body().getApelido());
-                    perfilPontos.setText(response.body().getPontos() + " Pontos");
-                }
-                else {
-                    Toast.makeText(PerfilActivity.this, "Triste", Toast.LENGTH_SHORT).show();
-                }
+        if (usuarioId == 0) {
+            String imagem = sharedPreferences.getString("UsuarioImage","Perfil");
+            if(imagem.equals("Perfil")) {
+                fotoPerfil.setImageResource(R.drawable.perfil);
             }
-
-            @Override
-            public void onFailure(Call<Usuario> call, Throwable throwable) {
-                Toast.makeText(PerfilActivity.this, "Ocorreu um erro com o carregamento!!!", Toast.LENGTH_SHORT).show();
-                Logger.getLogger(PerfilActivity.class.getName()).log(Level.SEVERE,"Erro!",throwable);
+            else {
+                byte[] imagemB = java.util.Base64.getDecoder().decode(imagem);
+                Bitmap bMap = BitmapFactory.decodeByteArray(imagemB, 0, imagemB.length);
+                fotoPerfil.setImageBitmap(bMap);
             }
-        });
+            apelido.setText(sharedPreferences.getString("UsuarioApelido", "Estudante"));
+            perfilPontos.setText(sharedPreferences.getInt("UsuarioPontos", 0) + " Pontos");
+        }
+        else {
+            usuarioApi.readUsuarioById(usuarioId).enqueue(new Callback<Usuario>() {
+                @Override
+                public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getImage() == null) {
+                            fotoPerfil.setImageResource(R.drawable.perfil);
+                        } else {
+                            byte[] imagem = java.util.Base64.getDecoder().decode(response.body().getImage());
+                            Bitmap bMap = BitmapFactory.decodeByteArray(imagem, 0, imagem.length);
+                            fotoPerfil.setImageBitmap(bMap);
+                        }
 
+
+                        apelido.setText(response.body().getApelido());
+                        perfilPontos.setText(response.body().getPontos() + " Pontos");
+                    } else {
+                        Toast.makeText(PerfilActivity.this, "Triste", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Usuario> call, Throwable throwable) {
+                    Toast.makeText(PerfilActivity.this, "Ocorreu um erro com o carregamento!!!", Toast.LENGTH_SHORT).show();
+                    Logger.getLogger(PerfilActivity.class.getName()).log(Level.SEVERE, "Erro!", throwable);
+                }
+            });
+        }
     }
     private void setupNavHeader(String texto, String imagem) {
 
@@ -120,8 +134,6 @@ public class PerfilActivity extends AppCompatActivity implements NavigationView.
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), PerfilActivity.class);
-                SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
-                i.putExtra("UsuarioId", sharedPreferences.getInt("UsuarioId",0));
                 startActivity(i);
                 finish();
             }

@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Exluir Conta"
+            android:text="Excluir Conta"
             android:textSize="48sp"
             android:textStyle="bold">
         </TextView>
@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Digite sua senha:"
+            android:text="Digite sua senha"
             android:textColor="@color/preto"
             android:textSize="36sp"
             android:layout_marginTop="20dp">
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:text="Excluir"
                 android:textColor="@color/branco"
-                android:backgroundTint="@color/laranja">
+                android:backgroundTint="@color/vermelho">
             </Button>
             <Button
                 android:id="@+id/botao_cancelar"

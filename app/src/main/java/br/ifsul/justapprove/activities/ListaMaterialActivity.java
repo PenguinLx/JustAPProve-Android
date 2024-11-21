@@ -112,8 +112,6 @@ public class ListaMaterialActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), PerfilActivity.class);
-                SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
-                i.putExtra("UsuarioId", sharedPreferences.getInt("UsuarioId",0));
                 startActivity(i);
                 finish();
             }
@@ -223,14 +221,12 @@ public class ListaMaterialActivity extends AppCompatActivity
 
         SharedPreferences sharedPreferences = getSharedPreferences("DadosMateria", MODE_PRIVATE);
         String tipoMateria = sharedPreferences.getString("TipoMateria", "DESCONHECIDO");
-        Log.e("Erro", tipoMateria);
 
         materiaApi.getAllMateriaByTipo(tipoMateria).enqueue(new Callback<List<Materia>>() {
             @Override
             public void onResponse(Call<List<Materia>> call, Response<List<Materia>> response) {
                 if (response.isSuccessful()){
                     carregarLista(response.body());
-                    Toast.makeText(ListaMaterialActivity.this, "Sucesso!", Toast.LENGTH_SHORT).show();
                 }
 
             }

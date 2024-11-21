@@ -137,8 +137,6 @@ public class SimuladosActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), PerfilActivity.class);
-                SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
-                i.putExtra("UsuarioId", sharedPreferences.getInt("UsuarioId",0));
                 startActivity(i);
                 finish();
             }
