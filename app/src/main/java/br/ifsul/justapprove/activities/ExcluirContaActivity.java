@@ -34,10 +34,13 @@ public class ExcluirContaActivity extends AppCompatActivity {
         cancelar = findViewById(R.id.botao_cancelar);
         excluir = findViewById(R.id.botao_excluir);
         senha = findViewById(R.id.editText_senha);
+
         SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
+
         RetrofitService retrofitService = new RetrofitService();
         UsuarioApi usuarioApi = retrofitService.getRfs().create(UsuarioApi.class);
+
         excluir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
