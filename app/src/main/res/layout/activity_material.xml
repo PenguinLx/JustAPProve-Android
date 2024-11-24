@@ -60,8 +60,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:paddingHorizontal="10dp">
+                android:layout_marginTop="30dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -70,6 +69,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingHorizontal="10dp"
                         android:gravity="center_horizontal"
                         android:background="@drawable/linha_baixo">
                         <TextView
@@ -83,23 +83,29 @@
                             android:textStyle="bold">
                         </TextView>
                     </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/descricao"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:textSize="24sp"
-                        android:textAlignment="center">
-                    </TextView>
-
-                    <WebView
-                        android:id="@+id/video"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="240dp"
-                        android:layout_marginTop="30dp">
+                        android:layout_height="match_parent"
+                        android:paddingHorizontal="10dp"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal">
+                        <TextView
+                            android:id="@+id/descricao"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:textSize="24sp"
+                            android:textAlignment="center">
+                        </TextView>
 
-                    </WebView>
+                        <WebView
+                            android:id="@+id/video"
+                            android:layout_width="match_parent"
+                            android:layout_height="240dp"
+                            android:layout_marginTop="30dp">
+
+                        </WebView>
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
