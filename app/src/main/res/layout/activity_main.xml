@@ -131,6 +131,46 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <CheckBox
+                            android:id="@+id/checkbox_apelido"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Escolher \n apelido"
+                            android:textSize="18sp"
+                            android:layout_marginEnd="25dp">
+
+                        </CheckBox>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="170dp"
+                            android:layout_height="wrap_content"
+                            android:background="@color/branco"
+                            android:hint=" ">
+                            <EditText
+                                android:id="@+id/editText_apelido"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:enabled="false"
+                                android:background="@drawable/borda_fundo_claro"
+                                android:hint="Estudante0000"
+                                android:textColorHint="@color/cinza_escuro"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:padding="-10dp"
+                                android:maxLength="25">
+
+                            </EditText>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_horizontal"
                         android:layout_marginTop="20dp">

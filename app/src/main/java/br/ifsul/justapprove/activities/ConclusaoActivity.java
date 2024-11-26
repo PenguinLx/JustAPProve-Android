@@ -20,7 +20,7 @@ import retrofit2.Response;
 
 public class ConclusaoActivity extends AppCompatActivity {
     private Button botaoVoltar;
-    private TextView conclusaoText;
+    private TextView conclusaoText, titulo;
     int questoes, acertos, pontos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +32,22 @@ public class ConclusaoActivity extends AppCompatActivity {
 
         botaoVoltar = findViewById(R.id.voltar);
         conclusaoText = findViewById(R.id.conclusao_text);
+        titulo = findViewById(R.id.titulo_conclusao);
 
         Intent i = getIntent();
         questoes = i.getIntExtra("questões", 0);
         acertos = i.getIntExtra("acertos", 0);
         pontos = i.getIntExtra("pontos", 0);
 
+        if(acertos < (questoes/2)){
+            titulo.setText("Mais sorte na próxima");
+        }
+        else if(acertos > questoes/2){
+            titulo.setText("Parabéns");
+        }
+        else{
+            titulo.setText("Boa");
+        }
         conclusaoText.setText("Você concluiu o simulado com " + acertos + " acertos de " + questoes + " questões e ganhou " + pontos + " pontos");
         botaoVoltar.setText("Concluir Simulado \n (+ " + pontos + " pontos)");
 
