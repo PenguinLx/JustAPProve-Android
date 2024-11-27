@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".activities.LoginActivity">
+    tools:context=".activities.EsqueceuSenhaActivity">
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -43,9 +43,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Login"
+                        android:text="Entrar com código"
                         android:textColor="@color/preto"
-                        android:textSize="64sp"
+                        android:textSize="50sp"
+                        android:textAlignment="center"
                         android:textStyle="bold">
 
                     </TextView>
@@ -55,7 +56,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/preto"
                         android:gravity="center_horizontal"
-                        android:text="Para iniciar seu login e entrar em sua conta informe seu dados novamente."
+                        android:layout_marginTop="5dp"
+                        android:text="Digite seu email para receber o código de recuperação"
                         android:textSize="30sp">
 
                     </TextView>
@@ -88,7 +90,6 @@
                             android:maxLines="1"
                             android:padding="-10dp"
                             android:maxLength="50">
-
                         </EditText>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,7 +98,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:layout_marginEnd="110dp"
-                        android:text="Senha"
+                        android:text="Código"
                         android:textColor="@color/preto"
                         android:textSize="30sp"
                         android:textStyle="bold">
@@ -107,40 +108,27 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
-                        app:passwordToggleEnabled="true"
-                        app:endIconTint="@color/preto"
                         android:background="@color/branco"
-                        android:hint=" ">
+                        android:hint=" "
+                        >
                         <EditText
-                            android:id="@+id/editText_senha"
+                            android:id="@+id/editText_codigo"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:inputType="textPassword"
+                            android:enabled="false"
+                            android:inputType="number"
+
                             android:maxLines="1"
-                            android:background="@drawable/borda"
-                            android:hint="Digite sua senha"
+                            android:background="@drawable/borda_fundo_claro"
+                            android:hint="Digite o código"
                             android:textColorHint="@color/cinza_escuro"
                             android:padding="-10dp"
-                            android:maxLength="25"
+                            android:maxLength="4"
                             >
 
                         </EditText>
                     </com.google.android.material.textfield.TextInputLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:gravity="center_horizontal">
-                        <TextView
-                            android:id="@+id/esqueceu_senha"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/azul_claro"
-                            android:textSize="20sp"
-                            android:text="@string/esqueceu">
 
-                        </TextView>
-                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -151,10 +139,10 @@
                             android:id="@+id/botao_enviar"
                             android:layout_width="150dp"
                             android:layout_height="50dp"
-                            android:text="Enviar"
+                            android:text="Enviar email"
                             android:textColor="@color/branco"
                             android:backgroundTint="@color/laranja"
-                            android:textSize="20sp">
+                            android:textSize="18sp">
 
                         </Button>
 
@@ -162,7 +150,7 @@
                             android:id="@+id/botao_voltar"
                             android:layout_width="150dp"
                             android:layout_height="50dp"
-                            android:text="Cadastro"
+                            android:text="Login"
                             android:backgroundTint="@color/cinza_claro"
                             android:textColor="@color/preto"
                             android:textSize="20sp"

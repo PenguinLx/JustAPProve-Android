@@ -40,4 +40,10 @@ public interface UsuarioApi {
 
     @POST("/usuario/login")
     Call<LoginResponse> loginUsuario(@Body LoginRequest loginRequest);
+
+    @POST("/usuario/esqueceu")
+    Call<String> forgotPass(@Query("email") String email);
+
+    @POST("/usuario/logincod")
+    Call<LoginResponse> loginCod(@Body LoginRequest loginRequest);
 }

@@ -10,6 +10,7 @@ public class Usuario {
     private String apelido;
     private String image;
 
+
     public String getEmail() {
         return email;
     }

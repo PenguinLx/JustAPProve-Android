@@ -58,6 +58,9 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="esqueceu">
+        <u>Esqueceu sua senha?</u>
+    </string>
     <string-array name="tempo_de_resposta">
         <item>2 Minutos</item>
         <item>5 Minutos</item>

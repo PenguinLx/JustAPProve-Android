@@ -4,6 +4,7 @@ public class LoginRequest {
 
     private String email;
     private String senha;
+    private String token;
 
     public String getEmail() {
         return email;
@@ -19,5 +20,13 @@ public class LoginRequest {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

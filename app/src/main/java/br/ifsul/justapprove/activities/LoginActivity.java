@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +26,7 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
     private EditText editTextEmail, editTextSenha;
     private Button botaoEnviar, botaoVoltar;
+    private TextView esqueceu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextSenha = findViewById(R.id.editText_senha);
         botaoEnviar = findViewById(R.id.botao_enviar);
         botaoVoltar = findViewById(R.id.botao_voltar);
+        esqueceu = findViewById(R.id.esqueceu_senha);
 
         boolean logado = sharedPreferences.getBoolean("isLogged",false);
         if(logado){
@@ -50,6 +53,14 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
 
+        esqueceu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), EsqueceuSenhaActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
         botaoEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
