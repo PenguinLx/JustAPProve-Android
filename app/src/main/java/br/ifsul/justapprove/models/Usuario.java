@@ -9,6 +9,7 @@ public class Usuario {
     private int pontos;
     private String apelido;
     private String image;
+    private String token;
 
 
     public String getEmail() {
@@ -46,5 +47,13 @@ public class Usuario {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

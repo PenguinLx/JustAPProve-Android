@@ -19,27 +19,28 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".activities.ResetSenhaActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.EsqueceuSenhaActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.ExcluirContaActivity"
             android:exported="true"
             android:theme="@style/JanelaDeOpcoes" />
         <activity
             android:name=".activities.MaterialActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.PdfActivity"
             android:exported="true" />
         <activity
             android:name=".activities.ListaMaterialActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.MateriaActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.ConclusaoActivity"
             android:exported="true"

@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import br.ifsul.justapprove.R;
+import br.ifsul.justapprove.models.Usuario;
 import br.ifsul.justapprove.retrofit.LoginRequest;
 import br.ifsul.justapprove.retrofit.LoginResponse;
 import br.ifsul.justapprove.retrofit.RetrofitService;
@@ -67,14 +68,12 @@ public class EsqueceuSenhaActivity extends AppCompatActivity {
                 UsuarioApi usuarioApi = retrofitService.getRfs().create(UsuarioApi.class);
                     if(!login) {
                         if (!email.getText().toString().isBlank()) {
-                            usuarioApi.forgotPass(email.getText().toString()).enqueue(new Callback<String>() {
+                            usuarioApi.forgotPass(email.getText().toString()).enqueue(new Callback<Usuario>() {
                                 @Override
-                                public void onResponse(Call<String> call, Response<String> response) {
+                                public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                                     if (response.isSuccessful()) {
-                                        if (response.body().contains("inválido") || response.body().contains("aguarde")) {
-                                            Toast.makeText(EsqueceuSenhaActivity.this, response.body(), Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            token = response.body();
+                                         if (response.body().getToken() != null) {
+                                            token = response.body().getToken();
                                             enviar.setText("Enviar");
                                             enviar.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
                                             email.setEnabled(false);
@@ -82,13 +81,14 @@ public class EsqueceuSenhaActivity extends AppCompatActivity {
                                             codigo.setBackgroundResource(R.drawable.borda);
                                             email.setBackgroundResource(R.drawable.borda_fundo_claro);
                                             login = true;
-                                        }
+                                        } else  {
+                                             Toast.makeText(EsqueceuSenhaActivity.this, response.body().getApelido(), Toast.LENGTH_SHORT).show();
+                                         }
                                     }
                                 }
 
-
                                 @Override
-                                public void onFailure(Call<String> call, Throwable throwable) {
+                                public void onFailure(Call<Usuario> call, Throwable throwable) {
                                     Toast.makeText(EsqueceuSenhaActivity.this, "Erro, Email Incorreto", Toast.LENGTH_SHORT).show();
                                     Logger.getLogger(EsqueceuSenhaActivity.class.getName()).log(Level.SEVERE, "Erro!", throwable);
                                 }
