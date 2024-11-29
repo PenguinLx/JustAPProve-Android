@@ -20,9 +20,9 @@
         android:rotation="180">
     </ImageButton>
     <com.github.barteksc.pdfviewer.PDFView
-    android:id="@+id/pdf_view"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+        android:id="@+id/pdf_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     </com.github.barteksc.pdfviewer.PDFView>
 
 

@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,26 +24,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import br.ifsul.justapprove.R;
 import br.ifsul.justapprove.models.ProvaAnterior;
-import br.ifsul.justapprove.models.Questao;
-import br.ifsul.justapprove.models.Simulado;
 import br.ifsul.justapprove.retrofit.ProvaAnteriorApi;
-import br.ifsul.justapprove.retrofit.QuestaoApi;
 import br.ifsul.justapprove.retrofit.RetrofitService;
-import br.ifsul.justapprove.retrofit.UsuarioApi;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,7 +49,7 @@ public class SimuladosActivity extends AppCompatActivity
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
-    private Spinner tempoSpinner, questoesSpinner;
+    private Spinner questoesSpinner;
     private Button botaoIniciar;
     private TextView usuarioPontos;
     int numero;

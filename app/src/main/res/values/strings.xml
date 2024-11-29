@@ -8,19 +8,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_click">Title click</string>
-
-
-    <!-- Copyrights -->
-    <!-- Criador original da barra de navegação -->
     <string name="copyrightNav">© Daniel Medina - danielme.com</string>
-    <!-- Icones da aplicação
-    Icone de materiais de estudo: SBTS2018 no Flaticon
-    Icones de simulados, opções e ranking: Freepik no flaticon
-    Icone de perfil base: inkubator no Flaticon
-    Icone de seta: Roundicons no Flaticon
-    Icone de deslogar: Smashicons no Flaticon
-    Icone de Home: Dave Gandy no Flaticon
-    -->
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
