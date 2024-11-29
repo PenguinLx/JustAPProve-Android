@@ -1,6 +1,7 @@
 package br.ifsul.justapprove.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,8 @@ public class SimuladoAdapter extends ArrayAdapter<ProvaAnterior> {
         imageView.setImageResource(R.drawable.simulados);
         textView.setText(provaAnterior.getTitulo());
         cardView.setTag(provaAnterior.getPdf());
+        Intent i = new Intent(getContext(), PdfActivity.class);
+        i.putExtra("name_pdf", provaAnterior.getTitulo());
         return listitemView;
     }
 

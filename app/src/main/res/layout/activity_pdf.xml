@@ -19,6 +19,16 @@
         android:layout_marginStart="10dp"
         android:rotation="180">
     </ImageButton>
+<!--    <ImageButton-->
+<!--        android:id="@+id/botao_pdf_download"-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:src="@drawable/home"-->
+<!--        android:backgroundTint="@color/branco"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        android:layout_marginStart="-10dp"-->
+<!--        android:rotation="180">-->
+<!--    </ImageButton>-->
     <com.github.barteksc.pdfviewer.PDFView
         android:id="@+id/pdf_view"
         android:layout_width="match_parent"
