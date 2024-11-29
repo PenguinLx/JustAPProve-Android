@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -25,18 +24,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 
 import com.google.android.material.navigation.NavigationView;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
 import br.ifsul.justapprove.R;
-import br.ifsul.justapprove.models.Materia;
-import br.ifsul.justapprove.models.Material;
-import br.ifsul.justapprove.retrofit.MaterialApi;
-import br.ifsul.justapprove.retrofit.RetrofitService;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MaterialActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,

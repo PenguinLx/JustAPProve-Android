@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import br.ifsul.justapprove.R;
-import br.ifsul.justapprove.models.Materia;
 import br.ifsul.justapprove.models.Usuario;
 
 public class RankingAdapter extends RecyclerView.Adapter<RankingHolder> {

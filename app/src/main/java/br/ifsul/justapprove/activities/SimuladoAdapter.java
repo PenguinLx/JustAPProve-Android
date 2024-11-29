@@ -1,20 +1,17 @@
 package br.ifsul.justapprove.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.ifsul.justapprove.R;
@@ -47,8 +44,6 @@ public class SimuladoAdapter extends ArrayAdapter<ProvaAnterior> {
         imageView.setImageResource(R.drawable.simulados);
         textView.setText(provaAnterior.getTitulo());
         cardView.setTag(provaAnterior.getPdf());
-        Intent i = new Intent(getContext(), PdfActivity.class);
-        i.putExtra("name_pdf", provaAnterior.getTitulo());
         return listitemView;
     }
 

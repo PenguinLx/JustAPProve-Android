@@ -3,8 +3,6 @@ package br.ifsul.justapprove.retrofit;
 import java.util.List;
 
 import br.ifsul.justapprove.models.Materia;
-import br.ifsul.justapprove.models.TipoMateria;
-import br.ifsul.justapprove.models.Usuario;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;

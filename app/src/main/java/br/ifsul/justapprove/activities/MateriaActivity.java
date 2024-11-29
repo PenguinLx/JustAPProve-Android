@@ -5,13 +5,11 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -24,16 +22,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.List;
-
 import br.ifsul.justapprove.R;
-import br.ifsul.justapprove.models.Materia;
-import br.ifsul.justapprove.models.TipoMateria;
-import br.ifsul.justapprove.retrofit.MateriaApi;
-import br.ifsul.justapprove.retrofit.RetrofitService;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MateriaActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,

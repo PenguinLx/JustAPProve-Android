@@ -2,9 +2,7 @@ package br.ifsul.justapprove.retrofit;
 
 import java.util.List;
 
-import br.ifsul.justapprove.models.ProvaAnterior;
 import br.ifsul.justapprove.models.Usuario;
-import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;

@@ -9,13 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import com.google.gson.Strictness;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,7 +40,6 @@ public class EsqueceuSenhaActivity extends AppCompatActivity {
         enviar = findViewById(R.id.botao_enviar);
         voltar = findViewById(R.id.botao_voltar);
 
-        //erro?JsonReader.setStrictness(Strictness.LENIENT);
         SharedPreferences sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
