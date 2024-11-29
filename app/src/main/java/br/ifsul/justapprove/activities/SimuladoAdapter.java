@@ -21,7 +21,6 @@ public class SimuladoAdapter extends ArrayAdapter<ProvaAnterior> {
 
     private List<ProvaAnterior> provas;
 
-
     public SimuladoAdapter(@NonNull Context context, List<ProvaAnterior> provaList) {
         super(context, 0, provaList);
         this.provas = provaList;
